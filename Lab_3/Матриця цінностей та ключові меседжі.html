@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Завдання 4 - ICP для B2B сектора</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .header h1 {
+            color: #4a5568;
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header .subtitle {
+            color: #718096;
+            font-size: 1.2em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .product-overview {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-overview h2 {
+            color: #2d3748;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .b2b-opportunities {
+            background: linear-gradient(135deg, #e6fffa, #b2f5ea);
+            padding: 20px;
+            border-radius: 15px;
+            border-left: 5px solid #38b2ac;
+            margin-bottom: 20px;
+        }
+
+        .opportunity-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .opportunity-card {
+            background: linear-gradient(135deg, #f7fafc, #edf2f7);
+            border-radius: 15px;
+            padding: 20px;
+            border: 2px solid #cbd5e0;
+            transition: all 0.3s ease;
+        }
+
+        .opportunity-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .opportunity-card h4 {
+            color: #2d3748;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: scale(1.05);
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 1.1em;
+            opacity: 0.9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .icp-table-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow-x: auto;
+        }
+
+        .icp-table-container h2 {
+            color: #2d3748;
+            font-size: 2em;
+            margin-bottom: 30px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .icp-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            min-width: 1200px;
+        }
+
+        .icp-table th {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 1.1em;
+            position: sticky;
+            top: 0;
+        }
+
+        .icp-table th i {
+            margin-right: 8px;
+        }
+
+        .icp-table td {
+            padding: 20px 15px;
+            border-bottom: 1px solid #e2e8f0;
+            vertical-align: top;
+            max-width: 300px;
+        }
+
+        .icp-table tr:nth-child(even) {
+            background: #f7fafc;
+        }
+
+        .icp-table tr:hover {
+            background: #edf2f7;
+        }
+
+        .category-cell {
+            background: linear-gradient(135deg, #fed7d7, #feb2b2) !important;
+            font-weight: bold;
+            color: #742a2a;
+            border-left: 4px solid #e53e3e;
+        }
+
+        .company-header {
+            background: linear-gradient(135deg, #e6fffa, #b2f5ea);
+            font-weight: bold;
+            color: #234e52;
+            text-align: center;
+            border-bottom: 3px solid #38b2ac;
+        }
+
+        .company-card {
+            background: linear-gradient(135deg, #f0fff4, #c6f6d5);
+            border-radius: 10px;
+            padding: 15px;
+            border-left: 4px solid #38a169;
+            margin-bottom: 10px;
+        }
+
+        .company-name {
+            font-weight: bold;
+            color: #22543d;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .company-details {
+            font-size: 0.95em;
+            color: #2f855a;
+        }
+
+        .goals-list, .pain-points-list, .factors-list, .channels-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .goals-list li, .pain-points-list li, .factors-list li, .channels-list li {
+            padding: 8px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .goals-list li::before {
+            content: '\f0a4';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: #3182ce;
+        }
+
+        .pain-points-list li::before {
+            content: '\f071';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: #e53e3e;
+        }
+
+        .factors-list li::before {
+            content: '\f05a';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: #805ad5;
+        }
+
+        .channels-list li::before {
+            content: '\f0e0';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: #38a169;
+        }
+
+        .budget-highlight {
+            background: linear-gradient(135deg, #fef5e7, #feebc8);
+            border-radius: 8px;
+            padding: 10px;
+            border-left: 4px solid #ed8936;
+            font-weight: bold;
+            color: #c05621;
+        }
+
+        .business-scale {
+            background: linear-gradient(135deg, #e6fffa, #b2f5ea);
+            border-radius: 8px;
+            padding: 10px;
+            border-left: 4px solid #319795;
+            font-weight: bold;
+            color: #234e52;
+        }
+
+        @media (max-width: 1200px) {
+            .icp-table {
+                min-width: 800px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .icp-table th,
+            .icp-table td {
+                padding: 15px 10px;
+                font-size: 0.9em;
+            }
+            
+            .opportunity-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-handshake"></i> Завдання 4</h1>
+            <div class="subtitle">
+                <i class="fas fa-building"></i>
+                ICP для B2B сектора - CineCloud
+            </div>
+        </div>
+
+        <div class="product-overview">
+            <h2><i class="fas fa-film"></i> B2B можливості CineCloud</h2>
+            <div class="b2b-opportunities">
+                <p><strong>Опис:</strong> На основі аналізу продукту CineCloud, потенційними B2B клієнтами можуть бути телекомунікаційні компанії, готелі та HoReCa бізнеси, а також корпоративний сектор, які хочуть надавати стрімінговий контент своїм співробітникам або клієнтам в Україні та країнах Балтії.</p>
+            </div>
+
+            <h3><i class="fas fa-lightbulb"></i> Основні B2B можливості:</h3>
+            <div class="opportunity-grid">
+                <div class="opportunity-card">
+                    <h4><i class="fas fa-wifi"></i> Телекомунікації</h4>
+                    <p>Інтеграція CineCloud у пакети інтернет-провайдерів для збільшення ARPU та зменшення churn rate клієнтів</p>
+                </div>
+                <div class="opportunity-card">
+                    <h4><i class="fas fa-hotel"></i> Готельний бізнес</h4>
+                    <p>Надання якісного стрімінгового контенту гостям готелів та закладів HoReCa для покращення guest experience</p>
+                </div>
+                <div class="opportunity-card">
+                    <h4><i class="fas fa-building"></i> Корпоративний сектор</h4>
+                    <p>Корпоративні підписки як employee benefit для підвищення задоволеності співробітників</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-section">
+            <div class="stat-card">
+                <span class="stat-number">3</span>
+                <span class="stat-label"><i class="fas fa-industry"></i> B2B галузі</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">€20K-500K</span>
+                <span class="stat-label"><i class="fas fa-euro-sign"></i> Діапазон бюджетів</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">5+</span>
+                <span class="stat-label"><i class="fas fa-map"></i> Країн присутності</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">70%</span>
+                <span class="stat-label"><i class="fas fa-percentage"></i> Revenue share</span>
+            </div>
+        </div>
+
+        <div class="icp-table-container">
+            <h2><i class="fas fa-table"></i> ICP (B2B сектор)</h2>
+            
+            <table class="icp-table">
+                <thead>
+                    <tr>
+                        <th><i class="fas fa-list-ol"></i> №</th>
+                        <th><i class="fas fa-tag"></i> Категорія</th>
+                        <th><i class="fas fa-building"></i> Клієнт-компанія 1</th>
+                        <th><i class="fas fa-building"></i> Клієнт-компанія 2</th>
+                        <th><i class="fas fa-building"></i> Клієнт-компанія 3</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="category-cell">1</td>
+                        <td class="category-cell"><strong>Тип галузі</strong></td>
+                        <td class="company-header">Телекомунікації та інтернет-провайдери</td>
+                        <td class="company-header">Готельний бізнес та HoReCa</td>
+                        <td class="company-header">Корпоративний сектор (IT/фінанси)</td>
+                    </tr>
+                    <tr>
+                        <td class="category-cell">2</td>
+                        <td class="category-cell"><strong>Локація</strong></td>
+                        <td>
+                            <div class="company-card">
+                                <div class="company-name">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    Україна
+                                </div>
+                                <div class="company-details">
+                                    Київ, Харків, Львів, Дніпро, Одеса<br>
+                                    Основні телеком оператори
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="company-card">
+                                <div class="company-name">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    Україна + Балтія
+                                </div>
+                                <div class="company-details">
+                                    Україна, Литва, Латвія, Естонія<br>
+                                    Готельні мережі та ресторани
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="company-card">
+                                <div class="company-name">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    Регіональні центри
+                                </div>
+                                <div class="company-details">
+                                    Україна, Польща, країни Балтії<br>
+                                    IT та фінансові компанії
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="category-cell">3</td>
+                        <td class="category-cell"><strong>Розмір компанії</strong></td>
+                        <td>
+                            <div class="company-card">
+                                <div class="company-name">
+                                    <i class="fas fa-users"></i>
+                                    500-2000 працівників
+                                </div>
+                                <div class="company-details">
+                                    Великі телеком оператори<br>
+                                    Мільйони абонентів
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="company-card">
+                                <div class="company-name">
+                                    <i class="fas fa-users"></i>
+                                    50-300 працівників
+                                </div>
+                                <div class="company-details">
+                                    Готельні мережі<br>
+                                    Ресторанні групи
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="company-card">
+                                <div class="company-name">
+                                    <i class="fas fa-users"></i>
+                                    200-1000 працівників
+                                </div>
+                                <div class="company-details">
+                                    IT компанії<br>
+                                    Фінансові установи
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="category-cell">4</td>
+                        <td class="category-cell"><strong>Масштаб бізнесу</strong></td>
+                        <td>
+                            <div class="business-scale">
+                                Компанії від 10-ти років діяльності
+                            </div>
+                        </td>
+                        <td>
+                            <div class="business-scale">
+                                Компанії від 4-х до 10-ти років діяльності
+                            </div>
+                        </td>
+                        <td>
+                            <div class="business-scale">
+                                Компанії від 4-х до 10-ти років діяльності
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="category-cell">5</td>
+                        <td class="category-cell"><strong>Бюджет</strong></td>
+                        <td>
+                            <div class="budget-highlight">
+                                €100,000-500,000 на рік для контент-сервісів
+                            </div>
+                        </td>
+                        <td>
+                            <div class="budget-highlight">
+                                €20,000-80,000 на рік для розваг клієнтів
+                            </div>
+                        </td>
+                        <td>
+                            <div class="budget-highlight">
+                                €30,000-150,000 на рік для корпоративних пільг
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="category-cell">6</td>
+                        <td class="category-cell"><strong>Цілі бізнесу</strong></td>
+                        <td>
+                            <ul class="goals-list">
+                                <li>Збільшити ARPU (середній дохід з користувача) на 15-20%</li>
+                                <li>Знизити churn rate абонентів</li>
+                                <li>Диференціюватись від конкурентів локальним контентом</li>
+                                <li>Збільшити лояльність клієнтів</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul class="goals-list">
+                                <li>Покращити guest experience та збільшити тривалість перебування</li>
+                                <li>Диференціюватись від конкурентів унікальними послугами</li>
+                                <li>Знизити скарги гостей на розваги</li>
+                                <li>Збільшити повторні бронювання на 25%</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul class="goals-list">
+                                <li>Підвищити employee satisfaction та retention</li>
+                                <li>Покращити work-life balance співробітників</li>
+                                <li>Зменшити стрес та burnout в команді</li>
+                                <li>Підтримати корпоративну культуру під час remote work</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="category-cell">7</td>
+                        <td class="category-cell"><strong>Больові точки</strong></td>
+                        <td>
+                            <ul class="pain-points-list">
+                                <li>Високі ліцензійні витрати на міжнародний контент</li>
+                                <li>Складність переговорів з контент-провайдерами</li>
+                                <li>Брак локального контенту в пакетах</li>
+                                <li>Необхідність технічної інтеграції з існуючими системами</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul class="pain-points-list">
+                                <li>Обмежений та застарілий контент в номерах</li>
+                                <li>Високі витрати на кабельне ТБ</li>
+                                <li>Скарги гостей на відсутність місцевого контенту</li>
+                                <li>Складність управління контентом у різних локаціях</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul class="pain-points-list">
+                                <li>Пошук унікальних пільг для співробітників</li>
+                                <li>Високі витрати на традиційні розваги та team building</li>
+                                <li>Потреба в гнучких рішеннях для hybrid/remote роботи</li>
+                                <li>Складність організації корпоративних заходів</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="category-cell">8</td>
+                        <td class="category-cell"><strong>Фактори прийняття рішення</strong></td>
+                        <td>
+                            <ul class="factors-list">
+                                <li>ROI та метрики впливу на churn rate</li>
+                                <li>Технічна можливість інтеграції з біллінговими системами</li>
+                                <li>Якість та унікальність контенту</li>
+                                <li>Рішення приймає команда product та technical directors</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul class="factors-list">
+                                <li>Відгуки гостей та метрики satisfaction</li>
+                                <li>Простота впровадження та управління</li>
+                                <li>Співвідношення ціна/якість</li>
+                                <li>Рішення приймає власник/general manager</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul class="factors-list">
+                                <li>Employee satisfaction surveys та feedback</li>
+                                <li>Гнучкість умов використання</li>
+                                <li>Підтримка та service level</li>
+                                <li>Рішення приймає HR director разом з CFO</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="category-cell">9</td>
+                        <td class="category-cell"><strong>Канали для outreach</strong></td>
+                        <td>
+                            <ul class="channels-list">
+                                <li>LinkedIn (CTO, Product Directors)</li>
+                                <li>Галузеві конференції телеком індустрії</li>
+                                <li>Direct sales через account managers</li>
+                                <li>Партнерства з телеком консультантами</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul class="channels-list">
+                                <li>Готельні виставки та конференції</li>
+                                <li>LinkedIn (готельні менеджери)</li>
+                                <li>Partnerships з готельними консультантами</li>
+                                <li>HoReCa галузеві журнали</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul class="channels-list">
+                                <li>LinkedIn (HR directors, office managers)</li>
+                                <li>HR конференції та events</li>
+                                <li>Corporate sales через B2B менеджерів</li>
+                                <li>Партнерства з HR консалтинговими компаніями</li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

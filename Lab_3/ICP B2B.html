@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Завдання 3 - Матриця цінностей та ключових меседжів</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .header h1 {
+            color: #4a5568;
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header .subtitle {
+            color: #718096;
+            font-size: 1.2em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .product-info {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-info h2 {
+            color: #2d3748;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .product-description {
+            background: linear-gradient(135deg, #f7fafc, #edf2f7);
+            padding: 20px;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+            margin-bottom: 20px;
+        }
+
+        .segments-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .segment-card {
+            background: linear-gradient(135deg, #e6fffa, #b2f5ea);
+            border-radius: 15px;
+            padding: 20px;
+            border: 2px solid #38b2ac;
+        }
+
+        .segment-card h4 {
+            color: #234e52;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .value-matrix {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .value-matrix h2 {
+            color: #2d3748;
+            font-size: 2em;
+            margin-bottom: 30px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .matrix-table th {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+
+        .matrix-table th i {
+            margin-right: 8px;
+        }
+
+        .matrix-table td {
+            padding: 20px 15px;
+            border-bottom: 1px solid #e2e8f0;
+            vertical-align: top;
+        }
+
+        .matrix-table tr:nth-child(even) {
+            background: #f7fafc;
+        }
+
+        .matrix-table tr:hover {
+            background: #edf2f7;
+            transform: scale(1.01);
+            transition: all 0.3s ease;
+        }
+
+        .user-profile {
+            background: linear-gradient(135deg, #fed7d7, #feb2b2);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-left: 4px solid #e53e3e;
+        }
+
+        .user-name {
+            font-weight: bold;
+            color: #742a2a;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .user-details {
+            font-size: 0.9em;
+            color: #822727;
+        }
+
+        .pain-points {
+            background: linear-gradient(135deg, #fef5e7, #feebc8);
+            border-radius: 10px;
+            padding: 15px;
+            border-left: 4px solid #ed8936;
+        }
+
+        .pain-points ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .pain-points li {
+            padding: 5px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .pain-points li::before {
+            content: '\f071';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: #c05621;
+            margin-top: 2px;
+        }
+
+        .value-proposition {
+            background: linear-gradient(135deg, #c6f6d5, #9ae6b4);
+            border-radius: 10px;
+            padding: 15px;
+            border-left: 4px solid #38a169;
+        }
+
+        .value-proposition ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .value-proposition li {
+            padding: 5px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .value-proposition li::before {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: #22543d;
+            margin-top: 2px;
+        }
+
+        .key-message {
+            background: linear-gradient(135deg, #e6fffa, #b2f5ea);
+            border-radius: 10px;
+            padding: 15px;
+            border-left: 4px solid #319795;
+            font-style: italic;
+            position: relative;
+        }
+
+        .key-message::before {
+            content: '\f10d';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            color: #319795;
+            font-size: 1.2em;
+        }
+
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: scale(1.05);
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 1.1em;
+            opacity: 0.9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .matrix-table th,
+            .matrix-table td {
+                padding: 15px 10px;
+                font-size: 0.9em;
+            }
+            
+            .segments-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-chart-line"></i> Завдання 3</h1>
+            <div class="subtitle">
+                <i class="fas fa-bullseye"></i>
+                Матриця цінностей та ключових меседжів для CineCloud
+            </div>
+        </div>
+
+        <div class="product-info">
+            <h2><i class="fas fa-film"></i> Продукт CineCloud</h2>
+            <div class="product-description">
+                <p><strong>Опис:</strong> CineCloud - це впізнавана, надійна стрімінгова платформа для глядачів різних інтересів та вікових категорій, яка об'єднує любителів кіно через персоналізований досвід перегляду та створення справжньої кіноспільноти.</p>
+            </div>
+
+            <h3><i class="fas fa-users"></i> Цільові сегменти:</h3>
+            <div class="segments-grid">
+                <div class="segment-card">
+                    <h4><i class="fas fa-user-graduate"></i> Сегмент 1</h4>
+                    <p><strong>Молоді кіномани (18-30 років)</strong><br>
+                    Локація: Великі міста України<br>
+                    Статус: Студенти та молоді професіонали</p>
+                </div>
+                <div class="segment-card">
+                    <h4><i class="fas fa-home"></i> Сегмент 2</h4>
+                    <p><strong>Сім'ї з дітьми (30-45 років)</strong><br>
+                    Локація: Середні та великі міста України та країн Балтії<br>
+                    Статус: Батьки з дітьми шкільного віку</p>
+                </div>
+                <div class="segment-card">
+                    <h4><i class="fas fa-video"></i> Сегмент 3</h4>
+                    <p><strong>Контент-провайдери</strong><br>
+                    Локація: Україна, країни Балтії<br>
+                    Статус: Виробники контенту, режисери</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-section">
+            <div class="stat-card">
+                <span class="stat-number">3</span>
+                <span class="stat-label"><i class="fas fa-users"></i> Цільові сегменти</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">149₴</span>
+                <span class="stat-label"><i class="fas fa-tag"></i> Стартова ціна</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">5+</span>
+                <span class="stat-label"><i class="fas fa-globe"></i> Країн покриття</span>
+            </div>
+        </div>
+
+        <div class="value-matrix">
+            <h2><i class="fas fa-table"></i> Матриця цінностей та ключових меседжів</h2>
+            
+            <table class="matrix-table">
+                <thead>
+                    <tr>
+                        <th><i class="fas fa-user"></i> Користувачі</th>
+                        <th><i class="fas fa-exclamation-triangle"></i> Больові точки користувача</th>
+                        <th><i class="fas fa-gem"></i> Цінності продукту для користувача</th>
+                        <th><i class="fas fa-comment"></i> Key Messages</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="user-profile">
+                                <div class="user-name">
+                                    <i class="fas fa-user"></i>
+                                    Олексій, 24 роки
+                                </div>
+                                <div class="user-details">
+                                    Молодий професіонал з Києва<br>
+                                    Активний користувач соцмереж<br>
+                                    Цінує якісний контент
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="pain-points">
+                                <ul>
+                                    <li>Брак якісного українського контенту на міжнародних платформах</li>
+                                    <li>Високі ціни на іноземні сервіси (Netflix ~300+ грн/міс)</li>
+                                    <li>Відсутність персоналізованих рекомендацій українського кіно</li>
+                                    <li>Складність пошуку цікавих фільмів серед величезного каталогу</li>
+                                </ul>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="value-proposition">
+                                <ul>
+                                    <li>Найбільша колекція українського кіно в одному місці</li>
+                                    <li>Доступні ціни від 149 грн/міс</li>
+                                    <li>ШІ-рекомендації з фокусом на українське кіно</li>
+                                    <li>Соціальні функції для обміну враженнями з друзями</li>
+                                </ul>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="key-message">
+                                "Відкрий для себе найкраще українське кіно разом з CineCloud! Персоналізовані рекомендації, спільноти кіноманів та доступні ціни від 149 грн. Твоє кіно – твоя мова, твоя культура!"
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="user-profile">
+                                <div class="user-name">
+                                    <i class="fas fa-female"></i>
+                                    Марина, 35 років
+                                </div>
+                                <div class="user-details">
+                                    Мама двох дітей з Львова<br>
+                                    Працююча мама<br>
+                                    Піклується про безпеку дітей
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="pain-points">
+                                <ul>
+                                    <li>Нестача безпечного контенту для дітей українською мовою</li>
+                                    <li>Складність налаштування батьківського контролю</li>
+                                    <li>Відсутність можливості створювати окремі профілі для дітей</li>
+                                    <li>Високі ціни за кілька одночасних підключень</li>
+                                </ul>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="value-proposition">
+                                <ul>
+                                    <li>Безпечний контент українською мовою</li>
+                                    <li>Зручний батьківський контроль</li>
+                                    <li>Окремі дитячі профілі</li>
+                                    <li>Сімейні плани з можливістю перегляду на 4 пристроях</li>
+                                </ul>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="key-message">
+                                "Безпечне сімейне кіно українською мовою! З CineCloud ви можете не хвилюватись за контент для дітей. Батьківський контроль, дитячі профілі та сімейний план – все для комфортного перегляду всією родиною."
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="user-profile">
+                                <div class="user-name">
+                                    <i class="fas fa-video"></i>
+                                    Тетяна, 40 років
+                                </div>
+                                <div class="user-details">
+                                    Незалежний режисер з Вільнюса<br>
+                                    Створює авторське кіно<br>
+                                    Шукає платформи для монетизації
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="pain-points">
+                                <ul>
+                                    <li>Обмежені можливості монетизації українського та балтійського контенту</li>
+                                    <li>Складність потрапляння на великі міжнародні платформи</li>
+                                    <li>Нестача аналітики щодо аудиторії</li>
+                                    <li>Несправедливі умови revenue sharing</li>
+                                </ul>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="value-proposition">
+                                <ul>
+                                    <li>Справедливі умови співпраці (70% доходу провайдеру)</li>
+                                    <li>Прозора аналітика переглядів</li>
+                                    <li>Підтримка регіонального контенту</li>
+                                    <li>Легкий процес завантаження контенту</li>
+                                </ul>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="key-message">
+                                "Монетизуйте свій талант справедливо! CineCloud пропонує 70% доходу творцям, детальну аналітику аудиторії та підтримку локального контенту. Ваше кіно заслуговує на справжню аудиторію!"
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

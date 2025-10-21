@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineCloud - Лабораторна робота №6: Zero-Click та Voice Search</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .slide {
+            display: none;
+            animation: slideIn 0.6s ease-out;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        .keyword-tag {
+            transition: all 0.3s ease;
+        }
+
+        .keyword-tag:hover {
+            transform: translateY(-2px);
+        }
+
+        .query-box {
+            transition: all 0.3s ease;
+        }
+
+        .query-box:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-purple-900 via-blue-900 to-blue-600 min-h-screen">
+    <!-- Slide Counter -->
+    <div class="fixed top-6 right-6 bg-white/90 backdrop-blur-sm px-5 py-3 rounded-full font-bold text-blue-900 shadow-lg z-50">
+        <span id="current-slide">1</span> / <span id="total-slides">8</span>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 py-8">
+
+        <!-- Титульний слайд -->
+        <div class="slide">
+            <div class="bg-white/95 backdrop-blur-lg rounded-3xl overflow-hidden shadow-2xl border border-white/20">
+                
+
+                <!-- Content Section -->
+                <div class="p-12">
+                    <div class="text-center mb-10">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-3">
+                            <span class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                                On-Page SEO Strategy
+                            </span>
+                        </h2>
+                        <p class="text-gray-600 text-lg">Оптимізація пошукової видачі для максимальної видимості</p>
+                    </div>
+
+                    <!-- Features Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Zero-Click Search -->
+                        <div class="group relative bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-8 border-2 border-blue-200 hover:border-blue-400 transition-all duration-300 hover:shadow-xl cursor-pointer">
+                            <div class="absolute -top-4 -right-4 bg-blue-600 text-white w-12 h-12 rounded-full flex items-center justify-center font-bold shadow-lg group-hover:scale-110 transition-transform">
+                                1
+                            </div>
+                            <div class="flex items-center gap-4 mb-4">
+                                <div class="bg-blue-600 text-white w-16 h-16 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                    <i class="fas fa-search text-3xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold text-blue-900">Zero-Click Searches</h3>
+                                    <p class="text-sm text-blue-700">Нульова видача</p>
+                                </div>
+                            </div>
+                            <div class="space-y-2 text-sm text-gray-700">
+                                <div class="flex items-center gap-2">
+                                    <i class="fas fa-check-circle text-blue-600"></i>
+                                    <span>Featured Snippets</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <i class="fas fa-check-circle text-blue-600"></i>
+                                    <span>Knowledge Panels</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <i class="fas fa-check-circle text-blue-600"></i>
+                                    <span>Direct Answer Boxes</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <i class="fas fa-check-circle text-blue-600"></i>
+                                    <span>Local Packs</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <i class="fas fa-check-circle text-blue-600"></i>
+                                    <span>People Also Ask</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Voice Search -->
+                        <div class="group relative bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-8 border-2 border-purple-200 hover:border-purple-400 transition-all duration-300 hover:shadow-xl cursor-pointer">
+                            <div class="absolute -top-4 -right-4 bg-purple-600 text-white w-12 h-12 rounded-full flex items-center justify-center font-bold shadow-lg group-hover:scale-110 transition-transform">
+                                2
+                            </div>
+                            <div class="flex items-center gap-4 mb-4">
+                                <div class="bg-purple-600 text-white w-16 h-16 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                    <i class="fas fa-microphone text-3xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold text-purple-900">Voice Search</h3>
+                                    <p class="text-sm text-purple-700">Голосовий пошук</p>
+                                </div>
+                            </div>
+                            <div class="space-y-2 text-sm text-gray-700">
+                                <div class="flex items-center gap-2">
+                                    <i class="fas fa-check-circle text-purple-600"></i>
+                                    <span>Інформаційні запити</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <i class="fas fa-check-circle text-purple-600"></i>
+                                    <span>Транзакційні запити</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <i class="fas fa-check-circle text-purple-600"></i>
+                                    <span>Загальні запити</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <i class="fas fa-check-circle text-purple-600"></i>
+                                    <span>Навігаційні запити</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <i class="fas fa-check-circle text-purple-600"></i>
+                                    <span>Мультимедійні запити</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Stats Section -->
+                    <div class="grid grid-cols-3 gap-6 mt-10">
+                        <div class="text-center">
+                            <div class="text-4xl font-bold text-blue-600 mb-2">15+</div>
+                            <div class="text-sm text-gray-600">Типів запитів</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-4xl font-bold text-purple-600 mb-2">100%</div>
+                            <div class="text-sm text-gray-600">Оптимізація</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-4xl font-bold text-pink-600 mb-2">∞</div>
+                            <div class="text-sm text-gray-600">Можливості</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ЗАВДАННЯ 1: ZERO-CLICK SEARCHES -->
+        
+        <!-- Featured Snippets -->
+        <div class="slide">
+            <div class="bg-white/95 backdrop-blur-lg rounded-3xl p-12 shadow-2xl border border-white/20">
+                <div class="flex items-center gap-4 mb-8 pb-6 border-b-4 border-blue-500">
+                    <i class="fas fa-star text-blue-600 text-4xl"></i>
+                    <h2 class="text-4xl font-bold text-blue-900">Featured Snippets</h2>
+                    <span class="ml-auto bg-gradient-to-r from-blue-500 to-blue-700 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
+                        <i class="fas fa-search mr-2"></i>Zero-Click Search
+                    </span>
+                </div>
+
+                <div class="mb-6">
+                    <p class="text-lg text-gray-700 mb-4">Featured Snippets – це виділені відповіді, які з'являються на вершині результатів пошуку Google. Вони надають користувачам швидку відповідь на запит без необхідності переходити на сайт.</p>
+                </div>
+
+                <div class="grid gap-4">
+                    <div class="query-box bg-gradient-to-br from-blue-50 to-blue-100 border-2 border-blue-300 rounded-2xl p-6 shadow-md">
+                        <div class="flex items-start gap-3">
+                            <i class="fas fa-quote-left text-blue-600 text-2xl mt-1"></i>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold text-blue-900 mb-2">що таке онлайн кінотеатр</h3>
+                                <p class="text-gray-700 text-sm mb-2">
+                                    <span class="font-semibold">Очікувана відповідь:</span> Онлайн-кінотеатр – це стрімінгова платформа, яка надає доступ до фільмів, серіалів та іншого відеоконтенту через інтернет без необхідності завантаження на пристрій.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="query-box bg-gradient-to-br from-blue-50 to-blue-100 border-2 border-blue-300 rounded-2xl p-6 shadow-md">
+                        <div class="flex items-start gap-3">
+                            <i class="fas fa-quote-left text-blue-600 text-2xl mt-1"></i>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold text-blue-900 mb-2">як дивитись фільми онлайн легально</h3>
+                                <p class="text-gray-700 text-sm mb-2">
+                                    <span class="font-semibold">Очікувана відповідь:</span> Щоб дивитись фільми легально, використовуйте ліцензовані стрімінгові платформи, такі як CineCloud, які мають офіційні договори з кіностудіями та дистриб'юторами.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="query-box bg-gradient-to-br from-blue-50 to-blue-100 border-2 border-blue-300 rounded-2xl p-6 shadow-md">
+                        <div class="flex items-start gap-3">
+                            <i class="fas fa-quote-left text-blue-600 text-2xl mt-1"></i>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold text-blue-900 mb-2">переваги стрімінгових сервісів</h3>
+                                <p class="text-gray-700 text-sm mb-2">
+                                    <span class="font-semibold">Очікувана відповідь:</span> Переваги стрімінгових сервісів: доступ до великої бібліотеки контенту, можливість перегляду на різних пристроях, персоналізовані рекомендації, відсутність реклами.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Knowledge Panels -->
+        <div class="slide">
+            <div class="bg-white/95 backdrop-blur-lg rounded-3xl p-12 shadow-2xl border border-white/20">
+                <div class="flex items-center gap-4 mb-8 pb-6 border-b-4 border-purple-500">
+                    <i class="fas fa-info-circle text-purple-600 text-4xl"></i>
+                    <h2 class="text-4xl font-bold text-purple-900">Knowledge Panels</h2>
+                    <span class="ml-auto bg-gradient-to-r from-purple-500 to-purple-700 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
+                        <i class="fas fa-search mr-2"></i>Zero-Click Search
+                    </span>
+                </div>
+
+                <div class="mb-6">
+                    <p class="text-lg text-gray-700 mb-4">Knowledge Panels – це інформаційні панелі, які відображаються праворуч від результатів пошуку і містять структуровану інформацію про конкретну особу, компанію, місце або річ.</p>
+                </div>
+
+                <div class="grid gap-4">
+                    <div class="query-box bg-gradient-to-br from-purple-50 to-purple-100 border-2 border-purple-300 rounded-2xl p-6 shadow-md">
+                        <div class="flex items-start gap-3">
+                            <i class="fas fa-building text-purple-600 text-2xl mt-1"></i>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold text-purple-900 mb-2">CineCloud кінотеатр</h3>
+                                <p class="text-gray-700 text-sm mb-2">
+                                    <span class="font-semibold">Очікувана інформація в панелі:</span> Назва компанії, логотип, опис сервісу, рік заснування, контакти, посилання на соціальні мережі.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="query-box bg-gradient-to-br from-purple-50 to-purple-100 border-2 border-purple-300 rounded-2xl p-6 shadow-md">
+                        <div class="flex items-start gap-3">
+                            <i class="fas fa-film text-purple-600 text-2xl mt-1"></i>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold text-purple-900 mb-2">найкращі українські фільми</h3>
+                                <p class="text-gray-700 text-sm mb-2">
+                                    <span class="font-semibold">Очікувана інформація в панелі:</span> Список популярних українських фільмів з постерами, рейтингами, роками випуску та короткими описами.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="query-box bg-gradient-to-br from-purple-50 to-purple-100 border-2 border-purple-300 rounded-2xl p-6 shadow-md">
+                        <div class="flex items-start gap-3">
+                            <i class="fas fa-award text-purple-600 text-2xl mt-1"></i>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold text-purple-900 mb-2">лауреати Оскар 2025</h3>
+                                <p class="text-gray-700 text-sm mb-2">
+                                    <span class="font-semibold">Очікувана інформація в панелі:</span> Список переможців премії Оскар за категоріями, фото, імена режисерів та акторів.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Direct Answer Boxes -->
+        <div class="slide">
+            <div class="bg-white/95 backdrop-blur-lg rounded-3xl p-12 shadow-2xl border border-white/20">
+                <div class="flex items-center gap-4 mb-8 pb-6 border-b-4 border-green-500">
+                    <i class="fas fa-check-circle text-green-600 text-4xl"></i>
+                    <h2 class="text-4xl font-bold text-green-900">Direct Answer Boxes</h2>
+                    <span class="ml-auto bg-gradient-to-r from-green-500 to-green-700 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
+                        <i class="fas fa-search mr-2"></i>Zero-Click Search
+                    </span>
+                </div>
+
+                <div class="mb-6">
+                    <p class="text-lg text-gray-700 mb-4">Direct Answer Boxes – це прості, короткі відповіді на конкретні питання, які відображаються безпосередньо у результатах пошуку, часто у вигляді тексту чи числа.</p>
+                </div>
+
+                <div class="grid gap-4">
+                    <div class="query-box bg-gradient-to-br from-green-50 to-green-100 border-2 border-green-300 rounded-2xl p-6 shadow-md">
+                        <div class="flex items-start gap-3">
+                            <i class="fas fa-dollar-sign text-green-600 text-2xl mt-1"></i>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold text-green-900 mb-2">вартість підписки CineCloud</h3>
+                                <p class="text-gray-700 text-sm mb-2">
+                                    <span class="font-semibold">Очікувана відповідь:</span> 199 грн/місяць (базовий тариф), 299 грн/місяць (сімейний тариф).
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="query-box bg-gradient-to-br from-green-50 to-green-100 border-2 border-green-300 rounded-2xl p-6 shadow-md">
+                        <div class="flex items-start gap-3">
+                            <i class="fas fa-clock text-green-600 text-2xl mt-1"></i>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold text-green-900 mb-2">тривалість фільму Аватар</h3>
+                                <p class="text-gray-700 text-sm mb-2">
+                                    <span class="font-semibold">Очікувана відповідь:</span> 2 години 42 хвилини (162 хвилини).
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="query-box bg-gradient-to-br from-green-50 to-green-100 border-2 border-green-300 rounded-2xl p-6 shadow-md">
+                        <div class="flex items-start gap-3">
+                            <i class="fas fa-calendar text-green-600 text-2xl mt-1"></i>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold text-green-900 mb-2">коли вийшов фільм Дюна 2</h3>
+                                <p class="text-gray-700 text-sm mb-2">
+                                    <span class="font-semibold">Очікувана відповідь:</span> 1 березня 2024 року.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Local Packs -->
+        <div class="slide">
+            <div class="bg-white/95 backdrop-blur-lg rounded-3xl p-12 shadow-2xl border border-white/20">
+                <div class="flex items-center gap-4 mb-8 pb-6 border-b-4 border-red-500">
+                    <i class="fas fa-map-marker-alt text-red-600 text-4xl"></i>
+                    <h2 class="text-4xl font-bold text-red-900">Local Packs</h2>
+                    <span class="ml-auto bg-gradient-to-r from-red-500 to-red-700 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
+                        <i class="fas fa-search mr-2"></i>Zero-Click Search
+                    </span>
+                </div>
+
+                <div class="mb-6">
+                    <p class="text-lg text-gray-700 mb-4">Local Packs – це блоки з локальними результатами пошуку, які відображаються на карті та містять інформацію про місцезнаходження, години роботи та відгуки.</p>
+                </div>
+
+                <div class="grid gap-4">
+                    <div class="query-box bg-gradient-to-br from-red-50 to-red-100 border-2 border-red-300 rounded-2xl p-6 shadow-md">
+                        <div class="flex items-start gap-3">
+                            <i class="fas fa-building text-red-600 text-2xl mt-1"></i>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold text-red-900 mb-2">офіс CineCloud Київ</h3>
+                                <p class="text-gray-700 text-sm mb-2">
+                                    <span class="font-semibold">Очікувана інформація:</span> Адреса офісу, карта, години роботи, контактний телефон, відгуки.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="query-box bg-gradient-to-br from-red-50 to-red-100 border-2 border-red-300 rounded-2xl p-6 shadow-md">
+                        <div class="flex items-start gap-3">
+                            <i class="fas fa-film text-red-600 text-2xl mt-1"></i>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold text-red-900 mb-2">кінотеатри поблизу</h3>
+                                <p class="text-gray-700 text-sm mb-2">
+                                    <span class="font-semibold">Очікувана інформація:</span> Список кінотеатрів на карті, адреси, відстань від користувача, сеанси.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="query-box bg-gradient-to-br from-red-50 to-red-100 border-2 border-red-300 rounded-2xl p-6 shadow-md">
+                        <div class="flex items-start gap-3">
+                            <i class="fas fa-ticket-alt text-red-600 text-2xl mt-1"></i>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold text-red-900 mb-2">де купити квитки на прем'єру Львів</h3>
+                                <p class="text-gray-700 text-sm mb-2">
+                                    <span class="font-semibold">Очікувана інформація:</span> Кінотеатри у Львові з доступними квитками, карта розташування, ціни.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- People Also Ask -->
+        <div class="slide">
+            <div class="bg-white/95 backdrop-blur-lg rounded-3xl p-12 shadow-2xl border border-white/20">
+                <div class="flex items-center gap-4 mb-8 pb-6 border-b-4 border-orange-500">
+                    <i class="fas fa-question-circle text-orange-600 text-4xl"></i>
+                    <h2 class="text-4xl font-bold text-orange-900">People Also Ask</h2>
+                    <span class="ml-auto bg-gradient-to-r from-orange-500 to-orange-700 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
+                        <i class="fas fa-search mr-2"></i>Zero-Click Search
+                    </span>
+                </div>
+
+                <div class="mb-6">
+                    <p class="text-lg text-gray-700 mb-4">People Also Ask – це розгортаються блоки зі спорідненими питаннями, які користувачі часто шукають разом з основним запитом.</p>
+                </div>
+
+                <div class="grid gap-4">
+                    <div class="query-box bg-gradient-to-br from-orange-50 to-orange-100 border-2 border-orange-300 rounded-2xl p-6 shadow-md">
+                        <div class="flex items-start gap-3">
+                            <i class="fas fa-question text-orange-600 text-2xl mt-1"></i>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold text-orange-900 mb-2">як працює стрімінг</h3>
+                                <p class="text-gray-700 text-sm mb-3">
+                                    <span class="font-semibold">Супутні питання:</span>
+                                </p>
+                                <ul class="list-disc list-inside text-gray-600 text-sm space-y-1">
+                                    <li>Що таке стрімінг фільмів?</li>
+                                    <li>Чи потрібен швидкий інтернет для стрімінгу?</li>
+                                    <li>Яка різниця між стрімінгом та завантаженням?</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="query-box bg-gradient-to-br from-orange-50 to-orange-100 border-2 border-orange-300 rounded-2xl p-6 shadow-md">
+                        <div class="flex items-start gap-3">
+                            <i class="fas fa-question text-orange-600 text-2xl mt-1"></i>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold text-orange-900 mb-2">чи легальний онлайн кінотеатр</h3>
+                                <p class="text-gray-700 text-sm mb-3">
+                                    <span class="font-semibold">Супутні питання:</span>
+                                </p>
+                                <ul class="list-disc list-inside text-gray-600 text-sm space-y-1">
+                                    <li>Як перевірити легальність стрімінгового сервісу?</li>
+                                    <li>Чим відрізняються легальні та піратські сайти?</li>
+                                    <li>Які покарання за використання піратських сайтів?</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="query-box bg-gradient-to-br from-orange-50 to-orange-100 border-2 border-orange-300 rounded-2xl p-6 shadow-md">
+                        <div class="flex items-start gap-3">
+                            <i class="fas fa-question text-orange-600 text-2xl mt-1"></i>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold text-orange-900 mb-2">скільки коштує підписка на кіно</h3>
+                                <p class="text-gray-700 text-sm mb-3">
+                                    <span class="font-semibold">Супутні питання:</span>
+                                </p>
+                                <ul class="list-disc list-inside text-gray-600 text-sm space-y-1">
+                                    <li>Які тарифи доступні в CineCloud?</li>
+                                    <li>Чи є безкоштовний пробний період?</li>
+                                    <li>Скільки пристроїв можна підключити одночасно?</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ЗАВДАННЯ 2: VOICE SEARCH -->
+
+        <!-- Voice Search Title -->
+        <div class="slide">
+            <div class="bg-white/95 backdrop-blur-lg rounded-3xl p-12 shadow-2xl border border-white/20">
+                <div class="text-center">
+                    <div class="mb-6">
+                        <i class="fas fa-microphone text-purple-600 text-7xl mb-4"></i>
+                    </div>
+                    <h1 class="text-5xl font-bold text-purple-900 mb-4">ЗАВДАННЯ 2</h1>
+                    <h2 class="text-3xl font-semibold text-purple-700 mb-6">Запити під Voice Search</h2>
+                    <div class="bg-gradient-to-r from-purple-100 to-blue-100 rounded-2xl p-6 mb-8">
+                        <p class="text-lg text-gray-700">Voice Search (голосовий пошук) – це технологія, яка дозволяє користувачам здійснювати пошукові запити за допомогою голосових команд замість введення тексту.</p>
+                    </div>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mt-8">
+                        <div class="bg-blue-50 rounded-xl p-4 border-2 border-blue-200">
+                            <i class="fas fa-info-circle text-blue-600 text-2xl mb-2"></i>
+                            <h4 class="font-bold text-blue-900 text-sm">Інформаційний</h4>
+                        </div>
+                        <div class="bg-green-50 rounded-xl p-4 border-2 border-green-200">
+                            <i class="fas fa-shopping-cart text-green-600 text-2xl mb-2"></i>
+                            <h4 class="font-bold text-green-900 text-sm">Транзакційний</h4>
+                        </div>
+                        <div class="bg-yellow-50 rounded-xl p-4 border-2 border-yellow-200">
+                            <i class="fas fa-globe text-yellow-600 text-2xl mb-2"></i>
+                            <h4 class="font-bold text-yellow-900 text-sm">Загальний</h4>
+                        </div>
+                        <div class="bg-purple-50 rounded-xl p-4 border-2 border-purple-200">
+                            <i class="fas fa-compass text-purple-600 text-2xl mb-2"></i>
+                            <h4 class="font-bold text-purple-900 text-sm">Навігаційний</h4>
+                        </div>
+                        <div class="bg-red-50 rounded-xl p-4 border-2 border-red-200">
+                            <i class="fas fa-video text-red-600 text-2xl mb-2"></i>
+                            <h4 class="font-bold text-red-900 text-sm">Мультимедійний</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Voice Search Queries -->
+        <div class="slide">
+            <div class="bg-white/95 backdrop-blur-lg rounded-3xl p-12 shadow-2xl border border-white/20">
+                <div class="flex items-center gap-4 mb-8 pb-6 border-b-4 border-purple-500">
+                    <i class="fas fa-microphone-alt text-purple-600 text-4xl"></i>
+                    <h2 class="text-4xl font-bold text-purple-900">Запити під Voice Search</h2>
+                    <span class="ml-auto bg-gradient-to-r from-purple-500 to-purple-700 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
+                        <i class="fas fa-microphone mr-2"></i>Голосовий пошук
+                    </span>
+                </div>
+
+                <div class="grid gap-5">
+                    <!-- Інформаційний -->
+                    <div class="query-box bg-gradient-to-br from-blue-50 to-blue-100 border-2 border-blue-300 rounded-2xl p-6 shadow-md">
+                        <div class="flex items-start gap-3">
+                            <div class="bg-blue-600 text-white rounded-full w-10 h-10 flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-info-circle"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <h3 class="text-lg font-bold text-blue-900">Інформаційний тип запиту</h3>
+                                    <span class="bg-blue-200 text-blue-800 px-2 py-1 rounded-full text-xs font-semibold">INFO</span>
+                                </div>
+                                <div class="bg-white rounded-lg p-4 border border-blue-200">
+                                    <p class="text-gray-800 font-medium mb-2"><i class="fas fa-comment text-blue-600 mr-2"></i>"Окей Google, розкажи мені про новинки фільмів цього місяця"</p>
+                                    <p class="text-sm text-gray-600"><span class="font-semibold">Альтернативи:</span> "Які найкращі фільми вийшли у жовтні?", "Що подивитись у CineCloud?"</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Транзакційний -->
+                    <div class="query-box bg-gradient-to-br from-green-50 to-green-100 border-2 border-green-300 rounded-2xl p-6 shadow-md">
+                        <div class="flex items-start gap-3">
+                            <div class="bg-green-600 text-white rounded-full w-10 h-10 flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <h3 class="text-lg font-bold text-green-900">Транзакційний тип запиту</h3>
+                                    <span class="bg-green-200 text-green-800 px-2 py-1 rounded-full text-xs font-semibold">BUY</span>
+                                </div>
+                                <div class="bg-white rounded-lg p-4 border border-green-200">
+                                    <p class="text-gray-800 font-medium mb-2"><i class="fas fa-comment text-green-600 mr-2"></i>"Окей Google, оформи підписку на CineCloud на один місяць"</p>
+                                    <p class="text-sm text-gray-600"><span class="font-semibold">Альтернативи:</span> "Купити підписку CineCloud", "Як підписатись на онлайн кінотеатр?"</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Загальний -->
+                    <div class="query-box bg-gradient-to-br from-yellow-50 to-yellow-100 border-2 border-yellow-300 rounded-2xl p-6 shadow-md">
+                        <div class="flex items-start gap-3">
+                            <div class="bg-yellow-600 text-white rounded-full w-10 h-10 flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-globe"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <h3 class="text-lg font-bold text-yellow-900">Загальний тип запиту</h3>
+                                    <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full text-xs font-semibold">GENERAL</span>
+                                </div>
+                                <div class="bg-white rounded-lg p-4 border border-yellow-200">
+                                    <p class="text-gray-800 font-medium mb-2"><i class="fas fa-comment text-yellow-600 mr-2"></i>"Окей Google, онлайн кінотеатр"</p>
+                                    <p class="text-sm text-gray-600"><span class="font-semibold">Альтернативи:</span> "Стрімінгові сервіси", "Де дивитись фільми онлайн?"</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Навігаційний -->
+                    <div class="query-box bg-gradient-to-br from-purple-50 to-purple-100 border-2 border-purple-300 rounded-2xl p-6 shadow-md">
+                        <div class="flex items-start gap-3">
+                            <div class="bg-purple-600 text-white rounded-full w-10 h-10 flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-compass"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <h3 class="text-lg font-bold text-purple-900">Навігаційний тип запиту</h3>
+                                    <span class="bg-purple-200 text-purple-800 px-2 py-1 rounded-full text-xs font-semibold">NAV</span>
+                                </div>
+                                <div class="bg-white rounded-lg p-4 border border-purple-200">
+                                    <p class="text-gray-800 font-medium mb-2"><i class="fas fa-comment text-purple-600 mr-2"></i>"Окей Google, відкрий сайт CineCloud"</p>
+                                    <p class="text-sm text-gray-600"><span class="font-semibold">Альтернативи:</span> "Перейди на cinecloud.ua", "Знайди офіційний сайт CineCloud"</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Мультимедійний -->
+                    <div class="query-box bg-gradient-to-br from-red-50 to-red-100 border-2 border-red-300 rounded-2xl p-6 shadow-md">
+                        <div class="flex items-start gap-3">
+                            <div class="bg-red-600 text-white rounded-full w-10 h-10 flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-video"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <h3 class="text-lg font-bold text-red-900">Мультимедійний тип запиту</h3>
+                                    <span class="bg-red-200 text-red-800 px-2 py-1 rounded-full text-xs font-semibold">MEDIA</span>
+                                </div>
+                                <div class="bg-white rounded-lg p-4 border border-red-200">
+                                    <p class="text-gray-800 font-medium mb-2"><i class="fas fa-comment text-red-600 mr-2"></i>"Окей Google, покажи трейлер фільму Дюна 2"</p>
+                                    <p class="text-sm text-gray-600"><span class="font-semibold">Альтернативи:</span> "Включи відео огляду новинок кіно", "Знайди постери фільму Аватар"</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 bg-gradient-to-r from-purple-100 to-blue-100 rounded-2xl p-6 border-2 border-purple-200">
+                    <h3 class="text-lg font-bold text-purple-900 mb-3 flex items-center gap-2">
+                        <i class="fas fa-lightbulb text-yellow-500"></i>
+                        Особливості голосових запитів:
+                    </h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-2">
+                        <li>Використання природної мови та розмовного стилю</li>
+                        <li>Довші запити порівняно з текстовими (в середньому 3-5 слів)</li>
+                        <li>Часто формулюються у вигляді питань</li>
+                        <li>Містять локальні вказівки ("поблизу", "найближчий")</li>
+                        <li>Орієнтовані на швидке отримання конкретної відповіді</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Navigation -->
+    <div class="fixed bottom-8 left-1/2 transform -translate-x-1/2 flex gap-4 z-50">
+        <button id="prevBtn" onclick="changeSlide(-1)" 
+                class="bg-gradient-to-r from-blue-600 to-blue-500 text-white px-8 py-4 rounded-full font-semibold shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0">
+            <i class="fas fa-arrow-left mr-2"></i>Попередній
+        </button>
+        <button id="nextBtn" onclick="changeSlide(1)" 
+                class="bg-gradient-to-r from-blue-600 to-blue-500 text-white px-8 py-4 rounded-full font-semibold shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0">
+            Наступний<i class="fas fa-arrow-right ml-2"></i>
+        </button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        
+        document.getElementById('total-slides').textContent = totalSlides;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            
+            document.getElementById('current-slide').textContent = currentSlide + 1;
+            
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function changeSlide(direction) {
+            if (direction === 1 && currentSlide < totalSlides - 1) {
+                showSlide(currentSlide + 1);
+            } else if (direction === -1 && currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                changeSlide(1);
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                changeSlide(-1);
+            }
+        });
+
+        showSlide(0);
+    </script>
+</body>
+</html>

@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineCloud - Link Bait Креативи (Варіант 6)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .creative-card {
+            animation: fadeIn 0.6s ease-out;
+            transition: all 0.3s ease;
+        }
+
+        .creative-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .badge-pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.7;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-800 min-h-screen py-12">
+    <div class="max-w-7xl mx-auto px-4">
+        
+        <!-- Заголовок -->
+        <div class="text-center mb-12">
+            <div class="inline-block bg-white/10 backdrop-blur-sm rounded-2xl p-8 mb-6">
+                <i class="fas fa-link text-white text-6xl mb-4"></i>
+                <h1 class="text-5xl font-bold text-white mb-2">Link Bait Креативи</h1>
+            </div>
+            <div class="bg-white/20 backdrop-blur-md rounded-xl p-6 max-w-3xl mx-auto">
+                <h2 class="text-2xl font-bold text-white mb-3">CineCloud - Online Кінотеатр</h2>
+                <p class="text-white/90">Контент-активи для просування через посилальні приманки</p>
+            </div>
+        </div>
+
+        <!-- Grid креативів -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+
+            <!-- КК: Корисний контент -->
+            <div class="creative-card bg-white rounded-2xl overflow-hidden shadow-2xl">
+                <!-- Тип контенту -->
+                <div class="bg-gradient-to-r from-blue-500 to-blue-600 p-4">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-lightbulb text-white text-2xl"></i>
+                            <span class="text-white font-bold text-lg">КК - Корисний контент</span>
+                        </div>
+                        <span class="badge-pulse bg-white text-blue-600 px-3 py-1 rounded-full text-xs font-bold">
+                            USEFUL
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Зображення -->
+                <div class="relative bg-gradient-to-br from-blue-100 to-blue-200 h-64 flex items-center justify-center overflow-hidden">
+                    <div class="absolute inset-0 bg-black/10"></div>
+                    <div class="relative z-10 text-center p-6">
+                        <div class="grid grid-cols-4 gap-2 mb-4">
+                            <div class="bg-white/80 rounded-lg p-2 transform rotate-3">
+                                <i class="fas fa-star text-yellow-500 text-xl"></i>
+                            </div>
+                            <div class="bg-white/80 rounded-lg p-2 transform -rotate-2">
+                                <i class="fas fa-film text-blue-600 text-xl"></i>
+                            </div>
+                            <div class="bg-white/80 rounded-lg p-2 transform rotate-1">
+                                <i class="fas fa-award text-red-500 text-xl"></i>
+                            </div>
+                            <div class="bg-white/80 rounded-lg p-2 transform -rotate-3">
+                                <i class="fas fa-mask text-purple-600 text-xl"></i>
+                            </div>
+                        </div>
+                        <div class="bg-white/90 rounded-xl p-4 backdrop-blur-sm">
+                            <div class="text-6xl font-bold text-blue-600 mb-2">16</div>
+                            <div class="text-sm font-semibold text-gray-700">Цікавих фактів</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Заголовок -->
+                <div class="p-6">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-3 leading-tight">
+                        🎬 16 цікавих фактів про знаменитостей кіно, у які важко повірити!
+                    </h3>
+                    
+                    <!-- Опис -->
+                    <p class="text-gray-600 mb-4 text-sm">
+                        Від приборкувачів левів до рекордів Гіннесса - дізнайся неймовірні історії про улюблених акторів! Крістофер Вокен у цирку, Бред Пітт під забороною, та Бенедикт Камбербетч після викрадення.
+                    </p>
+
+                    <!-- Хайлайти -->
+                    <div class="bg-blue-50 rounded-xl p-4 mb-4">
+                        <div class="text-xs font-semibold text-blue-700 mb-2">✨ У СТАТТІ:</div>
+                        <div class="grid grid-cols-2 gap-2 text-xs">
+                            <div class="flex items-center gap-1">
+                                <i class="fas fa-check-circle text-blue-600"></i>
+                                <span class="text-gray-700">Гері Олдмен</span>
+                            </div>
+                            <div class="flex items-center gap-1">
+                                <i class="fas fa-check-circle text-blue-600"></i>
+                                <span class="text-gray-700">Бред Пітт</span>
+                            </div>
+                            <div class="flex items-center gap-1">
+                                <i class="fas fa-check-circle text-blue-600"></i>
+                                <span class="text-gray-700">Дуейн Джонсон</span>
+                            </div>
+                            <div class="flex items-center gap-1">
+                                <i class="fas fa-check-circle text-blue-600"></i>
+                                <span class="text-gray-700">Скарлетт Йоганссон</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Кнопка -->
+                    <a href="https://ochmanity.com/101348" target="_blank" 
+                       class="block w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white text-center py-3 rounded-xl font-bold hover:from-blue-600 hover:to-blue-700 transition-all shadow-lg hover:shadow-xl">
+                        <i class="fas fa-book-open mr-2"></i>Дізнатись більше
+                    </a>
+
+                    <!-- Джерело -->
+                    <div class="mt-4 pt-4 border-t border-gray-200">
+                        <div class="flex items-center justify-between text-xs text-gray-500">
+                            <div class="flex items-center gap-2">
+                                <i class="fas fa-external-link-alt"></i>
+                                <span class="font-mono">ochmanity.com</span>
+                            </div>
+                            <div class="flex items-center gap-1">
+                                <i class="fas fa-clock"></i>
+                                <span>5 хв читання</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- РК: Розважальний контент -->
+            <div class="creative-card bg-white rounded-2xl overflow-hidden shadow-2xl">
+                <!-- Тип контенту -->
+                <div class="bg-gradient-to-r from-purple-500 to-purple-600 p-4">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-puzzle-piece text-white text-2xl"></i>
+                            <span class="text-white font-bold text-lg">РК - Розважальний контент</span>
+                        </div>
+                        <span class="badge-pulse bg-white text-purple-600 px-3 py-1 rounded-full text-xs font-bold">
+                            FUN
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Зображення -->
+                <div class="relative bg-gradient-to-br from-purple-100 to-pink-200 h-64 flex items-center justify-center overflow-hidden">
+                    <div class="absolute inset-0 bg-black/5"></div>
+                    <div class="relative z-10 text-center p-6">
+                        <div class="flex justify-center gap-4 mb-6">
+                            <div class="bg-white rounded-2xl p-6 shadow-xl transform -rotate-6">
+                                <i class="fas fa-question text-purple-600 text-5xl"></i>
+                            </div>
+                            <div class="bg-white rounded-2xl p-6 shadow-xl transform rotate-6">
+                                <i class="fas fa-mask text-pink-600 text-5xl"></i>
+                            </div>
+                        </div>
+                        <div class="bg-white/90 rounded-2xl p-4 backdrop-blur-sm inline-block">
+                            <div class="text-purple-600 font-bold text-lg">🎭 ВГАДАЙ ЗІРКУ!</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Заголовок -->
+                <div class="p-6">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-3 leading-tight">
+                        🎭 Тест на уважність: Вгадай відомого актора в гримі!
+                    </h3>
+                    
+                    <!-- Опис -->
+                    <p class="text-gray-600 mb-4 text-sm">
+                        Кіномагія перевтілення! Спробуй впізнати легендарних зірок за неймовірним гримом. Від хоррорів до фентезі - чи зможеш ти здогадатись, хто ховається за мейкапом?
+                    </p>
+
+                    <!-- Челендж -->
+                    <div class="bg-purple-50 rounded-xl p-4 mb-4">
+                        <div class="text-xs font-semibold text-purple-700 mb-3">🎯 ВИКЛИК:</div>
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs text-gray-700">Рівень складності:</span>
+                                <div class="flex gap-1">
+                                    <i class="fas fa-star text-purple-500 text-xs"></i>
+                                    <i class="fas fa-star text-purple-500 text-xs"></i>
+                                    <i class="fas fa-star text-purple-500 text-xs"></i>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs text-gray-700">Актори у гримі:</span>
+                                <span class="text-xs font-bold text-purple-700">12+</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs text-gray-700">Час проходження:</span>
+                                <span class="text-xs font-bold text-purple-700">~3 хв</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Емоції -->
+                    <div class="flex justify-center gap-2 mb-4">
+                        <span class="text-2xl">😮</span>
+                        <span class="text-2xl">🤔</span>
+                        <span class="text-2xl">🎉</span>
+                        <span class="text-2xl">🏆</span>
+                    </div>
+
+                    <!-- Кнопка -->
+                    <a href="https://lux.fm/test-na-uvazhnist-vgadaj-vidomogo-aktora-v-grimi_n162452" target="_blank" 
+                       class="block w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white text-center py-3 rounded-xl font-bold hover:from-purple-600 hover:to-pink-600 transition-all shadow-lg hover:shadow-xl">
+                        <i class="fas fa-play mr-2"></i>Пройти тест
+                    </a>
+
+                    <!-- Джерело -->
+                    <div class="mt-4 pt-4 border-t border-gray-200">
+                        <div class="flex items-center justify-between text-xs text-gray-500">
+                            <div class="flex items-center gap-2">
+                                <i class="fas fa-external-link-alt"></i>
+                                <span class="font-mono">lux.fm</span>
+                            </div>
+                            <div class="flex items-center gap-1">
+                                <i class="fas fa-gamepad"></i>
+                                <span>Інтерактив</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- СК: Скандальний контент -->
+            <div class="creative-card bg-white rounded-2xl overflow-hidden shadow-2xl">
+                <!-- Тип контенту -->
+                <div class="bg-gradient-to-r from-red-500 to-orange-500 p-4">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-fire text-white text-2xl"></i>
+                            <span class="text-white font-bold text-lg">СК - Скандальний контент</span>
+                        </div>
+                        <span class="badge-pulse bg-white text-red-600 px-3 py-1 rounded-full text-xs font-bold">
+                            HOT
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Зображення -->
+                <div class="relative bg-gradient-to-br from-red-100 to-orange-200 h-64 flex items-center justify-center overflow-hidden">
+                    <div class="absolute inset-0 bg-black/10"></div>
+                    <div class="relative z-10 text-center p-6">
+                        <div class="bg-white/90 rounded-2xl p-6 backdrop-blur-sm shadow-2xl">
+                            <div class="flex items-center justify-center gap-4 mb-3">
+                                <i class="fas fa-award text-yellow-500 text-4xl"></i>
+                                <i class="fas fa-times-circle text-red-500 text-5xl"></i>
+                            </div>
+                            <div class="text-red-600 font-bold text-sm mb-2">ОСКАР 2024</div>
+                            <div class="text-gray-700 text-xs font-semibold">Скандал навколо номінацій</div>
+                        </div>
+                        <div class="mt-4 flex justify-center gap-2">
+                            <span class="bg-white px-3 py-1 rounded-full text-xs font-bold text-red-600">БАРБІ</span>
+                            <span class="bg-white px-3 py-1 rounded-full text-xs font-bold text-red-600">#Snubbed</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Заголовок -->
+                <div class="p-6">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-3 leading-tight">
+                        🔥 Раян Гослінг розчарований: Чому Марго Роббі та Ґрета Ґервіґ залишились без номінацій?
+                    </h3>
+                    
+                    <!-- Опис -->
+                    <p class="text-gray-600 mb-4 text-sm">
+                        Гучна заява від зірки "Барбі"! Гослінг публічно висловив обурення відсутністю номінацій для режисерки та головної актриси найкасовішого фільму року. "Немає Кена без Барбі!"
+                    </p>
+
+                    <!-- Скандальні деталі -->
+                    <div class="bg-red-50 border-2 border-red-200 rounded-xl p-4 mb-4">
+                        <div class="text-xs font-semibold text-red-700 mb-2">💥 РЕЗОНАНС:</div>
+                        <div class="space-y-2 text-xs text-gray-700">
+                            <div class="flex items-start gap-2">
+                                <i class="fas fa-quote-left text-red-500 mt-1"></i>
+                                <span>"Сказати, що я розчарований - було б применшенням"</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i class="fas fa-trophy text-yellow-500"></i>
+                                <span>8 номінацій для "Барбі", але...</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i class="fas fa-exclamation-triangle text-orange-500"></i>
+                                <span>Роббі та Ґервіґ - поза головними категоріями</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Реакція -->
+                    <div class="grid grid-cols-3 gap-2 mb-4">
+                        <div class="bg-orange-100 rounded-lg p-2 text-center">
+                            <div class="text-orange-600 text-xs font-bold">Соцмережі</div>
+                            <div class="text-orange-800 text-lg font-bold">🔥</div>
+                        </div>
+                        <div class="bg-red-100 rounded-lg p-2 text-center">
+                            <div class="text-red-600 text-xs font-bold">Преса</div>
+                            <div class="text-red-800 text-lg font-bold">📰</div>
+                        </div>
+                        <div class="bg-pink-100 rounded-lg p-2 text-center">
+                            <div class="text-pink-600 text-xs font-bold">Фанати</div>
+                            <div class="text-pink-800 text-lg font-bold">💔</div>
+                        </div>
+                    </div>
+
+                    <!-- Кнопка -->
+                    <a href="https://life.liga.net/all/news/raian-hoslinh-rozcharovanyi-vidsutnistiu-nominatsii-na-oskar-dlia-robbi-ta-hervih" target="_blank" 
+                       class="block w-full bg-gradient-to-r from-red-500 to-orange-500 text-white text-center py-3 rounded-xl font-bold hover:from-red-600 hover:to-orange-600 transition-all shadow-lg hover:shadow-xl">
+                        <i class="fas fa-newspaper mr-2"></i>Читати повністю
+                    </a>
+
+                    <!-- Джерело -->
+                    <div class="mt-4 pt-4 border-t border-gray-200">
+                        <div class="flex items-center justify-between text-xs text-gray-500">
+                            <div class="flex items-center gap-2">
+                                <i class="fas fa-external-link-alt"></i>
+                                <span class="font-mono">life.liga.net</span>
+                            </div>
+                            <div class="flex items-center gap-1">
+                                <i class="fas fa-fire"></i>
+                                <span>Trending</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Додаткова інформація -->
+        <div class="bg-white/10 backdrop-blur-md rounded-2xl p-8 max-w-4xl mx-auto">
+            <h3 class="text-2xl font-bold text-white mb-4 flex items-center gap-3">
+                <i class="fas fa-info-circle"></i>
+                Про Link Bait стратегію для CineCloud
+            </h3>
+            <div class="grid md:grid-cols-3 gap-6 text-white/90 text-sm">
+                <div>
+                    <div class="font-bold text-white mb-2 flex items-center gap-2">
+                        <i class="fas fa-bullseye text-blue-400"></i>
+                        Мета
+                    </div>
+                    <p>Привернути увагу цільової аудиторії через цінний, розважальний та провокаційний контент про кіноіндустрію</p>
+                </div>
+                <div>
+                    <div class="font-bold text-white mb-2 flex items-center gap-2">
+                        <i class="fas fa-share-alt text-purple-400"></i>
+                        Поширення
+                    </div>
+                    <p>Соціальні мережі (Facebook, Instagram, Telegram), кінофоруми, тематичні спільноти, блоги про кіно</p>
+                </div>
+                <div>
+                    <div class="font-bold text-white mb-2 flex items-center gap-2">
+                        <i class="fas fa-chart-line text-red-400"></i>
+                        Результат
+                    </div>
+                    <p>Природні посилання на CineCloud, зростання впізнаваності бренду, збільшення органічного трафіку</p>
+                </div>
+            </div>
+        </div>
+
+       
+
+    </div>
+</body>
+</html>

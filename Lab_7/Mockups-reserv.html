@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineCloud - App Screenshots Slider</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            overflow-x: hidden;
+        }
+
+        .slider-container {
+            max-width: 1200px;
+            width: 100%;
+            position: relative;
+        }
+
+        .slider-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .slider-header h1 {
+            color: #fff;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .slider-header p {
+            color: rgba(255,255,255,0.8);
+            font-size: 1.1em;
+        }
+
+        .slider-wrapper {
+            position: relative;
+            overflow: hidden;
+            padding: 20px 0;
+        }
+
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slide {
+            min-width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .screenshot-title {
+            font-size: 1.8em;
+            font-weight: 600;
+            margin-bottom: 30px;
+            color: #fff;
+            text-align: center;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        /* iOS Мокап у Dark Theme */
+        .phone-mockup {
+            width: 340px;
+            height: 700px;
+            background: linear-gradient(145deg, #1a1a1a, #2d2d2d);
+            border-radius: 50px;
+            padding: 18px;
+            box-shadow: 
+                0 30px 60px rgba(0,0,0,0.5),
+                inset 0 0 0 2px rgba(255,255,255,0.1);
+            position: relative;
+            margin: 0 auto;
+        }
+        
+        /* Динамічний острівець для iOS */
+        .phone-mockup::before {
+            content: '';
+            position: absolute;
+            top: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 130px;
+            height: 35px;
+            background: #000;
+            border-radius: 20px;
+            z-index: 10;
+            box-shadow: 
+                inset 0 0 5px rgba(255,255,255,0.1),
+                0 3px 10px rgba(0,0,0,0.5);
+        }
+
+        /* Камера в острівці */
+        .phone-mockup::after {
+            content: '';
+            position: absolute;
+            top: 28px;
+            left: 50%;
+            transform: translateX(-20px);
+            width: 12px;
+            height: 12px;
+            background: radial-gradient(circle, #1a3a4a 30%, #000 70%);
+            border-radius: 50%;
+            z-index: 11;
+        }
+
+        .screen {
+            background: linear-gradient(180deg, #0a0a0a 0%, #1a1a1a 100%);
+            height: 100%;
+            width: 100%;
+            border-radius: 38px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            box-sizing: border-box;
+            padding: 50px 20px 20px;
+            position: relative;
+        }
+        
+        .screen::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Елементи UI - Dark Theme */
+        .screen h3 {
+            font-size: 20px;
+            margin: 20px 0 12px;
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .big-banner {
+            height: 180px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .big-banner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(10%, 10%); }
+        }
+
+        .poster-row {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .poster-row::-webkit-scrollbar { 
+            height: 4px;
+        }
+
+        .poster-row::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.05);
+            border-radius: 2px;
+        }
+
+        .poster-row::-webkit-scrollbar-thumb {
+            background: rgba(102, 126, 234, 0.5);
+            border-radius: 2px;
+        }
+
+        .poster {
+            flex-shrink: 0;
+            width: 110px;
+            height: 165px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            font-size: 2.5em;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .poster:hover {
+            transform: scale(1.05);
+        }
+
+        .poster-text {
+            font-size: 13px;
+            text-align: center;
+            margin-top: 8px;
+            width: 110px;
+            color: rgba(255,255,255,0.9);
+            font-weight: 500;
+        }
+        
+        .header {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            padding-bottom: 15px;
+            color: #ffffff;
+        }
+        
+        .search-bar {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 12px 15px;
+            text-align: left;
+            margin-bottom: 15px;
+            color: rgba(255,255,255,0.6);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .filters {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            overflow-x: auto;
+        }
+        
+        .filter-btn {
+            background: rgba(102, 126, 234, 0.15);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            color: #8b9aff;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            white-space: nowrap;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .filter-btn:hover {
+            background: rgba(102, 126, 234, 0.25);
+            border-color: rgba(102, 126, 234, 0.5);
+        }
+        
+        .result-item {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 12px;
+            background: rgba(255,255,255,0.05);
+            padding: 12px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        
+        .result-poster {
+            width: 60px;
+            height: 90px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 8px;
+            flex-shrink: 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .result-info h4 { 
+            margin: 0 0 8px; 
+            font-size: 15px; 
+            color: #fff;
+            font-weight: 600;
+        }
+        
+        .result-info p { 
+            margin: 0; 
+            font-size: 13px;
+            color: rgba(255,255,255,0.6);
+        }
+
+        .premiere-banner {
+            height: 180px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.15), rgba(118, 75, 162, 0.15));
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 16px;
+            padding: 15px;
+            box-sizing: border-box;
+            text-align: left;
+            backdrop-filter: blur(10px);
+            margin-bottom: 15px;
+        }
+        
+        .premiere-banner .title { 
+            font-weight: bold; 
+            color: #fff;
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+        
+        .premiere-banner .date { 
+            font-size: 13px; 
+            color: #8b9aff;
+            margin-bottom: 15px;
+        }
+        
+        .premiere-buttons { 
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .premiere-buttons button { 
+            background: rgba(102, 126, 234, 0.2);
+            border: 1px solid rgba(102, 126, 234, 0.4);
+            color: #8b9aff;
+            padding: 8px 16px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .premiere-buttons button:hover {
+            background: rgba(102, 126, 234, 0.3);
+            border-color: rgba(102, 126, 234, 0.6);
+        }
+
+        .collection-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px;
+            padding: 15px;
+            margin-bottom: 15px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .collection-card h4 { 
+            margin: 0 0 8px; 
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .collection-card p { 
+            margin: 0 0 12px; 
+            font-size: 13px;
+            color: rgba(255,255,255,0.6);
+        }
+        
+        .collection-posters { 
+            display: flex; 
+            gap: 8px;
+            overflow-x: auto;
+        }
+        
+        .collection-posters .mini-poster { 
+            width: 60px;
+            height: 90px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 8px;
+            flex-shrink: 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        
+        .create-btn { 
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            font-size: 15px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .create-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .movie-header { 
+            display: flex; 
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .movie-poster { 
+            width: 110px;
+            height: 165px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 12px;
+            flex-shrink: 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        
+        .movie-info h3 { 
+            margin: 0 0 8px;
+            font-size: 18px;
+            color: #fff;
+        }
+        
+        .movie-info p { 
+            margin: 0 0 6px;
+            font-size: 13px;
+            color: rgba(255,255,255,0.7);
+        }
+        
+        .action-buttons { 
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .action-buttons button { 
+            flex-grow: 1;
+            padding: 12px;
+            border-radius: 12px;
+            border: none;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-play { 
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-play:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-fav { 
+            background: rgba(255,255,255,0.08);
+            color: rgba(255,255,255,0.9);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .btn-fav:hover {
+            background: rgba(255,255,255,0.12);
+        }
+        
+        .actors { 
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+        
+        .actor-photo { 
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        
+        .actor-name { 
+            font-size: 12px;
+            text-align: center;
+            margin-top: 8px;
+            width: 60px;
+            color: rgba(255,255,255,0.8);
+        }
+
+        /* Навігація слайдера */
+        .slider-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .nav-btn {
+            width: 50px;
+            height: 50px;
+            background: rgba(255,255,255,0.1);
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 50%;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            pointer-events: all;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-btn:hover {
+            background: rgba(102, 126, 234, 0.3);
+            border-color: rgba(102, 126, 234, 0.5);
+            transform: scale(1.1);
+        }
+
+        .nav-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Індикатори слайдів */
+        .slider-dots {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            width: 32px;
+            border-radius: 6px;
+            box-shadow: 0 2px 10px rgba(102, 126, 234, 0.5);
+        }
+
+        .dot:hover {
+            background: rgba(255,255,255,0.5);
+        }
+
+        /* Лічильник слайдів */
+        .slide-counter {
+            text-align: center;
+            color: rgba(255,255,255,0.7);
+            font-size: 14px;
+            margin-top: 15px;
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .slider-header h1 {
+                font-size: 1.8em;
+            }
+
+            .phone-mockup {
+                width: 300px;
+                height: 620px;
+            }
+
+            .nav-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
+            }
+
+            .screenshot-title {
+                font-size: 1.3em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slider-container">
+        <div class="slider-header">
+            <h1><i class="fas fa-film"></i> CineCloud</h1>
+            <p>Твій особистий кінотеатр завжди з тобою</p>
+        </div>
+
+        <div class="slider-wrapper">
+            <div class="slides" id="slides">
+                
+                <!-- Slide 1: Головний екран -->
+                <div class="slide">
+                    <h2 class="screenshot-title">Персональні рекомендації для тебе</h2>
+                    <div class="phone-mockup">
+                        <div class="screen">
+                            <div class="big-banner">
+                                <i class="fas fa-star" style="margin-right: 10px;"></i>
+                                Новинка тижня
+                            </div>
+                            <h3><i class="fas fa-heart"></i> Рекомендовано для вас</h3>
+                            <div class="poster-row">
+                                <div>
+                                    <div class="poster"><i class="fas fa-film"></i></div>
+                                    <p class="poster-text">Фільм А</p>
+                                </div>
+                                <div>
+                                    <div class="poster"><i class="fas fa-film"></i></div>
+                                    <p class="poster-text">Фільм Б</p>
+                                </div>
+                                <div>
+                                    <div class="poster"><i class="fas fa-film"></i></div>
+                                    <p class="poster-text">Фільм В</p>
+                                </div>
+                            </div>
+                            <h3><i class="fas fa-fire"></i> Зараз у тренді</h3>
+                            <div class="poster-row">
+                                <div>
+                                    <div class="poster"><i class="fas fa-tv"></i></div>
+                                    <p class="poster-text">Серіал Д</p>
+                                </div>
+                                <div>
+                                    <div class="poster"><i class="fas fa-film"></i></div>
+                                    <p class="poster-text">Фільм Е</p>
+                                </div>
+                                <div>
+                                    <div class="poster"><i class="fas fa-tv"></i></div>
+                                    <p class="poster-text">Серіал Ж</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 2: Каталог -->
+                <div class="slide">
+                    <h2 class="screenshot-title">Знаходь улюблене кіно за мить</h2>
+                    <div class="phone-mockup">
+                        <div class="screen">
+                            <div class="header">Каталог фільмів</div>
+                            <div class="search-bar">
+                                <i class="fas fa-search"></i> Пошук фільмів та серіалів...
+                            </div>
+                            <div class="filters">
+                                <button class="filter-btn"><i class="fas fa-theater-masks"></i> Жанри</button>
+                                <button class="filter-btn"><i class="fas fa-calendar"></i> Рік</button>
+                                <button class="filter-btn"><i class="fas fa-star"></i> Рейтинг</button>
+                            </div>
+                            <div class="results-list">
+                                <div class="result-item">
+                                    <div class="result-poster"></div>
+                                    <div class="result-info">
+                                        <h4>Назва фільму 1</h4>
+                                        <p><i class="fas fa-star" style="color: #ffd700;"></i> 8.5 | Бойовик</p>
+                                        <p>2024 • 2г 15хв</p>
+                                    </div>
+                                </div>
+                                <div class="result-item">
+                                    <div class="result-poster"></div>
+                                    <div class="result-info">
+                                        <h4>Назва фільму 2</h4>
+                                        <p><i class="fas fa-star" style="color: #ffd700;"></i> 8.2 | Фантастика</p>
+                                        <p>2025 • 1г 58хв</p>
+                                    </div>
+                                </div>
+                                <div class="result-item">
+                                    <div class="result-poster"></div>
+                                    <div class="result-info">
+                                        <h4>Назва фільму 3</h4>
+                                        <p><i class="fas fa-star" style="color: #ffd700;"></i> 9.1 | Драма</p>
+                                        <p>2024 • 2г 42хв</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 3: Афіша -->
+                <div class="slide">
+                    <h2 class="screenshot-title">Не пропускай найочікуваніші новинки</h2>
+                    <div class="phone-mockup">
+                        <div class="screen">
+                            <div class="header">Афіша</div>
+                            <h3><i class="fas fa-calendar-star"></i> Незабаром на CineCloud:</h3>
+                            <div class="premiere-banner">
+                                <div class="title">Назва очікуваного фільму</div>
+                                <div class="date"><i class="fas fa-clock"></i> Прем'єра: 15 листопада 2025</div>
+                                <div class="premiere-buttons">
+                                    <button><i class="fas fa-bell"></i> Нагадати</button>
+                                    <button><i class="fas fa-play"></i> Трейлер</button>
+                                </div>
+                            </div>
+                            <h3><i class="fas fa-sparkles"></i> Також очікуються:</h3>
+                            <div class="poster-row">
+                                <div>
+                                    <div class="poster"><i class="fas fa-film"></i></div>
+                                    <p class="poster-text">Фільм Х</p>
+                                </div>
+                                <div>
+                                    <div class="poster"><i class="fas fa-tv"></i></div>
+                                    <p class="poster-text">Серіал Y</p>
+                                </div>
+                                <div>
+                                    <div class="poster"><i class="fas fa-film"></i></div>
+                                    <p class="poster-text">Фільм Z</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 4: Колекції -->
+                <div class="slide">
+                    <h2 class="screenshot-title">Створюй добірки для будь-якого настрою</h2>
+                    <div class="phone-mockup">
+                        <div class="screen">
+                            <div class="header">Мої колекції</div>
+                            <button class="create-btn">
+                                <i class="fas fa-plus"></i> Створити нову колекцію
+                            </button>
+                            <div class="collection-card">
+                                <h4><i class="fas fa-laugh"></i> Вечір комедій</h4>
+                                <p>Автор: Ви • 12 фільмів</p>
+                                <div class="collection-posters">
+                                    <div class="mini-poster"></div>
+                                    <div class="mini-poster"></div>
+                                    <div class="mini-poster"></div>
+                                    <div class="mini-poster"></div>
+                                </div>
+                            </div>
+                            <div class="collection-card">
+                                <h4><i class="fas fa-ghost"></i> Найкращі трилери 2024</h4>
+                                <p>Автор: Редакція • 24 фільми</p>
+                                <div class="collection-posters">
+                                    <div class="mini-poster"></div>
+                                    <div class="mini-poster"></div>
+                                    <div class="mini-poster"></div>
+                                    <div class="mini-poster"></div>
+                                </div>
+                            </div>
+                            <div class="collection-card">
+                                <h4><i class="fas fa-heart"></i> Романтичні вечори</h4>
+                                <p>Автор: Ви • 8 фільмів</p>
+                                <div class="collection-posters">
+                                    <div class="mini-poster"></div>
+                                    <div class="mini-poster"></div>
+                                    <div class="mini-poster"></div>
+                                    <div class="mini-poster"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 5: Деталі фільму -->
+                <div class="slide">
+                    <h2 class="screenshot-title">Все про фільм в одному місці</h2>
+                    <div class="phone-mockup">
+                        <div class="screen">
+                            <div class="movie-header">
+                                <div class="movie-poster"></div>
+                                <div class="movie-info">
+                                    <h3>Назва фільму</h3>
+                                    <p><i class="fas fa-calendar"></i> 2024 • США</p>
+                                    <p><i class="fas fa-clock"></i> 148 хв.</p>
+                                    <p><i class="fas fa-theater-masks"></i> Бойовик, Трилер</p>
+                                    <p><i class="fas fa-star" style="color: #ffd700;"></i> IMDb: 8.5/10</p>
+                                </div>
+                            </div>
+                            <div class="action-buttons">
+                                <button class="btn-play">
+                                    <i class="fas fa-play"></i> Дивитися
+                                </button>
+                                <button class="btn-fav">
+                                    <i class="fas fa-heart"></i> Обране
+                                </button>
+                            </div>
+                            <h3><i class="fas fa-align-left"></i> Опис:</h3>
+                            <p style="font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.6;">
+                                Захоплююча історія про пригоди головного героя, який вирушає у неймовірну подорож, сповнену небезпек та несподіваних поворотів сюжету...
+                            </p>
+                            <h3><i class="fas fa-users"></i> Актори:</h3>
+                            <div class="actors">
+                                <div>
+                                    <div class="actor-photo"></div>
+                                    <p class="actor-name">Ім'я Актора 1</p>
+                                </div>
+                                <div>
+                                    <div class="actor-photo"></div>
+                                    <p class="actor-name">Ім'я Актора 2</p>
+                                </div>
+                                <div>
+                                    <div class="actor-photo"></div>
+                                    <p class="actor-name">Ім'я Актора 3</p>
+                                </div>
+                                <div>
+                                    <div class="actor-photo"></div>
+                                    <p class="actor-name">Ім'я Актора 4</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Навігація -->
+            <div class="slider-nav">
+                <button class="nav-btn" onclick="prevSlide()">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="nav-btn" onclick="nextSlide()">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Індикатори -->
+        <div class="slider-dots" id="dots"></div>
+        <div class="slide-counter" id="counter"></div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        const slidesContainer = document.getElementById('slides');
+        const dotsContainer = document.getElementById('dots');
+        const counter = document.getElementById('counter');
+
+        // Створення точок навігації
+        for (let i = 0; i < totalSlides; i++) {
+            const dot = document.createElement('div');
+            dot.className = 'dot';
+            dot.onclick = () => goToSlide(i);
+            dotsContainer.appendChild(dot);
+        }
+
+        function updateSlider() {
+            slidesContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
+            
+            // Оновлення точок
+            const dots = document.querySelectorAll('.dot');
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+
+            // Оновлення лічильника
+            counter.textContent = `${currentSlide + 1} / ${totalSlides}`;
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateSlider();
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateSlider();
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateSlider();
+        }
+
+        // Підтримка клавіатури
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') prevSlide();
+            if (e.key === 'ArrowRight') nextSlide();
+        });
+
+        // Підтримка свайпів на мобільних
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        slidesContainer.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        slidesContainer.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 50) nextSlide();
+            if (touchEndX > touchStartX + 50) prevSlide();
+        }
+
+        // Ініціалізація
+        updateSlider();
+    </script>
+</body>
+</html>

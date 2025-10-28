@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineCloud - ASO Презентація</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .slide {
+            display: none;
+            animation: slideIn 0.6s ease-out;
+        }
+
+        .slide.active {
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-900 via-blue-600 to-blue-400 min-h-screen">
+    <div class="fixed top-6 right-6 bg-white/90 backdrop-blur-sm px-5 py-3 rounded-full font-bold text-blue-900 shadow-lg z-50">
+        <span id="current-slide">1</span> / <span id="total-slides">4</span>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 py-8">
+
+        <div class="slide">
+            <div class="bg-white/95 backdrop-blur-lg rounded-3xl p-12 shadow-2xl border border-white/20 text-center">
+                <div class="flex justify-center items-center gap-4 mb-8 pb-6 border-b-4 border-blue-500">
+                    <i class="fas fa-mobile-alt text-blue-600 text-5xl"></i>
+                    <h1 class="text-5xl font-bold text-blue-900">ASO: Оптимізація застосунку</h1>
+                </div>
+                <p class="text-2xl text-gray-700 mt-4">Порівняльний аналіз метаданих для App Store та Google Play Market на прикладі <span class="font-bold text-blue-800">CineCloud</span>.</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="bg-white/95 backdrop-blur-lg rounded-3xl p-12 shadow-2xl border border-white/20">
+                <div class="flex items-center gap-4 mb-8 pb-6 border-b-4 border-blue-500">
+                    <i class="fas fa-id-card text-blue-600 text-4xl"></i>
+                    <h2 class="text-4xl font-bold text-blue-900">Ключові Метадані: Назва та Іконка</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-2xl font-semibold text-blue-800 mb-4 flex items-center gap-3"><i class="fab fa-apple text-2xl"></i> App Store</h3>
+                        <div class="space-y-4">
+                            <div class="p-4 bg-blue-50 rounded-lg border-l-4 border-blue-400">
+                                <p class="font-bold text-blue-900">Назва (до 30 символів):</p>
+                                <p class="text-gray-700">CineCloud: Онлайн-кінотеатр</p>
+                            </div>
+                            <div class="p-4 bg-blue-50 rounded-lg border-l-4 border-blue-400">
+                                <p class="font-bold text-blue-900">Підзаголовок (до 30 символів):</p>
+                                <p class="text-gray-700">Фільми, серіали та прем'єри</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-2xl font-semibold text-blue-800 mb-4 flex items-center gap-3"><i class="fab fa-google-play text-2xl"></i> Google Play</h3>
+                        <div class="space-y-4">
+                             <div class="p-4 bg-blue-50 rounded-lg border-l-4 border-blue-400">
+                                <p class="font-bold text-blue-900">Назва (до 50 символів):</p>
+                                <p class="text-gray-700">CineCloud: Фільми та серіали</p>
+                            </div>
+                            <div class="p-4 bg-gray-100 rounded-lg border-l-4 border-gray-400">
+                                <p class="font-bold text-gray-900">Підзаголовок:</p>
+                                <p class="text-gray-600">Поле відсутнє</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <div class="mt-8 p-4 bg-blue-50 rounded-lg border-l-4 border-blue-400">
+                    <p class="font-bold text-blue-900 text-center text-xl">Ім'я іконки (до 12 символів): CineCloud</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="bg-white/95 backdrop-blur-lg rounded-3xl p-12 shadow-2xl border border-white/20">
+                <div class="flex items-center gap-4 mb-8 pb-6 border-b-4 border-blue-500">
+                    <i class="fas fa-file-alt text-blue-600 text-4xl"></i>
+                    <h2 class="text-4xl font-bold text-blue-900">Описи застосунку</h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-2xl font-semibold text-blue-800 mb-4 flex items-center gap-3"><i class="fab fa-apple text-2xl"></i> App Store</h3>
+                        <div class="p-4 bg-blue-50 rounded-lg border-l-4 border-blue-400 mb-4">
+                            <p class="font-bold text-blue-900">Короткий опис (до 170 символів):</p>
+                            <p class="text-gray-700">Ваш персональний кінотеатр. Дивіться тисячі фільмів, створюйте власні колекції та не пропускайте гучні прем'єри.</p>
+                        </div>
+                        <div class="p-4 bg-blue-50 rounded-lg border-l-4 border-blue-400">
+                            <p class="font-bold text-blue-900">Повний опис (до 4000 символів):</p>
+                            <p class="text-gray-700">CineCloud – це більше, ніж просто кінотеатр. Це платформа для створення відкритої кіноспільноти, що об'єднує глядачів та професіоналів...</p>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-semibold text-blue-800 mb-4 flex items-center gap-3"><i class="fab fa-google-play text-2xl"></i> Google Play</h3>
+                        <div class="p-4 bg-blue-50 rounded-lg border-l-4 border-blue-400 mb-4">
+                            <p class="font-bold text-blue-900">Короткий опис (до 80 символів):</p>
+                            <p class="text-gray-700">Дивіться фільми та серіали онлайн.Персональні рекомендації та афіша новинок.</p>
+                        </div>
+                         <div class="p-4 bg-blue-50 rounded-lg border-l-4 border-blue-400">
+                            <p class="font-bold text-blue-900">Повний опис (до 4000 символів):</p>
+                            <p class="text-gray-700">CineCloud – це ваш персональний онлайн-кінотеатр, створений для справжніх поціновувачів кіно. Наша мета – сформувати відкриту кіноспільноту...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="bg-white/95 backdrop-blur-lg rounded-3xl p-12 shadow-2xl border border-white/20">
+                 <div class="flex items-center gap-4 mb-8 pb-6 border-b-4 border-blue-500">
+                    <i class="fas fa-tags text-blue-600 text-4xl"></i>
+                    <h2 class="text-4xl font-bold text-blue-900">Категоризація та ключові слова</h2>
+                </div>
+                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-2xl font-semibold text-blue-800 mb-4 flex items-center gap-3"><i class="fab fa-apple text-2xl"></i> App Store</h3>
+                        <div class="p-4 bg-blue-50 rounded-lg border-l-4 border-blue-400">
+                            <p class="font-bold text-blue-900">Ключові слова (не менше 8):</p>
+                            <p class="text-gray-700">кіно, фільми, серіали, стрімінг, дивитись, онлайн, прем'єри, колекції, новинки, афіша, рейтинги</p>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-semibold text-blue-800 mb-4 flex items-center gap-3"><i class="fab fa-google-play text-2xl"></i> Google Play</h3>
+                        <div class="p-4 bg-blue-50 rounded-lg border-l-4 border-blue-400">
+                           <p class="font-bold text-blue-900">Теги:</p>
+                           <p class="text-gray-700">Фільми, Відеострімінг, ТБ, Розваги, Новини</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-8 p-6 bg-blue-100 border-t-4 border-blue-500 rounded-lg text-center">
+                    <i class="fas fa-puzzle-piece text-blue-600 text-3xl mb-2"></i>
+                    <h3 class="text-2xl font-semibold text-blue-900">Спільна категорія</h3>
+                    <p class="text-xl text-gray-800 mt-2">Розваги</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="fixed bottom-8 left-1/2 transform -translate-x-1/2 flex gap-4 z-50">
+        <button id="prevBtn" onclick="changeSlide(-1)" 
+                class="bg-gradient-to-r from-blue-600 to-blue-500 text-white px-8 py-4 rounded-full font-semibold shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0">
+            <i class="fas fa-arrow-left mr-2"></i>Попередній
+        </button>
+        <button id="nextBtn" onclick="changeSlide(1)" 
+                class="bg-gradient-to-r from-blue-600 to-blue-500 text-white px-8 py-4 rounded-full font-semibold shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0">
+            Наступний<i class="fas fa-arrow-right ml-2"></i>
+        </button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        
+        document.getElementById('total-slides').textContent = totalSlides;
+
+        function showSlide(n) {
+            if (slides[currentSlide]) {
+                slides[currentSlide].classList.remove('active');
+            }
+            currentSlide = (n + totalSlides) % totalSlides;
+            if (slides[currentSlide]) {
+                slides[currentSlide].classList.add('active');
+            }
+            
+            document.getElementById('current-slide').textContent = currentSlide + 1;
+            
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function changeSlide(direction) {
+            let nextSlide = currentSlide + direction;
+            if (nextSlide >= 0 && nextSlide < totalSlides) {
+                showSlide(nextSlide);
+            }
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                changeSlide(1);
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                changeSlide(-1);
+            }
+        });
+
+        showSlide(0);
+    </script>
+</body>
+</html>

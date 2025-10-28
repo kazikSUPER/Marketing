@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineCloud - Слайдер Мокапів</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* --- Основні стилі для слайдера --- */
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .slide {
+            display: none;
+            animation: slideIn 0.6s ease-out;
+            /* Центрування мокапу на слайді */
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh;
+        }
+
+        .slide.active {
+            display: flex; /* Використовуємо flex для центрування */
+        }
+        
+        /* --- Стилі для мокапів (адаптовані) --- */
+        .phone-mockup {
+            flex-shrink: 0;
+            width: 320px;
+            position: relative;
+            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.4));
+        }
+        
+        .phone-frame {
+            background: #1a1a1a;
+            border-radius: 40px;
+            padding: 15px;
+            position: relative;
+        }
+        
+        .phone-frame.ios { border-radius: 45px; }
+        
+        .phone-notch {
+            width: 120px;
+            height: 25px;
+            background: #000;
+            border-radius: 0 0 20px 20px;
+            position: absolute;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+        
+        .phone-screen {
+            background: #fff;
+            border-radius: 30px;
+            overflow: hidden;
+            position: relative;
+            height: 650px;
+        }
+        
+        .phone-screen.ios { border-radius: 35px; }
+        
+        .screenshot-content {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        
+        .screenshot-label {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+            z-index: 5;
+        }
+
+        /* --- Стилі для кожного екрану --- */
+        
+        /* Screenshot 1: Home Screen */
+        .home-screen { background: linear-gradient(180deg, #0f0c29 0%, #302b63 50%, #24243e 100%); color: white; padding: 60px 20px 20px; }
+        .home-header { text-align: center; margin-bottom: 30px; }
+        .home-logo { font-size: 2.5em; margin-bottom: 10px; }
+        .home-title { font-size: 1.8em; font-weight: bold; margin-bottom: 5px; }
+        .home-subtitle { opacity: 0.8; font-size: 0.9em; }
+        .featured-movie { background: rgba(255,255,255,0.1); border-radius: 15px; padding: 15px; margin-bottom: 20px; backdrop-filter: blur(10px); }
+        .movie-poster-placeholder { width: 100%; height: 200px; background: linear-gradient(135deg, #667eea, #764ba2); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 3em; margin-bottom: 15px; }
+        .movie-title { font-size: 1.3em; font-weight: bold; margin-bottom: 8px; }
+        .movie-info { display: flex; gap: 15px; font-size: 0.85em; opacity: 0.8; margin-bottom: 12px; }
+        .play-button { background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 12px; border-radius: 25px; text-align: center; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .categories-row { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px; }
+        .category-chip { background: rgba(255,255,255,0.15); padding: 8px 16px; border-radius: 20px; white-space: nowrap; font-size: 0.85em; }
+        
+        /* Screenshot 2: Catalog */
+        .catalog-screen { background: #fff; padding-top: 60px; }
+        .search-bar { margin: 0 15px 20px; background: #f0f0f0; padding: 12px 15px; border-radius: 25px; display: flex; align-items: center; gap: 10px; color: #666; }
+        .filters-row { display: flex; gap: 10px; padding: 0 15px 15px; overflow-x: auto; }
+        .filter-chip { background: #667eea; color: white; padding: 8px 16px; border-radius: 20px; white-space: nowrap; font-size: 0.85em; }
+        .filter-chip.outline { background: white; color: #667eea; border: 2px solid #667eea; }
+        .movies-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 0 15px; }
+        .movie-card { border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .movie-card-poster { width: 100%; height: 180px; background: linear-gradient(135deg, #667eea, #764ba2); display: flex; align-items: center; justify-content: center; font-size: 2.5em; color: white; }
+        .movie-card-info { padding: 10px; background: white; }
+        .movie-card-title { font-weight: bold; font-size: 0.9em; margin-bottom: 5px; color: #333; }
+        .movie-card-meta { font-size: 0.75em; color: #999; display: flex; align-items: center; gap: 8px; }
+        .rating { color: #f39c12; }
+        
+        /* Screenshot 3: Movie Detail */
+        .detail-screen { background: #000; color: white; }
+        .detail-hero { height: 300px; background: linear-gradient(135deg, #667eea, #764ba2); position: relative; display: flex; align-items: center; justify-content: center; font-size: 4em; }
+        .detail-content { padding: 20px; }
+        .detail-title { font-size: 1.8em; font-weight: bold; margin-bottom: 10px; }
+        .detail-meta { display: flex; gap: 15px; font-size: 0.9em; opacity: 0.7; margin-bottom: 20px; }
+        .action-buttons { display: flex; gap: 10px; margin-bottom: 25px; }
+        .btn-primary { flex: 1; background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 14px; border-radius: 25px; text-align: center; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .btn-secondary { background: rgba(255,255,255,0.15); color: white; padding: 14px 20px; border-radius: 25px; display: flex; align-items: center; justify-content: center; }
+        .detail-description { font-size: 0.9em; line-height: 1.6; opacity: 0.8; margin-bottom: 20px; }
+        .section-title { font-size: 1.2em; font-weight: bold; margin-bottom: 15px; }
+        .cast-row { display: flex; gap: 15px; overflow-x: auto; }
+        .cast-member { text-align: center; min-width: 80px; }
+        .cast-avatar { width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(135deg, #667eea, #764ba2); display: flex; align-items: center; justify-content: center; font-size: 1.8em; margin: 0 auto 8px; }
+        .cast-name { font-size: 0.8em; opacity: 0.9; }
+        
+        /* Screenshot 4: Collections */
+        .collections-screen { background: #f8f9fa; padding-top: 60px; }
+        .screen-header { padding: 0 15px 20px; background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .screen-title { font-size: 1.8em; font-weight: bold; color: #333; margin-bottom: 10px; }
+        .screen-subtitle { color: #666; font-size: 0.9em; }
+        .collections-list { padding: 15px; }
+        .collection-card { background: white; border-radius: 15px; padding: 15px; margin-bottom: 15px; box-shadow: 0 2px 15px rgba(0,0,0,0.08); }
+        .collection-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+        .collection-icon { width: 50px; height: 50px; background: linear-gradient(135deg, #667eea, #764ba2); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5em; }
+        .collection-info h3 { font-size: 1.1em; color: #333; margin-bottom: 3px; }
+        .collection-info p { font-size: 0.8em; color: #999; }
+        .collection-preview { display: flex; gap: 8px; overflow-x: auto; }
+        .preview-poster { width: 80px; height: 110px; background: linear-gradient(135deg, #667eea, #764ba2); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5em; flex-shrink: 0; }
+        
+        /* Screenshot 5: Profile */
+        .profile-screen { background: linear-gradient(180deg, #667eea 0%, #f8f9fa 40%); padding-top: 60px; }
+        .profile-header { text-align: center; padding: 30px 20px; color: white; }
+        .profile-avatar { width: 100px; height: 100px; border-radius: 50%; background: white; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; font-size: 3em; color: #667eea; box-shadow: 0 5px 20px rgba(0,0,0,0.2); }
+        .profile-name { font-size: 1.5em; font-weight: bold; margin-bottom: 5px; }
+        .profile-email { opacity: 0.9; font-size: 0.9em; }
+        .stats-row { display: flex; justify-content: center; gap: 30px; margin-top: 20px; }
+        .stat-item { text-align: center; }
+        .stat-value { font-size: 1.5em; font-weight: bold; }
+        .stat-label { font-size: 0.8em; opacity: 0.9; }
+        .profile-menu { background: white; border-radius: 20px 20px 0 0; padding: 20px; min-height: 350px; }
+        .menu-item { display: flex; align-items: center; gap: 15px; padding: 15px; border-bottom: 1px solid #f0f0f0; color: #333; }
+        .menu-item:last-child { border-bottom: none; }
+        .menu-icon { width: 40px; height: 40px; background: #f0f0f0; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #667eea; font-size: 1.2em; }
+        .menu-text { flex: 1; }
+        .menu-title { font-weight: 600; margin-bottom: 3px; }
+        .menu-subtitle { font-size: 0.8em; color: #999; }
+        
+        /* Screenshot 6: Player */
+        .player-screen { background: #000; color: white; display: flex; flex-direction: column; }
+        .player-video { flex: 1; background: linear-gradient(135deg, #0f0c29, #302b63, #24243e); display: flex; align-items: center; justify-content: center; font-size: 4em; position: relative; }
+        .player-overlay { position: absolute; top: 0; left: 0; right: 0; padding: 20px; background: linear-gradient(rgba(0,0,0,0.7), transparent); display: flex; justify-content: space-between; align-items: center; }
+        .player-controls { padding: 20px; background: linear-gradient(transparent, rgba(0,0,0,0.9)); }
+        .progress-bar { height: 4px; background: rgba(255,255,255,0.3); border-radius: 2px; margin-bottom: 20px; position: relative; }
+        .progress-fill { position: absolute; left: 0; top: 0; height: 100%; width: 40%; background: #667eea; border-radius: 2px; }
+        .time-info { display: flex; justify-content: space-between; font-size: 0.85em; opacity: 0.8; margin-bottom: 20px; }
+        .control-buttons { display: flex; justify-content: center; align-items: center; gap: 30px; }
+        .control-btn { width: 50px; height: 50px; border-radius: 50%; background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-size: 1.3em; }
+        .control-btn.large { width: 70px; height: 70px; background: linear-gradient(135deg, #667eea, #764ba2); font-size: 2em; }
+        .quality-selector { display: flex; justify-content: center; gap: 10px; margin-top: 20px; }
+        .quality-option { padding: 6px 12px; background: rgba(255,255,255,0.1); border-radius: 15px; font-size: 0.8em; }
+        .quality-option.active { background: #667eea; }
+
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-900 via-blue-600 to-blue-400 min-h-screen">
+    <div class="fixed top-6 right-6 bg-white/90 backdrop-blur-sm px-5 py-3 rounded-full font-bold text-blue-900 shadow-lg z-50">
+        <span id="current-slide">1</span> / <span id="total-slides">6</span>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 py-8">
+
+        <div class="slide">
+            <div class="phone-mockup">
+                <div class="phone-frame ios">
+                    <div class="phone-notch"></div>
+                    <div class="phone-screen ios">
+                        <div class="screenshot-content home-screen">
+                            <div class="home-header">
+                                <div class="home-logo"><i class="fas fa-play-circle"></i></div>
+                                <div class="home-title">CineCloud</div>
+                                <div class="home-subtitle">Твій особистий кінотеатр</div>
+                            </div>
+                            <div class="featured-movie">
+                                <div class="movie-poster-placeholder"><i class="fas fa-film"></i></div>
+                                <div class="movie-title">Фільм тижня</div>
+                                <div class="movie-info">
+                                    <span><i class="fas fa-star"></i> 8.9</span>
+                                    <span><i class="fas fa-clock"></i> 2г 15хв</span>
+                                    <span><i class="fas fa-calendar"></i> 2025</span>
+                                </div>
+                                <div class="play-button"><i class="fas fa-play"></i> Дивитися зараз</div>
+                            </div>
+                            <div class="categories-row">
+                                <div class="category-chip"><i class="fas fa-fire"></i> Популярне</div>
+                                <div class="category-chip"><i class="fas fa-star"></i> Топ 10</div>
+                                <div class="category-chip"><i class="fas fa-clock"></i> Нові</div>
+                            </div>
+                        </div>
+                        <div class="screenshot-label">Головний екран</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide">
+            <div class="phone-mockup">
+                <div class="phone-frame ios">
+                    <div class="phone-notch"></div>
+                    <div class="phone-screen ios">
+                        <div class="screenshot-content catalog-screen">
+                            <div class="search-bar">
+                                <i class="fas fa-search"></i>
+                                <span>Пошук фільмів та серіалів...</span>
+                            </div>
+                            <div class="filters-row">
+                                <div class="filter-chip"><i class="fas fa-film"></i> Усі</div>
+                                <div class="filter-chip outline">Бойовик</div>
+                                <div class="filter-chip outline">Комедія</div>
+                                <div class="filter-chip outline">Драма</div>
+                            </div>
+                            <div class="movies-grid">
+                                <div class="movie-card"><div class="movie-card-poster"><i class="fas fa-film"></i></div><div class="movie-card-info"><div class="movie-card-title">Фільм 1</div><div class="movie-card-meta"><span class="rating"><i class="fas fa-star"></i> 8.5</span><span>2025</span></div></div></div>
+                                <div class="movie-card"><div class="movie-card-poster"><i class="fas fa-tv"></i></div><div class="movie-card-info"><div class="movie-card-title">Серіал 1</div><div class="movie-card-meta"><span class="rating"><i class="fas fa-star"></i> 9.2</span><span>2024</span></div></div></div>
+                                <div class="movie-card"><div class="movie-card-poster"><i class="fas fa-film"></i></div><div class="movie-card-info"><div class="movie-card-title">Фільм 2</div><div class="movie-card-meta"><span class="rating"><i class="fas fa-star"></i> 7.8</span><span>2025</span></div></div></div>
+                                <div class="movie-card"><div class="movie-card-poster"><i class="fas fa-film"></i></div><div class="movie-card-info"><div class="movie-card-title">Фільм 3</div><div class="movie-card-meta"><span class="rating"><i class="fas fa-star"></i> 8.9</span><span>2024</span></div></div></div>
+                            </div>
+                        </div>
+                        <div class="screenshot-label">Каталог фільмів</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide">
+             <div class="phone-mockup">
+                <div class="phone-frame ios">
+                    <div class="phone-notch"></div>
+                    <div class="phone-screen ios">
+                        <div class="screenshot-content detail-screen">
+                            <div class="detail-hero"><i class="fas fa-film"></i></div>
+                            <div class="detail-content">
+                                <div class="detail-title">Назва фільму</div>
+                                <div class="detail-meta"><span><i class="fas fa-star"></i> 8.9</span><span><i class="fas fa-clock"></i> 2г 30хв</span><span>16+</span></div>
+                                <div class="action-buttons">
+                                    <div class="btn-primary"><i class="fas fa-play"></i> Дивитися</div>
+                                    <div class="btn-secondary"><i class="fas fa-plus"></i></div>
+                                    <div class="btn-secondary"><i class="fas fa-share-alt"></i></div>
+                                </div>
+                                <div class="detail-description">Захоплююча історія про пригоди головного героя, який вирушає у неймовірну подорож...</div>
+                                <div class="cast-section">
+                                    <div class="section-title">Акторський склад</div>
+                                    <div class="cast-row">
+                                        <div class="cast-member"><div class="cast-avatar"><i class="fas fa-user"></i></div><div class="cast-name">Актор 1</div></div>
+                                        <div class="cast-member"><div class="cast-avatar"><i class="fas fa-user"></i></div><div class="cast-name">Актор 2</div></div>
+                                        <div class="cast-member"><div class="cast-avatar"><i class="fas fa-user"></i></div><div class="cast-name">Актор 3</div></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="screenshot-label">Деталі фільму</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="phone-mockup">
+                <div class="phone-frame ios">
+                    <div class="phone-notch"></div>
+                    <div class="phone-screen ios">
+                        <div class="screenshot-content collections-screen">
+                            <div class="screen-header">
+                                <div class="screen-title"><i class="fas fa-layer-group"></i> Колекції</div>
+                                <div class="screen-subtitle">Тематичні добірки для тебе</div>
+                            </div>
+                            <div class="collections-list">
+                                <div class="collection-card">
+                                    <div class="collection-header"><div class="collection-icon"><i class="fas fa-fire"></i></div><div class="collection-info"><h3>Найпопулярніше</h3><p>125 фільмів</p></div></div>
+                                    <div class="collection-preview"><div class="preview-poster"><i class="fas fa-film"></i></div><div class="preview-poster"><i class="fas fa-film"></i></div><div class="preview-poster"><i class="fas fa-film"></i></div></div>
+                                </div>
+                                <div class="collection-card">
+                                    <div class="collection-header"><div class="collection-icon"><i class="fas fa-heart"></i></div><div class="collection-info"><h3>Романтичні фільми</h3><p>89 фільмів</p></div></div>
+                                    <div class="collection-preview"><div class="preview-poster"><i class="fas fa-heart"></i></div><div class="preview-poster"><i class="fas fa-heart"></i></div></div>
+                                </div>
+                                <div class="collection-card">
+                                    <div class="collection-header"><div class="collection-icon"><i class="fas fa-bolt"></i></div><div class="collection-info"><h3>Динамічні бойовики</h3><p>156 фільмів</p></div></div>
+                                    <div class="collection-preview"><div class="preview-poster"><i class="fas fa-bomb"></i></div><div class="preview-poster"><i class="fas fa-bomb"></i></div></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="screenshot-label">Колекції</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide">
+            <div class="phone-mockup">
+                <div class="phone-frame ios">
+                    <div class="phone-notch"></div>
+                    <div class="phone-screen ios">
+                        <div class="screenshot-content profile-screen">
+                            <div class="profile-header">
+                                <div class="profile-avatar"><i class="fas fa-user"></i></div>
+                                <div class="profile-name">Іван Петренко</div>
+                                <div class="profile-email">ivan.petrenko@email.com</div>
+                                <div class="stats-row">
+                                    <div class="stat-item"><div class="stat-value">248</div><div class="stat-label">Переглянуто</div></div>
+                                    <div class="stat-item"><div class="stat-value">42</div><div class="stat-label">Обране</div></div>
+                                    <div class="stat-item"><div class="stat-value">12</div><div class="stat-label">Колекції</div></div>
+                                </div>
+                            </div>
+                            <div class="profile-menu">
+                                <div class="menu-item"><div class="menu-icon"><i class="fas fa-crown"></i></div><div class="menu-text"><div class="menu-title">Premium підписка</div><div class="menu-subtitle">Активна до 28.11.2025</div></div></div>
+                                <div class="menu-item"><div class="menu-icon"><i class="fas fa-download"></i></div><div class="menu-text"><div class="menu-title">Завантаження</div><div class="menu-subtitle">15 фільмів доступні офлайн</div></div></div>
+                                <div class="menu-item"><div class="menu-icon"><i class="fas fa-cog"></i></div><div class="menu-text"><div class="menu-title">Налаштування</div><div class="menu-subtitle">Персоналізація додатку</div></div></div>
+                            </div>
+                        </div>
+                        <div class="screenshot-label">Профіль користувача</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+             <div class="phone-mockup">
+                <div class="phone-frame ios">
+                    <div class="phone-notch"></div>
+                    <div class="phone-screen ios">
+                        <div class="screenshot-content player-screen">
+                            <div class="player-video"><i class="fas fa-play-circle"></i></div>
+                            <div class="player-controls">
+                                <div class="progress-bar"><div class="progress-fill"></div></div>
+                                <div class="time-info"><span>45:32</span><span>1:54:20</span></div>
+                                <div class="control-buttons">
+                                    <div class="control-btn"><i class="fas fa-backward"></i></div>
+                                    <div class="control-btn large"><i class="fas fa-pause"></i></div>
+                                    <div class="control-btn"><i class="fas fa-forward"></i></div>
+                                </div>
+                                <div class="quality-selector">
+                                    <div class="quality-option">HD</div>
+                                    <div class="quality-option active">4K</div>
+                                    <div class="quality-option"><i class="fas fa-closed-captioning"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="screenshot-label">Відеоплеєр</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="fixed bottom-8 left-1/2 transform -translate-x-1/2 flex gap-80 z-50">
+        <button id="prevBtn" onclick="changeSlide(-1)" 
+                class="bg-gradient-to-r from-blue-600 to-blue-500 text-white px-8 py-4 rounded-full font-semibold shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0">
+            <i class="fas fa-arrow-left mr-2"></i>Попередній
+        </button>
+        <button id="nextBtn" onclick="changeSlide(1)" 
+                class="bg-gradient-to-r from-blue-600 to-blue-500 text-white px-8 py-4 rounded-full font-semibold shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0">
+            Наступний<i class="fas fa-arrow-right ml-2"></i>
+        </button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        
+        document.getElementById('total-slides').textContent = totalSlides;
+
+        function showSlide(n) {
+            if (slides[currentSlide]) {
+                slides[currentSlide].classList.remove('active');
+            }
+            currentSlide = (n + totalSlides) % totalSlides;
+            if (slides[currentSlide]) {
+                slides[currentSlide].classList.add('active');
+            }
+            
+            document.getElementById('current-slide').textContent = currentSlide + 1;
+            
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function changeSlide(direction) {
+            let nextSlide = currentSlide + direction;
+            if (nextSlide >= 0 && nextSlide < totalSlides) {
+                showSlide(nextSlide);
+            }
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                changeSlide(1);
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                changeSlide(-1);
+            }
+        });
+
+        // Показати перший слайд при завантаженні
+        showSlide(0);
+    </script>
+</body>
+</html>

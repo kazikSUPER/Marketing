@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineCloud - Залучальний Onboarding</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            padding: 40px 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .onboarding-container {
+            max-width: 400px;
+            width: 100%;
+        }
+        
+        .phone-mockup {
+            background: #1a1a1a;
+            border-radius: 45px;
+            padding: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            position: relative;
+        }
+        
+        .phone-notch {
+            width: 120px;
+            height: 25px;
+            background: #000;
+            border-radius: 0 0 20px 20px;
+            position: absolute;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+        
+        .phone-screen {
+            background: #fff;
+            border-radius: 35px;
+            height: 750px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .onboarding-screen {
+            height: 100%;
+            display: none;
+            flex-direction: column;
+            position: relative;
+            animation: slideIn 0.5s ease;
+        }
+        
+        .onboarding-screen.active {
+            display: flex;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .screen-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 60px 30px 30px;
+        }
+        
+        .screen-footer {
+            padding: 20px 30px 30px;
+        }
+        
+        /* Progress Indicator */
+        .progress-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .progress-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #ddd;
+            transition: all 0.3s ease;
+        }
+        
+        .progress-dot.active {
+            background: #667eea;
+            width: 24px;
+            border-radius: 4px;
+        }
+        
+        /* Screen 1: Welcome */
+        .welcome-screen {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            justify-content: center;
+        }
+        
+        .welcome-icon {
+            font-size: 6em;
+            margin-bottom: 30px;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .welcome-title {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .welcome-subtitle {
+            font-size: 1.2em;
+            opacity: 0.95;
+            line-height: 1.5;
+        }
+        
+        /* Screen 2: Genres */
+        .genres-screen .screen-header {
+            margin-bottom: 30px;
+        }
+        
+        .screen-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .screen-description {
+            color: #666;
+            line-height: 1.5;
+        }
+        
+        .genres-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            flex: 1;
+        }
+        
+        .genre-card {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 20px;
+            padding: 20px;
+            color: white;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+        
+        .genre-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(102,126,234,0.3);
+        }
+        
+        .genre-card.selected {
+            border-color: #ffd700;
+            background: linear-gradient(135deg, #764ba2, #667eea);
+        }
+        
+        .genre-icon {
+            font-size: 2.5em;
+        }
+        
+        .genre-name {
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+        
+        /* Screen 3: Preferences */
+        .preferences-screen .preferences-list {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .preference-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .preference-card:hover {
+            background: #e9ecef;
+        }
+        
+        .preference-card.selected {
+            background: #e8eeff;
+            border-color: #667eea;
+        }
+        
+        .preference-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5em;
+            flex-shrink: 0;
+        }
+        
+        .preference-info {
+            flex: 1;
+        }
+        
+        .preference-title {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .preference-description {
+            font-size: 0.85em;
+            color: #666;
+        }
+        
+        .preference-checkbox {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .preference-card.selected .preference-checkbox {
+            background: #667eea;
+            border-color: #667eea;
+            color: white;
+        }
+        
+        /* Screen 4: Notifications */
+        .notifications-screen {
+            text-align: center;
+        }
+        
+        .notification-visual {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .notification-icon-large {
+            font-size: 8em;
+            color: #667eea;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+        
+        .notification-examples {
+            position: absolute;
+            width: 100%;
+            padding: 0 20px;
+        }
+        
+        .notification-bubble {
+            background: white;
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: slideInRight 0.5s ease;
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .notification-bubble-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        
+        .notification-bubble-text {
+            flex: 1;
+            text-align: left;
+        }
+        
+        .notification-bubble-title {
+            font-weight: 600;
+            color: #333;
+            font-size: 0.9em;
+            margin-bottom: 3px;
+        }
+        
+        .notification-bubble-desc {
+            font-size: 0.8em;
+            color: #666;
+        }
+        
+        /* Screen 5: Quality */
+        .quality-screen .quality-options {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .quality-option {
+            background: #f8f9fa;
+            border-radius: 20px;
+            padding: 2.5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .quality-option::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .quality-option:hover::before {
+            opacity: 0.05;
+        }
+        
+        .quality-option.selected {
+            border-color: #667eea;
+            background: #e8eeff;
+        }
+        
+        .quality-option.selected::before {
+            opacity: 0.1;
+        }
+        
+        .quality-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .quality-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 12px;
+        }
+        
+        .quality-icon {
+            font-size: 2em;
+            color: #667eea;
+        }
+        
+        .quality-name {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .quality-badge {
+            background: #667eea;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.7em;
+            font-weight: bold;
+            margin-left: auto;
+        }
+        
+        .quality-description {
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+        
+        .quality-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .quality-feature {
+            background: rgba(102,126,234,0.1);
+            color: #667eea;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: 500;
+        }
+        
+        /* Screen 6: Ready */
+        .ready-screen {
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: white;
+            text-align: center;
+            justify-content: center;
+        }
+        
+        .ready-animation {
+            margin-bottom: 40px;
+        }
+        
+        .checkmark-circle {
+            width: 120px;
+            height: 120px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            backdrop-filter: blur(10px);
+            border: 3px solid rgba(255,255,255,0.2);
+        }
+        
+        .checkmark {
+            font-size: 4em;
+            color: #4CAF50;
+            animation: scaleIn 0.5s ease;
+        }
+        
+        @keyframes scaleIn {
+            from {
+                transform: scale(0);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        .ready-title {
+            font-size: 2.2em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .ready-description {
+            font-size: 1.1em;
+            opacity: 0.9;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        
+        .ready-stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+        
+        .ready-stat {
+            text-align: center;
+        }
+        
+        .ready-stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .ready-stat-label {
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+        
+        /* Buttons */
+        .btn-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 10px;
+            border-radius: 25px;
+            border: none;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102,126,234,0.3);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: #667eea;
+            padding: 10px;
+            border-radius: 25px;
+            border: 2px solid #667eea;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary:hover {
+            background: #667eea;
+            color: white;
+        }
+        
+        .ready-screen .btn-primary {
+            background: white;
+            color: #667eea;
+        }
+        
+        .btn-skip {
+            text-align: center;
+            color: #999;
+            font-size: 0.95em;
+            cursor: pointer;
+            padding: 10px;
+            transition: color 0.3s ease;
+        }
+        
+        .btn-skip:hover {
+            color: #667eea;
+        }
+        
+        /* Navigation */
+        .nav-buttons {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .nav-buttons .btn-secondary {
+            flex: 1;
+        }
+        
+        .nav-buttons .btn-primary {
+            flex: 2;
+        }
+        
+        @media (max-width: 500px) {
+            .onboarding-container {
+                padding: 0 10px;
+            }
+            
+            .screen-content {
+                padding: 50px 20px 20px;
+            }
+            
+            .screen-footer {
+                padding: 15px 20px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="onboarding-container">
+        <div class="phone-mockup">
+            <div class="phone-notch"></div>
+            <div class="phone-screen">
+                
+                <!-- Screen 1: Welcome -->
+                <div class="onboarding-screen active welcome-screen" data-screen="1">
+                    <div class="screen-content">
+                        <div class="welcome-icon">
+                            <i class="fas fa-play-circle"></i>
+                        </div>
+                        <div class="welcome-title">Вітаємо в CineCloud!</div>
+                        <div class="welcome-subtitle">
+                            Твій особистий кінотеатр з тисячами фільмів та серіалів у HD якості
+                        </div>
+                    </div>
+                    <div class="screen-footer">
+                        <div class="progress-dots">
+                            <div class="progress-dot active"></div>
+                            <div class="progress-dot"></div>
+                            <div class="progress-dot"></div>
+                            <div class="progress-dot"></div>
+                            <div class="progress-dot"></div>
+                            <div class="progress-dot"></div>
+                        </div>
+                        <div class="btn-container">
+                            <button class="btn-primary" onclick="nextScreen()">
+                                Розпочати <i class="fas fa-arrow-right"></i>
+                            </button>
+                            <div class="btn-skip" onclick="skipOnboarding()">Пропустити</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Screen 2: Genres -->
+                <div class="onboarding-screen" data-screen="2">
+                    <div class="screen-content">
+                        <div class="screen-header">
+                            <div class="screen-title">Обери улюблені жанри</div>
+                            <div class="screen-description">
+                                Це допоможе нам підібрати фільми саме для тебе
+                            </div>
+                        </div>
+                        
+                        <div class="genres-grid">
+                            <div class="genre-card" onclick="toggleSelection(this)">
+                                <div class="genre-icon"><i class="fas fa-fire"></i></div>
+                                <div class="genre-name">Бойовик</div>
+                            </div>
+                            <div class="genre-card" onclick="toggleSelection(this)">
+                                <div class="genre-icon"><i class="fas fa-laugh"></i></div>
+                                <div class="genre-name">Комедія</div>
+                            </div>
+                            <div class="genre-card" onclick="toggleSelection(this)">
+                                <div class="genre-icon"><i class="fas fa-heart"></i></div>
+                                <div class="genre-name">Романтика</div>
+                            </div>
+                            <div class="genre-card" onclick="toggleSelection(this)">
+                                <div class="genre-icon"><i class="fas fa-ghost"></i></div>
+                                <div class="genre-name">Жахи</div>
+                            </div>
+                            <div class="genre-card" onclick="toggleSelection(this)">
+                                <div class="genre-icon"><i class="fas fa-rocket"></i></div>
+                                <div class="genre-name">Фантастика</div>
+                            </div>
+                            <div class="genre-card" onclick="toggleSelection(this)">
+                                <div class="genre-icon"><i class="fas fa-theater-masks"></i></div>
+                                <div class="genre-name">Драма</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="screen-footer">
+                        <div class="progress-dots">
+                            <div class="progress-dot"></div>
+                            <div class="progress-dot active"></div>
+                            <div class="progress-dot"></div>
+                            <div class="progress-dot"></div>
+                            <div class="progress-dot"></div>
+                            <div class="progress-dot"></div>
+                        </div>
+                        <div class="nav-buttons">
+                            <button class="btn-secondary" onclick="prevScreen()">
+                                <i class="fas fa-arrow-left"></i> Назад
+                            </button>
+                            <button class="btn-primary" onclick="nextScreen()">
+                                Далі <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Screen 3: Preferences -->
+                <div class="onboarding-screen" data-screen="3">
+                    <div class="screen-content">
+                        <div class="screen-header">
+                            <div class="screen-title">Твої уподобання</div>
+                            <div class="screen-description">
+                                Як ти найчастіше дивишся фільми?
+                            </div>
+                        </div>
+                        
+                        <div class="preferences-list">
+                            <div class="preference-card" onclick="toggleSelection(this)">
+                                <div class="preference-icon">
+                                    <i class="fas fa-download"></i>
+                                </div>
+                                <div class="preference-info">
+                                    <div class="preference-title">Офлайн перегляд</div>
+                                    <div class="preference-description">Завантажуй фільми для перегляду без інтернету</div>
+                                </div>
+                                <div class="preference-checkbox">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                            </div>
+                            
+                            <div class="preference-card" onclick="toggleSelection(this)">
+                                <div class="preference-icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div class="preference-info">
+                                    <div class="preference-title">Сімейний доступ</div>
+                                    <div class="preference-description">Дели підписку з родиною до 5 осіб</div>
+                                </div>
+                                <div class="preference-checkbox">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                            </div>
+                            
+                            <div class="preference-card" onclick="toggleSelection(this)">
+                                <div class="preference-icon">
+                                    <i class="fas fa-child"></i>
+                                </div>
+                                <div class="preference-info">
+                                    <div class="preference-title">Дитячий режим</div>
+                                    <div class="preference-description">Безпечний контент для дітей</div>
+                                </div>
+                                <div class="preference-checkbox">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                            </div>
+                            
+                            <div class="preference-card" onclick="toggleSelection(this)">
+                                <div class="preference-icon">
+                                    <i class="fas fa-closed-captioning"></i>
+                                </div>
+                                <div class="preference-info">
+                                    <div class="preference-title">Субтитри</div>
+                                    <div class="preference-description">Автоматичні субтитри українською</div>
+                                </div>
+                                <div class="preference-checkbox">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="screen-footer">
+                        <div class="progress-dots">
+                            <div class="progress-dot"></div>
+                            <div class="progress-dot"></div>
+                            <div class="progress-dot active"></div>
+                            <div class="progress-dot"></div>
+                            <div class="progress-dot"></div>
+                            <div class="progress-dot"></div>
+                        </div>
+                        <div class="nav-buttons">
+                            <button class="btn-secondary" onclick="prevScreen()">
+                                <i class="fas fa-arrow-left"></i> Назад
+                            </button>
+                            <button class="btn-primary" onclick="nextScreen()">
+                                Далі <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Screen 4: Notifications -->
+                <div class="onboarding-screen notifications-screen" data-screen="4">
+                    <div class="screen-content">
+                        <div class="screen-header">
+                            <div class="screen-title">Будь у курсі подій</div>
+                            <div class="screen-description">
+                                Отримуй сповіщення про нові фільми та ексклюзивні прем'єри
+                            </div>
+                        </div>
+                        
+                        <div class="notification-visual">
+                            <div class="notification-icon-large">
+                                <i class="fas fa-bell"></i>
+                            </div>
+                            <div class="notification-examples">
+                                <div class="notification-bubble">
+                                    <div class="notification-bubble-icon">
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <div class="notification-bubble-text">
+                                        <div class="notification-bubble-title">Нова прем'єра!</div>
+                                        <div class="notification-bubble-desc">Очікуваний фільм вже доступний</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="notification-bubble">
+                                    <div class="notification-bubble-icon">
+                                        <i class="fas fa-gift"></i>
+                                    </div>
+                                    <div class="notification-bubble-text">
+                                        <div class="notification-bubble-title">Спеціальна пропозиція</div>
+                                        <div class="notification-bubble-desc">Знижка 50% на річну підписку</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="screen-footer">
+                        <div class="progress-dots">
+                            <div class="progress-dot"></div>
+                            <div class="progress-dot"></div>
+                            <div class="progress-dot"></div>
+                            <div class="progress-dot active"></div>
+                            <div class="progress-dot"></div>
+                            <div class="progress-dot"></div>
+                        </div>
+                        <div class="btn-container">
+                            <button class="btn-primary" onclick="nextScreen()">
+                                <i class="fas fa-bell"></i> Увімкнути сповіщення
+                            </button>
+                            <button class="btn-secondary" onclick="nextScreen()">
+                                Пропустити
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Screen 5: Quality -->
+                <div class="onboarding-screen quality-screen" data-screen="5">
+                    <div class="screen-content" style="padding-bottom: 0;">
+                        <div class="screen-header">
+                            <div class="screen-title">Обери якість відео</div>
+                            <div class="screen-description">
+                                Ти завжди зможеш змінити це в налаштуваннях
+                            </div>
+                        </div>
+                        
+                        <div class="quality-options">
+                            <div class="quality-option" onclick="selectQuality(this)">
+                                <div class="quality-content">
+                                    <div class="quality-header">
+                                        <div class="quality-icon"><i class="fas fa-bolt"></i></div>
+                                        <div class="quality-name">Економний</div>
+                                    </div>
+                                    <div class="quality-description">
+                                        Швидке завантаження, менше трафіку. Підходить для мобільного інтернету.
+                                    </div>
+                                    <div class="quality-features">
+                                        <span class="quality-feature">480p</span>
+                                        <span class="quality-feature">Менше трафіку</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="quality-option selected" onclick="selectQuality(this)">
+                                <div class="quality-content">
+                                    <div class="quality-header">
+                                        <div class="quality-icon"><i class="fas fa-hd-video"></i></div>
+                                        <div class="quality-name">HD</div>
+                                        <div class="quality-badge">РЕКОМЕНДОВАНО</div>
+                                    </div>
+                                    <div class="quality-description">
+                                        Чітка картинка та відмінна якість звуку. Ідеально для більшості пристроїв.
+                                    </div>
+                                    <div class="quality-features">
+                                        <span class="quality-feature">1080p Full HD</span>
+                                        <span class="quality-feature">Dolby Audio</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="quality-option" onclick="selectQuality(this)">
+                                <div class="quality-content">
+                                    <div class="quality-header">
+                                        <div class="quality-icon"><i class="fas fa-crown"></i></div>
+                                        <div class="quality-name">Ultra HD 4K</div>
+                                    </div>
+                                    <div class="quality-description">
+                                        Максимальна якість зображення. Потребує швидкого інтернету та сумісного пристрою.
+                                    </div>
+                                    <div class="quality-features">
+                                        <span class="quality-feature">4K Ultra HD</span>
+                                        <span class="quality-feature">HDR</span>
+                                        <span class="quality-feature">Dolby Atmos</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="screen-footer">
+                        <div class="progress-dots">
+                            <div class="progress-dot"></div>
+                            <div class="progress-dot"></div>
+                            <div class="progress-dot"></div>
+                            <div class="progress-dot"></div>
+                            <div class="progress-dot active"></div>
+                            <div class="progress-dot"></div>
+                        </div>
+                        <div class="nav-buttons">
+                            <button class="btn-secondary" onclick="prevScreen()">
+                                <i class="fas fa-arrow-left"></i> Назад
+                            </button>
+                            <button class="btn-primary" onclick="nextScreen()">
+                                Далі <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Screen 6: Ready -->
+                <div class="onboarding-screen ready-screen" data-screen="6">
+                    <div class="screen-content">
+                        <div class="ready-animation">
+                            <div class="checkmark-circle">
+                                <div class="checkmark">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="ready-title">Усе готово!</div>
+                        <div class="ready-description">
+                            Твій профіль налаштовано.<br>Починай дивитись зараз!
+                        </div>
+                        
+                        <div class="ready-stats">
+                            <div class="ready-stat">
+                                <div class="ready-stat-value">10,000+</div>
+                                <div class="ready-stat-label">Фільмів</div>
+                            </div>
+                            <div class="ready-stat">
+                                <div class="ready-stat-value">500+</div>
+                                <div class="ready-stat-label">Серіалів</div>
+                            </div>
+                            <div class="ready-stat">
+                                <div class="ready-stat-value">4K</div>
+                                <div class="ready-stat-label">Ultra HD</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="screen-footer">
+                        <div class="progress-dots">
+                            <div class="progress-dot"></div>
+                            <div class="progress-dot"></div>
+                            <div class="progress-dot"></div>
+                            <div class="progress-dot"></div>
+                            <div class="progress-dot"></div>
+                            <div class="progress-dot active"></div>
+                        </div>
+                        <div class="btn-container">
+                            <button class="btn-primary" onclick="completeOnboarding()">
+                                <i class="fas fa-play"></i> Почати перегляд
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let currentScreen = 1;
+        const totalScreens = 6;
+        
+        function nextScreen() {
+            if (currentScreen < totalScreens) {
+                showScreen(currentScreen + 1);
+            }
+        }
+        
+        function prevScreen() {
+            if (currentScreen > 1) {
+                showScreen(currentScreen - 1);
+            }
+        }
+        
+        function showScreen(screenNumber) {
+            // Hide current screen
+            document.querySelector('.onboarding-screen.active').classList.remove('active');
+            
+            // Show target screen
+            const targetScreen = document.querySelector(`.onboarding-screen[data-screen="${screenNumber}"]`);
+            targetScreen.classList.add('active');
+            
+            currentScreen = screenNumber;
+        }
+        
+        function toggleSelection(element) {
+            element.classList.toggle('selected');
+        }
+        
+        function selectQuality(element) {
+            // Remove selected from all quality options
+            document.querySelectorAll('.quality-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            // Add selected to clicked option
+            element.classList.add('selected');
+        }
+        
+        function skipOnboarding() {
+            showScreen(6);
+        }
+        
+        function completeOnboarding() {
+            alert('Onboarding завершено! Перенаправлення до головного екрану...');
+            // In real app: navigate to main screen
+        }
+    </script>
+</body>
+</html>

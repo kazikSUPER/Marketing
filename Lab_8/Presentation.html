@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineCloud - Лабораторна робота №6: Zero-Click та Voice Search</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .slide {
+            display: none;
+            animation: slideIn 0.6s ease-out;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        .keyword-tag {
+            transition: all 0.3s ease;
+        }
+
+        .keyword-tag:hover {
+            transform: translateY(-2px);
+        }
+
+        .query-box {
+            transition: all 0.3s ease;
+        }
+
+        .query-box:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-purple-900 via-blue-900 to-blue-600 min-h-screen">
+    <!-- Slide Counter -->
+    <div class="fixed top-6 right-6 bg-white/90 backdrop-blur-sm px-5 py-3 rounded-full font-bold text-blue-900 shadow-lg z-0">
+        <span id="current-slide">1</span> / <span id="total-slides">8</span>
+    </div>
+
+    <div class="slide">
+    <div class="bg-white/95 backdrop-blur-lg rounded-3xl p-12 shadow-2xl border border-white/20">
+        <div class="flex items-center gap-4 mb-8 pb-6 border-b-4 border-orange-500">
+            <i class="fas fa-bullhorn text-orange-600 text-4xl"></i>
+            <h2 class="text-4xl font-bold text-orange-900">Media Buying Platforms for CineCloud</h2>
+            <span class="ml-auto bg-gradient-to-r from-orange-500 to-orange-700 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
+                <i class="fas fa-ad mr-2"></i>Advertising Strategy
+            </span>
+        </div>
+
+        <div class="mb-6">
+            <p class="text-lg text-gray-700 mb-4">
+                Вибір ключових платформ для розміщення реклами CineCloud — веб, соціальні мережі та мобільні додатки. Кожна з них спрямована на окрему бізнес-ціль та має свій формат банерів і креативів.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+            <!-- IMDb -->
+            <div class="query-box bg-gradient-to-br from-orange-50 to-orange-100 border-2 border-orange-300 rounded-2xl p-6 shadow-md">
+                <div class="flex items-start gap-3">
+                    <i class="fas fa-film text-orange-600 text-2xl mt-1"></i>
+                    <div class="flex-1">
+                        <h3 class="text-xl font-bold text-orange-900 mb-2">IMDb (Веб-сайт)</h3>
+                        <p class="text-gray-700 text-sm mb-3">
+                            <span class="font-semibold">URL:</span>
+                            <a href="https://www.imdb.com/" target="_blank" class="text-orange-700 underline ml-1">imdb.com</a>
+                        </p>
+                        <p class="text-gray-700 text-sm mb-3">
+                            Онлайн-каталог фільмів та серіалів з відгуками, новинами й рейтингами.
+                            <span class="font-semibold">УТП:</span> Найбільша база даних кіно, персональні рекомендації, трейлери.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            <span class="bg-orange-200 text-orange-800 px-2 py-1 rounded-full text-xs font-semibold">Display Ads</span>
+                            <span class="keyword-tag bg-gray-200 text-gray-700 px-2 py-1 rounded-full text-xs">300x250</span>
+                            <span class="keyword-tag bg-gray-200 text-gray-700 px-2 py-1 rounded-full text-xs">728x90</span>
+                            <span class="keyword-tag bg-gray-200 text-gray-700 px-2 py-1 rounded-full text-xs">160x600</span>
+                        </div>
+                        <p class="text-gray-700 text-sm">
+                            <span class="font-semibold">Бізнес-ціль:</span> 1000 нових реєстрацій через банери з CTA 
+                            <em>“Дивіться ексклюзивні прем’єри з IMDb-рейтингами!”</em>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Instagram -->
+            <div class="query-box bg-gradient-to-br from-orange-50 to-orange-100 border-2 border-orange-300 rounded-2xl p-6 shadow-md">
+                <div class="flex items-start gap-3">
+                    <i class="fab fa-instagram text-orange-600 text-2xl mt-1"></i>
+                    <div class="flex-1">
+                        <h3 class="text-xl font-bold text-orange-900 mb-2">Instagram (Соціальна мережа)</h3>
+                        <p class="text-gray-700 text-sm mb-3">
+                            <span class="font-semibold">URL:</span>
+                            <a href="https://www.instagram.com/" target="_blank" class="text-orange-700 underline ml-1">instagram.com</a>
+                        </p>
+                        <p class="text-gray-700 text-sm mb-3">
+                            Соцмережа для обміну фото та відео.
+                            <span class="font-semibold">УТП:</span> Вірусний контент, таргетинг на інтереси, reels для трейлерів.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            <span class="bg-orange-200 text-orange-800 px-2 py-1 rounded-full text-xs font-semibold">Social Media Ads</span>
+                            <span class="keyword-tag bg-gray-200 text-gray-700 px-2 py-1 rounded-full text-xs">1080x1080</span>
+                            <span class="keyword-tag bg-gray-200 text-gray-700 px-2 py-1 rounded-full text-xs">1080x1920</span>
+                            <span class="keyword-tag bg-gray-200 text-gray-700 px-2 py-1 rounded-full text-xs">1080x1350</span>
+                        </div>
+                        <p class="text-gray-700 text-sm">
+                            <span class="font-semibold">Бізнес-ціль:</span> 500 нових фоловерів і 200 підписок на колекції через вірусні reels з рекомендаціями.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TikTok -->
+            <div class="query-box bg-gradient-to-br from-orange-50 to-orange-100 border-2 border-orange-300 rounded-2xl p-6 shadow-md">
+                <div class="flex items-start gap-3">
+                    <i class="fab fa-tiktok text-orange-600 text-2xl mt-1"></i>
+                    <div class="flex-1">
+                        <h3 class="text-xl font-bold text-orange-900 mb-2">TikTok (Мобільний додаток)</h3>
+                        <p class="text-gray-700 text-sm mb-3">
+                            <span class="font-semibold">URL:</span>
+                            <span class="text-gray-600 ml-1">немає</span>
+                        </p>
+                        <p class="text-gray-700 text-sm mb-3">
+                            Платформа коротких відео.
+                            <span class="font-semibold">УТП:</span> UGC-контент про фільми, челенджі, молода аудиторія, швидке поширення тизерів.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            <span class="bg-orange-200 text-orange-800 px-2 py-1 rounded-full text-xs font-semibold">Mobile Ads</span>
+                            <span class="keyword-tag bg-gray-200 text-gray-700 px-2 py-1 rounded-full text-xs">320x50</span>
+                            <span class="keyword-tag bg-gray-200 text-gray-700 px-2 py-1 rounded-full text-xs">300x250</span>
+                            <span class="keyword-tag bg-gray-200 text-gray-700 px-2 py-1 rounded-full text-xs">9:16 Video Ads</span>
+                        </div>
+                        <p class="text-gray-700 text-sm">
+                            <span class="font-semibold">Бізнес-ціль:</span> Отримати 200 завантажень або реєстрацій через тизер-відео з кліпами новинок.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+    <!-- Navigation -->
+    <div class="fixed bottom-8 left-1/2 transform -translate-x-1/2 flex gap-4 z-50">
+        <button id="prevBtn" onclick="changeSlide(-1)" 
+                class="bg-gradient-to-r from-blue-600 to-blue-500 text-white px-8 py-4 rounded-full font-semibold shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0">
+            <i class="fas fa-arrow-left mr-2"></i>Попередній
+        </button>
+        <button id="nextBtn" onclick="changeSlide(1)" 
+                class="bg-gradient-to-r from-blue-600 to-blue-500 text-white px-8 py-4 rounded-full font-semibold shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0">
+            Наступний<i class="fas fa-arrow-right ml-2"></i>
+        </button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        
+        document.getElementById('total-slides').textContent = totalSlides;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            
+            document.getElementById('current-slide').textContent = currentSlide + 1;
+            
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function changeSlide(direction) {
+            if (direction === 1 && currentSlide < totalSlides - 1) {
+                showSlide(currentSlide + 1);
+            } else if (direction === -1 && currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                changeSlide(1);
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                changeSlide(-1);
+            }
+        });
+
+        showSlide(0);
+    </script>
+</body>
+</html>

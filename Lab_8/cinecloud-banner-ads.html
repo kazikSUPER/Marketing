@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineCloud - Рекламні банери</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a1128 0%, #1a2332 100%);
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: #64b5f6;
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2.5em;
+            text-shadow: 0 0 20px rgba(100, 181, 246, 0.5);
+        }
+
+        .banner-grid {
+            display: grid;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .banner-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(100, 181, 246, 0.2);
+        }
+
+        .banner-title {
+            color: #90caf9;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .banner-title i {
+            color: #42a5f5;
+        }
+
+        /* Display Ads - Медійна реклама (300x250) */
+        .display-banner {
+            width: 300px;
+            height: 250px;
+            background: linear-gradient(135deg, #1565c0 0%, #0d47a1 50%, #01579b 100%);
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 10px 40px rgba(21, 101, 192, 0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .display-banner:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(21, 101, 192, 0.6);
+        }
+
+        .display-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { left: -100%; }
+            50%, 100% { left: 100%; }
+        }
+
+        .display-banner .cinema-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 40px;
+            color: rgba(255, 255, 255, 0.2);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .display-content {
+            position: relative;
+            z-index: 2;
+            padding: 10px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .display-logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            letter-spacing: 2px;
+        }
+
+        .display-logo .cloud {
+            color: #64b5f6;
+        }
+
+        .display-headline {
+            font-size: 20px;
+            font-weight: bold;
+            color: #fff;
+            margin: 10px 0;
+            line-height: 1.2;
+        }
+
+        .display-subtext {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 15px;
+        }
+
+        .display-features {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .feature-tag {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            color: #fff;
+            backdrop-filter: blur(10px);
+        }
+
+        .display-cta {
+            background: linear-gradient(135deg, #42a5f5 0%, #1e88e5 100%);
+            color: #fff;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(66, 165, 245, 0.4);
+        }
+
+        .display-cta:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(66, 165, 245, 0.6);
+        }
+
+        /* Social Media Ads - Вірусна реклама (1200x628) */
+        .social-banner {
+            width: 100%;
+            max-width: 1200px;
+            height: 628px;
+            background: linear-gradient(135deg, #0d47a1 0%, #1565c0 30%, #1976d2 60%, #42a5f5 100%);
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 15px 50px rgba(13, 71, 161, 0.4);
+            transition: transform 0.3s ease;
+        }
+
+        .social-banner:hover {
+            transform: scale(1.02);
+        }
+
+        .social-bg-pattern {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+        }
+
+        .social-bg-pattern i {
+            position: absolute;
+            font-size: 80px;
+            color: #fff;
+            animation: rotate 20s linear infinite;
+        }
+
+        .social-bg-pattern i:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; }
+        .social-bg-pattern i:nth-child(2) { top: 60%; left: 70%; animation-delay: 3s; }
+        .social-bg-pattern i:nth-child(3) { top: 30%; right: 15%; animation-delay: 6s; }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .social-content {
+            position: relative;
+            z-index: 2;
+            padding: 60px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .social-left {
+            flex: 1;
+        }
+
+        .social-badge {
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .social-logo {
+            font-size: 48px;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .social-headline {
+            font-size: 52px;
+            font-weight: bold;
+            color: #fff;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .social-description {
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        .social-stats {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: bold;
+            color: #64b5f6;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .social-cta {
+            display: inline-block;
+            background: #fff;
+            color: #0d47a1;
+            padding: 18px 40px;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
+        }
+
+        .social-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.4);
+        }
+
+        .social-right {
+            position: relative;
+            width: 400px;
+            height: 500px;
+        }
+
+        .movie-card {
+            position: absolute;
+            width: 200px;
+            height: 280px;
+            background: linear-gradient(135deg, #1e88e5 0%, #1565c0 100%);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            color: rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .movie-card:nth-child(1) {
+            top: 0;
+            left: 0;
+            z-index: 3;
+            animation: cardFloat1 4s ease-in-out infinite;
+        }
+
+        .movie-card:nth-child(2) {
+            top: 50px;
+            left: 100px;
+            z-index: 2;
+            animation: cardFloat2 4s ease-in-out infinite;
+        }
+
+        .movie-card:nth-child(3) {
+            top: 100px;
+            left: 200px;
+            z-index: 1;
+            animation: cardFloat3 4s ease-in-out infinite;
+        }
+
+        @keyframes cardFloat1 {
+            0%, 100% { transform: translateY(0px) rotate(-5deg); }
+            50% { transform: translateY(-20px) rotate(-5deg); }
+        }
+
+        @keyframes cardFloat2 {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(0deg); }
+        }
+
+        @keyframes cardFloat3 {
+            0%, 100% { transform: translateY(0px) rotate(5deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+        }
+
+        /* Mobile Ads - Тизерна реклама (320x100) */
+        .mobile-banner {
+            width: 320px;
+            height: 100px;
+            background: linear-gradient(90deg, #0d47a1 0%, #1976d2 50%, #42a5f5 100%);
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 6px 25px rgba(13, 71, 161, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .mobile-banner:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(13, 71, 161, 0.6);
+        }
+
+        .mobile-glow {
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(100, 181, 246, 0.3) 0%, transparent 70%);
+            animation: glowMove 4s ease-in-out infinite;
+        }
+
+        @keyframes glowMove {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(20px, 10px); }
+        }
+
+        .mobile-content {
+            position: relative;
+            z-index: 2;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+        }
+
+        .mobile-left {
+            flex: 1;
+        }
+
+        .mobile-icon {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: #fff;
+            margin-bottom: 5px;
+            backdrop-filter: blur(10px);
+        }
+
+        .mobile-text {
+            color: #fff;
+        }
+
+        .mobile-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 2px;
+        }
+
+        .mobile-subtitle {
+            font-size: 11px;
+            opacity: 0.9;
+        }
+
+        .mobile-right {
+            text-align: center;
+        }
+
+        .mobile-offer {
+            background: rgba(255, 255, 255, 0.3);
+            padding: 8px 15px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .mobile-offer-text {
+            font-size: 10px;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .mobile-price {
+            margin: 4px 0;
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .mobile-cta-btn {
+            background: #fff;
+            color: #0d47a1;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(255, 255, 255, 0.3);
+        }
+
+        .mobile-cta-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.5);
+        }
+
+        .banner-info {
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(100, 181, 246, 0.1);
+            border-radius: 10px;
+            border-left: 4px solid #42a5f5;
+        }
+
+        .banner-info-title {
+            color: #64b5f6;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .banner-info-text {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 768px) {
+            .social-content {
+                flex-direction: column;
+                padding: 30px;
+            }
+
+            .social-right {
+                display: none;
+            }
+
+            .social-headline {
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <div class="banner-grid">
+            <!-- Display Ads - Медійна реклама -->
+            <div class="banner-section">
+                <h2 class="banner-title">
+                    <i class="fas fa-desktop"></i>
+                    Display Ads - Медійна реклама (300×250)
+                </h2>
+                <div class="display-banner" onclick="handleClick('display')">
+                    <i class="fas fa-film cinema-icon"></i>
+                    <div class="display-content">
+                        <div>
+                            <div class="display-logo">
+                                CINE<span class="cloud">CLOUD</span>
+                            </div>
+                            <div class="display-headline">
+                                Тисячі фільмів в одному кліку
+                            </div>
+                            <div class="display-subtext">
+                                Дивіться улюблені фільми та серіали без обмежень
+                            </div>
+                            <div class="display-features">
+                                <span class="feature-tag"><i class="fas fa-hd"></i> 4K Ultra HD</span>
+                                <span class="feature-tag"><i class="fas fa-mobile-alt"></i> Всі пристрої</span>
+                                <span class="feature-tag"><i class="fas fa-star"></i> Без реклами</span>
+                            </div>
+                        </div>
+                        <button class="display-cta">
+                            <i class="fas fa-play"></i> Спробувати безкоштовно
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Social Media Ads - Вірусна реклама -->
+            <div class="banner-section">
+                <h2 class="banner-title">
+                    <i class="fas fa-share-alt"></i>
+                    Social Media Ads - Вірусна реклама (1200×628)
+                </h2>
+                <div class="social-banner" onclick="handleClick('social')">
+                    <div class="social-bg-pattern">
+                        <i class="fas fa-film"></i>
+                        <i class="fas fa-video"></i>
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                    <div class="social-content">
+                        <div class="social-left">
+                            <div class="social-badge">
+                                <i class="fas fa-fire"></i>
+                                Новинка 2025 року
+                            </div>
+                            <div class="social-logo">
+                                CINE<span style="color: #64b5f6;">CLOUD</span>
+                            </div>
+                            <div class="social-headline">
+                                Кіно нового покоління
+                            </div>
+                            <div class="social-description">
+                                Відкрийте для себе найбільшу колекцію фільмів та серіалів. 
+                                Персональні рекомендації, преміум якість, доступ з будь-якого пристрою.
+                            </div>
+                            <div class="social-stats">
+                                <div class="stat-item">
+                                    <span class="stat-number">50K+</span>
+                                    <span class="stat-label">Фільмів</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-number">1M+</span>
+                                    <span class="stat-label">Користувачів</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-number">4K</span>
+                                    <span class="stat-label">Ultra HD</span>
+                                </div>
+                            </div>
+                            <a href="#" class="social-cta">
+                                <i class="fas fa-play"></i> Почати дивитись
+                            </a>
+                        </div>
+                        <div class="social-right">
+                            <div class="movie-card">
+                                <i class="fas fa-film"></i>
+                            </div>
+                            <div class="movie-card">
+                                <i class="fas fa-video"></i>
+                            </div>
+                            <div class="movie-card">
+                                <i class="fas fa-tv"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile Ads - Тизерна реклама -->
+            <div class="banner-section">
+                <h2 class="banner-title">
+                    <i class="fas fa-mobile-alt"></i>
+                    Mobile Ads - Тизерна реклама (320×100)
+                </h2>
+                <div class="mobile-banner" onclick="handleClick('mobile')">
+                    <div class="mobile-glow"></div>
+                    <div class="mobile-content">
+                        <div class="mobile-left">
+                            <div class="mobile-icon">
+                                <i class="fas fa-film"></i>
+                            </div>
+                            <div class="mobile-text">
+                                <div class="mobile-title">CINECLOUD</div>
+                                <div class="mobile-subtitle">Твоє кіно завжди з тобою</div>
+                            </div>
+                        </div>
+                        <div class="mobile-right">
+                            <div class="mobile-offer">
+                                <div class="mobile-offer-text">ПЕРШИЙ МІСЯЦЬ</div>
+                            </div>
+                            <div class="mobile-price">БЕЗКОШТОВНО</div>
+                            <button class="mobile-cta-btn">
+                                Приєднатись <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+       
+    </script>
+</body>
+</html>

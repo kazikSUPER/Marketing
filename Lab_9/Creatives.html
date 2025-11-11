@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineCloud - Креативи для соціальних мереж</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a1929 0%, #1a2332 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .slider-container {
+            max-width: 1200px;
+            width: 100%;
+            position: relative;
+        }
+
+        .slider-wrapper {
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .slides {
+            display: flex;
+            transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .slide {
+            min-width: 100%;
+            position: relative;
+        }
+
+        /* ===== КРЕАТИВ 1: ДЕНЬ ГІДНОСТІ ТА СВОБОДИ ===== */
+        .creative-1 {
+            background: #ffffff;
+            padding: 50px;
+            min-height: 750px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Декоративні фонові елементи */
+        .creative-1 .bg-circle-red {
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 400px;
+            height: 400px;
+            background: #d32f2f;
+            border-radius: 50%;
+            opacity: 0.06;
+            z-index: 1;
+        }
+
+        .creative-1 .bg-circle-black {
+            position: absolute;
+            bottom: -120px;
+            left: -120px;
+            width: 450px;
+            height: 450px;
+            background: #000000;
+            border-radius: 50%;
+            opacity: 0.04;
+            z-index: 1;
+        }
+
+        .creative-1 .bg-lines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1;
+        }
+
+        .creative-1 .bg-line {
+            position: absolute;
+            background: #d32f2f;
+            opacity: 0.08;
+        }
+
+        .creative-1 .bg-line-1 {
+            width: 3px;
+            height: 180px;
+            top: 20%;
+            left: 18%;
+            transform: rotate(20deg);
+        }
+
+        .creative-1 .bg-line-2 {
+            width: 3px;
+            height: 140px;
+            top: 55%;
+            right: 12%;
+            transform: rotate(-30deg);
+        }
+
+        .creative-1 .bg-line-3 {
+            width: 220px;
+            height: 3px;
+            bottom: 35%;
+            left: 8%;
+            transform: rotate(12deg);
+        }
+
+        /* Header */
+        .creative-1 .header {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 45px;
+            padding-bottom: 18px;
+            border-bottom: 3px solid #d32f2f;
+        }
+
+        .creative-1 .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #000000;
+            font-size: 38px;
+            font-weight: 900;
+            letter-spacing: -1px;
+        }
+
+        .creative-1 .logo i {
+            font-size: 44px;
+            color: #d32f2f;
+        }
+
+        .creative-1 .date-badge {
+            background: #d32f2f;
+            padding: 12px 26px;
+            border-radius: 8px;
+            color: white;
+            font-size: 15px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 6px 20px rgba(211, 47, 47, 0.25);
+        }
+
+        /* Main Content */
+        .creative-1 .main-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            gap: 45px;
+            align-items: center;
+            flex-grow: 1;
+            margin: 30px 0;
+        }
+
+        .creative-1 .left-section {
+            flex: 1.1;
+            padding-right: 20px;
+        }
+
+        .creative-1 .event-tag {
+            display: inline-block;
+            background: #000000;
+            color: white;
+            padding: 10px 22px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 22px;
+        }
+
+        .creative-1 .event-tag i {
+            color: #d32f2f;
+            margin-right: 8px;
+            font-size: 15px;
+        }
+
+        .creative-1 .main-title {
+            font-size: 72px;
+            color: #000000;
+            font-weight: 900;
+            line-height: 0.95;
+            margin-bottom: 28px;
+            letter-spacing: -3px;
+        }
+
+        .creative-1 .main-title .highlight {
+            color: #d32f2f;
+            position: relative;
+            display: inline-block;
+        }
+
+        .creative-1 .main-title .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: 8px;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background: #d32f2f;
+            opacity: 0.15;
+            z-index: -1;
+        }
+
+        .creative-1 .subtitle {
+            font-size: 20px;
+            color: #424242;
+            margin-bottom: 35px;
+            line-height: 1.6;
+            max-width: 480px;
+        }
+
+        .creative-1 .cta-button {
+            background: #d32f2f;
+            color: white;
+            padding: 20px 48px;
+            border: none;
+            border-radius: 8px;
+            font-size: 19px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 24px rgba(211, 47, 47, 0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .creative-1 .cta-button:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(211, 47, 47, 0.45);
+            background: #b71c1c;
+        }
+
+        .creative-1 .access-note {
+            margin-top: 18px;
+            color: #616161;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .creative-1 .access-note i {
+            color: #d32f2f;
+            font-size: 16px;
+        }
+
+        /* Movies Grid */
+        .creative-1 .movies-section {
+            flex: 0.9;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+
+        .creative-1 .movie-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.35s ease;
+            border: 3px solid #000000;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .creative-1 .movie-card:hover {
+            transform: translateY(-10px) rotate(-2deg);
+            box-shadow: 0 15px 35px rgba(211, 47, 47, 0.35);
+            border-color: #d32f2f;
+        }
+
+        .creative-1 .movie-poster {
+            width: 100%;
+            height: 240px;
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .creative-1 .movie-poster::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.05) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .creative-1 .movie-card:hover .movie-poster::before {
+            opacity: 1;
+        }
+
+        .creative-1 .movie-poster i {
+            font-size: 46px;
+            color: #d32f2f;
+            z-index: 1;
+            filter: drop-shadow(0 4px 15px rgba(211, 47, 47, 0.7));
+            display: none;
+        }
+
+        .creative-1 .movie-title {
+            padding: 14px;
+            background: white;
+        }
+
+        .creative-1 .movie-title h4 {
+            color: #000000;
+            font-size: 15px;
+            font-weight: 700;
+            text-align: center;
+            line-height: 1.3;
+            margin: 0;
+        }
+
+        /* Info Bar */
+        .creative-1 .info-bar {
+            position: relative;
+            z-index: 2;
+            background: #000000;
+            color: white;
+            padding: 22px 35px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-top: 35px;
+        }
+
+        .creative-1 .info-item {
+            text-align: center;
+        }
+
+        .creative-1 .info-item i {
+            font-size: 28px;
+            color: #d32f2f;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .creative-1 .info-item .label {
+            font-size: 12px;
+            color: #9e9e9e;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        .creative-1 .info-item .value {
+            font-size: 17px;
+            font-weight: 700;
+            color: white;
+        }
+
+        /* ===== КРЕАТИВ 2: МІСЯЧНЕ ЗАТЕМНЕННЯ ===== */
+        .creative-2 {
+            background: linear-gradient(135deg, #0c1e3d 0%, #1e3a5f 50%, #2563eb 100%);
+            padding: 60px 40px;
+            min-height: 700px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .creative-2::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.3) 0%, transparent 60%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+            50% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.1); }
+        }
+
+        .creative-2 .stars-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .creative-2 .stars-background i {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.4);
+            animation: starTwinkle 4s ease-in-out infinite;
+        }
+
+        .creative-2 .stars-background i:nth-child(1) {
+            top: 10%; left: 15%; font-size: 8px;
+            animation-delay: 0s;
+        }
+
+        .creative-2 .stars-background i:nth-child(2) {
+            top: 20%; right: 20%; font-size: 6px;
+            animation-delay: 0.8s;
+        }
+
+        .creative-2 .stars-background i:nth-child(3) {
+            top: 35%; left: 8%; font-size: 10px;
+            animation-delay: 1.6s;
+        }
+
+        .creative-2 .stars-background i:nth-child(4) {
+            top: 50%; right: 12%; font-size: 7px;
+            animation-delay: 2.4s;
+        }
+
+        .creative-2 .stars-background i:nth-child(5) {
+            bottom: 40%; left: 18%; font-size: 9px;
+            animation-delay: 3.2s;
+        }
+
+        .creative-2 .stars-background i:nth-child(6) {
+            bottom: 25%; right: 15%; font-size: 8px;
+            animation-delay: 1.2s;
+        }
+
+        .creative-2 .stars-background i:nth-child(7) {
+            top: 15%; left: 45%; font-size: 6px;
+            animation-delay: 2s;
+        }
+
+        .creative-2 .stars-background i:nth-child(8) {
+            bottom: 15%; left: 40%; font-size: 7px;
+            animation-delay: 2.8s;
+        }
+
+        @keyframes starTwinkle {
+            0%, 100% { opacity: 0.2; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.5); }
+        }
+
+        .creative-2 .header {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 30px;
+        }
+
+        .creative-2 .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: white;
+            font-size: 32px;
+            font-weight: bold;
+        }
+
+        .creative-2 .logo i {
+            font-size: 40px;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+        }
+
+        .creative-2 .event-badge {
+            background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+            padding: 15px 30px;
+            border-radius: 50px;
+            color: white;
+            font-size: 15px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+        }
+
+        .creative-2 .content {
+            position: relative;
+            z-index: 2;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .creative-2 .moon-icon-container {
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .creative-2 .orbit-icons {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+        }
+
+        .creative-2 .orbit-icons i {
+            position: absolute;
+            font-size: 20px;
+            color: rgba(96, 165, 250, 0.5);
+            animation: orbit 8s linear infinite;
+        }
+
+        .creative-2 .orbit-icons i:nth-child(1) {
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .creative-2 .orbit-icons i:nth-child(2) {
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+            animation-delay: 2s;
+        }
+
+        .creative-2 .orbit-icons i:nth-child(3) {
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            animation-delay: 4s;
+        }
+
+        .creative-2 .orbit-icons i:nth-child(4) {
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            animation-delay: 6s;
+        }
+
+        @keyframes orbit {
+            0% { opacity: 0.3; }
+            25% { opacity: 0.8; }
+            50% { opacity: 0.3; }
+            75% { opacity: 0.8; }
+            100% { opacity: 0.3; }
+        }
+
+        .creative-2 .moon-icon {
+            font-size: 120px;
+            color: #60a5fa;
+            filter: drop-shadow(0 0 40px rgba(96, 165, 250, 0.6));
+            animation: moonGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes moonGlow {
+            0%, 100% { filter: drop-shadow(0 0 40px rgba(96, 165, 250, 0.6)); }
+            50% { filter: drop-shadow(0 0 60px rgba(96, 165, 250, 0.9)); }
+        }
+
+        .creative-2 .event-date {
+            font-size: 22px;
+            color: #93c5fd;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .creative-2 .main-title {
+            font-size: 58px;
+            color: white;
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 25px;
+            text-shadow: 0 6px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .creative-2 .description {
+            font-size: 24px;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+            margin-bottom: 45px;
+            max-width: 800px;
+        }
+
+        .creative-2 .offer-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            padding: 35px 50px;
+            border-radius: 20px;
+            margin-bottom: 40px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .creative-2 .offer-text {
+            font-size: 20px;
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .creative-2 .offer-highlight {
+            font-size: 48px;
+            font-weight: 900;
+            color: #fbbf24;
+            text-shadow: 0 4px 20px rgba(251, 191, 36, 0.5);
+        }
+
+        .creative-2 .features-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
+            max-width: 900px;
+        }
+
+        .creative-2 .feature-item {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .creative-2 .feature-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-5px);
+            border-color: #60a5fa;
+        }
+
+        .creative-2 .feature-item i {
+            font-size: 32px;
+            margin-bottom: 12px;
+            color: #60a5fa;
+        }
+
+        .creative-2 .feature-item .title {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .creative-2 .cta-primary {
+            background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+            color: white;
+            padding: 24px 60px;
+            border: none;
+            border-radius: 50px;
+            font-size: 22px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.5);
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .creative-2 .cta-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.7);
+        }
+
+        /* Navigation */
+        .slider-nav {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 10;
+        }
+
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .nav-dot.active {
+            background: white;
+            width: 40px;
+            border-radius: 10px;
+        }
+
+        .slider-arrows {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+            z-index: 10;
+            pointer-events: none;
+            padding: 0;
+        }
+        
+        .arrow {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: all;
+        }
+        
+        .arrow-left {
+            margin-left: -80px;
+        }
+        
+        .arrow-right {
+            margin-right: -80px;
+        }
+
+        .arrow:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            .creative-1 .main-content {
+                flex-direction: column;
+                gap: 30px;
+            }
+
+            .creative-1 .main-title {
+                font-size: 48px;
+            }
+
+            .creative-1 .movies-section {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .creative-1 .info-bar {
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+
+            .creative-2 .main-title {
+                font-size: 40px;
+            }
+
+            .creative-2 .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .creative-2 .moon-icon {
+                font-size: 80px;
+            }
+            
+            .arrow-left {
+                margin-left: 20px;
+            }
+            
+            .arrow-right {
+                margin-right: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slider-container">
+        <div class="slider-wrapper">
+            <div class="slides" id="slides">
+                <!-- Slide 1: День Гідності та Свободи -->
+                <div class="slide creative-1">
+                    <!-- Декоративні фонові елементи -->
+                    <div class="bg-circle-red"></div>
+                    <div class="bg-circle-black"></div>
+                    <div class="bg-lines">
+                        <div class="bg-line bg-line-1"></div>
+                        <div class="bg-line bg-line-2"></div>
+                        <div class="bg-line bg-line-3"></div>
+                    </div>
+
+                    <!-- Header -->
+                    <div class="header">
+                        <div class="logo">
+                            <i class="fas fa-film"></i>
+                            <span>CineCloud</span>
+                        </div>
+                        <div class="date-badge">
+                            <i class="fas fa-calendar-star"></i>
+                            <span>21 листопада 2025</span>
+                        </div>
+                    </div>
+
+                    <!-- Main Content -->
+                    <div class="main-content">
+                        <div class="left-section">
+                            <div class="event-tag">
+                                <i class="fas fa-flag"></i>
+                                День Гідності та Свободи
+                            </div>
+                            
+                            <h1 class="main-title">
+                                Кіно про<br>
+                                <span class="highlight">Свободу</span><br>
+                                й Гідність
+                            </h1>
+                            
+                            <p class="subtitle">
+                                Історії про боротьбу, незламність духу та силу народу, що захищає свою свободу
+                            </p>
+                            
+                            <button class="cta-button">
+                                <span>Дивитись безкоштовно</span>
+                                <i class="fas fa-play"></i>
+                            </button>
+                            
+                            <div class="access-note">
+                                <i class="fas fa-heart"></i>
+                                <span>Вільний доступ 21-22 листопада</span>
+                            </div>
+                        </div>
+
+                        <!-- Movies Grid -->
+                        <div class="movies-section">
+                            <div class="movie-card">
+                                <div class="movie-poster" style="background-image: url('img/kiborhy.jpg');">
+                                </div>
+                                <div class="movie-title">
+                                    <h4>Кіборги</h4>
+                                </div>
+                            </div>
+                            
+                            <div class="movie-card">
+                                <div class="movie-poster" style="background-image: url('img/all-in-fire.jpg');">
+                                </div>
+                                <div class="movie-title">
+                                    <h4>Все палає</h4>
+                                </div>
+                            </div>
+                            
+                            <div class="movie-card">
+                                <div class="movie-poster" style="background-image: url('img/crimea-how-it-was.jpeg');">
+                                </div>
+                                <div class="movie-title">
+                                    <h4>Крим. Як це було</h4>
+                                </div>
+                            </div>
+                            
+                            <div class="movie-card">
+                                <div class="movie-poster" style="background-image: url('img/winter-in-fire.jpg');">
+                                </div>
+                                <div class="movie-title">
+                                    <h4>Зима у вогні</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Info Bar -->
+                    <div class="info-bar">
+                        <div class="info-item">
+                            <i class="fas fa-video"></i>
+                            <div class="label">Формат</div>
+                            <div class="value">Документальні</div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-clock"></i>
+                            <div class="label">Тривалість</div>
+                            <div class="value">60-120 хв</div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-star"></i>
+                            <div class="label">Рейтинг</div>
+                            <div class="value">9.2/10</div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-infinity"></i>
+                            <div class="label">Доступ</div>
+                            <div class="value">Безлімітний</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 2: Місячне затемнення -->
+                <div class="slide creative-2">
+                    <div class="stars-background">
+                        <i class="fas fa-circle"></i>
+                        <i class="fas fa-circle"></i>
+                        <i class="fas fa-circle"></i>
+                        <i class="fas fa-circle"></i>
+                        <i class="fas fa-circle"></i>
+                        <i class="fas fa-circle"></i>
+                        <i class="fas fa-circle"></i>
+                        <i class="fas fa-circle"></i>
+                    </div>
+                    
+                    <div class="header">
+                        <div class="logo">
+                            <i class="fas fa-film"></i>
+                            <span>CineCloud</span>
+                        </div>
+                        <div class="event-badge">
+                            <i class="fas fa-moon"></i>
+                            7 вересня 2025
+                        </div>
+                    </div>
+                    
+                    <div class="content">
+                        <div class="moon-icon-container">
+                            <div class="orbit-icons">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <i class="fas fa-moon moon-icon"></i>
+                        </div>
+                        
+                        <div class="event-date">Повне місячне затемнення</div>
+                        
+                        <h1 class="main-title">
+                            Ніч Космічного<br>
+                            Кіно
+                        </h1>
+                        
+                        <p class="description">
+                            Насолоджуйся найкращими космічними фільмами<br>
+                            під час унікального астрономічного явища
+                        </p>
+                        
+                        <div class="offer-container">
+                            <div class="offer-text">Спеціальна пропозиція цієї ночі:</div>
+                            <div class="offer-highlight">3 місяці за ціною 1</div>
+                        </div>
+
+                        <div class="features-grid">
+                            <div class="feature-item">
+                                <i class="fas fa-rocket"></i>
+                                <div class="title">Космічні епопеї</div>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-satellite"></i>
+                                <div class="title">Наукова фантастика</div>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-meteor"></i>
+                                <div class="title">Документалістика</div>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-user-astronaut"></i>
+                                <div class="title">Астрономія</div>
+                            </div>
+                        </div>
+
+                        <button class="cta-primary">
+                            <span>Приєднатись до кіноночі</span>
+                            <i class="fas fa-star"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Dots -->
+            <div class="slider-nav">
+                <div class="nav-dot active" onclick="goToSlide(0)"></div>
+                <div class="nav-dot" onclick="goToSlide(1)"></div>
+            </div>
+
+            <!-- Arrow Navigation -->
+            <div class="slider-arrows">
+                <button class="arrow arrow-left" onclick="previousSlide()">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="arrow arrow-right" onclick="nextSlide()">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.getElementById('slides');
+        const dots = document.querySelectorAll('.nav-dot');
+        const totalSlides = 2;
+
+        function goToSlide(index) {
+            if (index < 0) index = totalSlides - 1;
+            if (index >= totalSlides) index = 0;
+            
+            currentSlide = index;
+            slides.style.transform = `translateX(-${currentSlide * 100}%)`;
+            
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentSlide);
+            });
+        }
+
+        function nextSlide() {
+            goToSlide(currentSlide + 1);
+        }
+
+        function previousSlide() {
+            goToSlide(currentSlide - 1);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') previousSlide();
+            if (e.key === 'ArrowRight') nextSlide();
+        });
+
+        // Touch/swipe support for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        slides.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        slides.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            if (touchStartX - touchEndX > 50) nextSlide();
+            if (touchEndX - touchStartX > 50) previousSlide();
+        }
+    </script>
+</body>
+</html>

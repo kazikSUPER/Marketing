@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Виконання завдань ЛР №10 для Cinecloud</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .slide {
+            display: none;
+            animation: slideIn 0.6s ease-out;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        .keyword-tag {
+            transition: all 0.3s ease;
+        }
+
+        .keyword-tag:hover {
+            transform: translateY(-2px);
+        }
+
+        .media-card {
+            background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+            border: 2px solid #d1d5db;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-indigo-900 via-indigo-600 to-indigo-400 min-h-screen">
+    <!-- Slide Counter -->
+    <div class="fixed top-6 right-6 bg-white/90 backdrop-blur-sm px-5 py-3 rounded-full font-bold text-indigo-900 shadow-lg z-50">
+        <span id="current-slide">1</span> / <span id="total-slides">4</span>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 py-8">
+
+        <!-- Slide 1: Завдання 1 - База медіа -->
+        <div class="slide active">
+            <div class="bg-white/95 backdrop-blur-lg rounded-3xl p-12 shadow-2xl border border-white/20">
+                <div class="flex items-center gap-4 mb-8 pb-6 border-b-4 border-indigo-500">
+                    <i class="fas fa-rss text-indigo-600 text-4xl"></i>
+                    <h2 class="text-4xl font-bold text-indigo-900">Завдання 1: База медіа для PR</h2>
+                </div>
+
+                <div class="mb-6">
+                    <h3 class="text-2xl font-semibold text-indigo-800 mb-2">5 релевантних українських медіа для Cinecloud</h3>
+                    <p class="text-gray-700">Орієнтація на IT, кіно, культуру; аудиторія 18-45 років. Дані SimilarWeb (жовтень 2025, наближені).</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-6 mt-6">
+                    <div class="media-card p-4 rounded-xl">
+                        <h4 class="font-bold text-indigo-900 mb-2">1. ITC.ua</h4>
+                        <p><strong>URL:</strong> <a href="https://itc.ua/" class="text-indigo-600 hover:underline">itc.ua</a> | <strong>Тематика:</strong> IT, стримінг, кіно</p>
+                        <p><strong>Відвідувачі:</strong> ~3.5 млн/міс. | <strong>Чим цікаве:</strong> Tech-ентузіасти, локальні сервіси</p>
+                        <p><strong>Приклад:</strong> "HBO Max запустився в Україні" | URL: <a href="https://itc.ua/ua/novini/v-ukrayini-ofitsijno-zapratsyuye-stryming-hbo-max-okremo-vid-megogo-za-tsinoyu-vid-e7-99-misyats/" class="text-indigo-600">посилання</a> | Автор: Редакція</p>
+                        <p><strong>Теми для Cinecloud:</strong> "Український стримінг проти піратства"</p>
+                    </div>
+                    <div class="media-card p-4 rounded-xl">
+                        <h4 class="font-bold text-indigo-900 mb-2">2. Mezha Media</h4>
+                        <p><strong>URL:</strong> <a href="https://mezha.media/" class="text-indigo-600 hover:underline">mezha.media</a> | <strong>Тематика:</strong> Технології, кіно</p>
+                        <p><strong>Відвідувачі:</strong> ~0.8 млн/міс. | <strong>Чим цікаве:</strong> IT-фахівці, інновації</p>
+                        <p><strong>Приклад:</strong> "HBO Max в Україні" | URL: <a href="https://mezha.media/en/news/hbo-max-works-in-ukraine-305572/" class="text-indigo-600">посилання</a> | Автор: Олена Городецька</p>
+                        <p><strong>Теми для Cinecloud:</strong> "AI-рекомендації в українському кіно"</p>
+                    </div>
+                    <div class="media-card p-4 rounded-xl">
+                        <h4 class="font-bold text-indigo-900 mb-2">3. Suspilne Media</h4>
+                        <p><strong>URL:</strong> <a href="https://suspilne.media/" class="text-indigo-600 hover:underline">suspilne.media</a> | <strong>Тематика:</strong> Культура, кіно</p>
+                        <p><strong>Відвідувачі:</strong> ~4.2 млн/міс. | <strong>Чим цікаве:</strong> Патріотична аудиторія, локальний контент</p>
+                        <p><strong>Приклад:</strong> "Українські фільми на Cottbus 2025" | URL: <a href="https://suspilne.media/culture/1146514-ukrainski-filmi-uvijsli-do-konkursnih-program-filmfestival-cottbus/" class="text-indigo-600">посилання</a> | Автор: Колектив</p>
+                        <p><strong>Теми для Cinecloud:</strong> "Ексклюзивні прем'єри українського кіно"</p>
+                    </div>
+                    <div class="media-card p-4 rounded-xl">
+                        <h4 class="font-bold text-indigo-900 mb-2">4. Hromadske</h4>
+                        <p><strong>URL:</strong> <a href="https://hromadske.ua/" class="text-indigo-600 hover:underline">hromadske.ua</a> | <strong>Тематика:</strong> Суспільство, культура</p>
+                        <p><strong>Відвідувачі:</strong> ~1.2 млн/міс. | <strong>Чим цікаве:</strong> Активна молодь, етичний контент</p>
+                        <p><strong>Приклад:</strong> "Тизер 'Слово о полку Ігоря'" | URL: <a href="https://hromadske.ua/kino/253409-tyzer-dlia-istorychnoho-ekshena-slovo-o-polku-ihoria-stvoryly-za-dopomohoiu-shi-iak-vin-vyhliadaye" class="text-indigo-600">посилання</a> | Автор: Редакція</p>
+                        <p><strong>Теми для Cinecloud:</strong> "Культурна деокупація через стримінг"</p>
+                    </div>
+                    <div class="media-card p-4 rounded-xl">
+                        <h4 class="font-bold text-indigo-900 mb-2">5. Telegraf</h4>
+                        <p><strong>URL:</strong> <a href="https://telegraf.com.ua/" class="text-indigo-600 hover:underline">telegraf.com.ua</a> | <strong>Тематика:</strong> Розваги, шоу-біз</p>
+                        <p><strong>Відвідувачі:</strong> ~2.1 млн/міс. | <strong>Чим цікаве:</strong> Масова аудиторія 18-35</p>
+                        <p><strong>Приклад:</strong> "Фільми про підлітків 2025" | URL: <a href="https://news.telegraf.com.ua/ukr/kultura/2025-03-24/5902989-ne-tolko-yunoshestvo-podborka-luchshikh-filmov-i-serialov-pro-podrostkov-video" class="text-indigo-600">посилання</a> | Автор: Редакція</p>
+                        <p><strong>Теми для Cinecloud:</strong> "Прем'єри серіалів без реклами"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Завдання 2 - Purpose Washing -->
+        <div class="slide">
+            <div class="bg-white/95 backdrop-blur-lg rounded-3xl p-12 shadow-2xl border border-white/20">
+                <div class="flex items-center gap-4 mb-8 pb-6 border-b-4 border-indigo-500">
+                    <i class="fas fa-exclamation-triangle text-indigo-600 text-4xl"></i>
+                    <h2 class="text-4xl font-bold text-indigo-900">Завдання 2: Purpose Washing</h2>
+                </div>
+
+                <div class="mb-6">
+                    <h3 class="text-2xl font-semibold text-indigo-800 mb-2">Потенційні цілі, що призведуть до звинувачень</h3>
+                    <p class="text-gray-700">Фальшиві заяви без реальних дій для Cinecloud (по 3 на категорію).</p>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between p-4 bg-indigo-50 rounded-xl border-l-4 border-pink-500">
+                        <span class="text-indigo-900 font-semibold">Pinkwashing</span>
+                        <div class="text-sm text-gray-600 space-y-1">
+                            <p>1. "50% контенту від жінок-режисерок" (без фінансування).</p>
+                            <p>2. "Партнерство з фондами проти раку" (лише плакати).</p>
+                            <p>3. "Жіночі історії в серіалах" (алгоритми не просувають).</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between p-4 bg-indigo-50 rounded-xl border-l-4 border-purple-500">
+                        <span class="text-indigo-900 font-semibold">Purplewashing</span>
+                        <div class="text-sm text-gray-600 space-y-1">
+                            <p>1. "Феміністичні рекомендації" (без перевірки стереотипів).</p>
+                            <p>2. "Підтримка ЛГБТК+ через райдужні іконки" (без інклюзивності).</p>
+                            <p>3. "Purple-кампанія: історії жінок у кіно" (без інвестицій).</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between p-4 bg-indigo-50 rounded-xl border-l-4 border-brown-500">
+                        <span class="text-indigo-900 font-semibold">Brownwashing</span>
+                        <div class="text-sm text-gray-600 space-y-1">
+                            <p>1. "Різноманітні аватари для етносів" (контент європейський).</p>
+                            <p>2. "Антидискримінаційна політика" (без модерації).</p>
+                            <p>3. "Історії етнічних меншин" (лише один плейлист).</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between p-4 bg-indigo-50 rounded-xl border-l-4 border-indigo-500">
+                        <span class="text-indigo-900 font-semibold">Rainbowwashing</span>
+                        <div class="text-sm text-gray-600 space-y-1">
+                            <p>1. "Pride-місяць: спеціальні стріми" (без річного супроводу).</p>
+                            <p>2. "ЛГБТК+ серіали в рекомендаціях" (цензура в регіонах).</p>
+                            <p>3. "Партнерство з організаціями" (без донатів).</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between p-4 bg-indigo-50 rounded-xl border-l-4 border-green-500">
+                        <span class="text-indigo-900 font-semibold">Greenwashing</span>
+                        <div class="text-sm text-gray-600 space-y-1">
+                            <p>1. "Зелена енергія для серверів" (на викопному паливі).</p>
+                            <p>2. "Зменшення вуглецевого сліду" (без оптимізації).</p>
+                            <p>3. "Документальні про природу" (трафік не компенсується).</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between p-4 bg-indigo-50 rounded-xl border-l-4 border-blue-500">
+                        <span class="text-indigo-900 font-semibold">Bluewashing</span>
+                        <div class="text-sm text-gray-600 space-y-1">
+                            <p>1. "Партнерство з ООН" (без перевірки контенту).</p>
+                            <p>2. "Етичний контент без насильства" (без модерації відгуків).</p>
+                            <p>3. "Стримінг для миру" (слоган без дій).</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Завдання 3 - Протидія хейтингу (з додатковими деталями) -->
+        <div class="slide">
+            <div class="bg-white/95 backdrop-blur-lg rounded-3xl p-12 shadow-2xl border border-white/20">
+                <div class="flex items-center gap-4 mb-8 pb-6 border-b-4 border-indigo-500">
+                    <i class="fas fa-thumbs-down text-indigo-600 text-4xl"></i>
+                    <h2 class="text-4xl font-bold text-indigo-900">Завдання 3: Протидія хейтингу</h2>
+                </div>
+
+                <div class="mb-6">
+                    <h3 class="text-2xl font-semibold text-indigo-800 mb-2">Стратегія "задобрення" для Cinecloud</h3>
+                    <p class="text-gray-700">Перетворення негативу на керований хейт для зростання видимості та лояльності. Базується на PR-принципах: проактивність, факти, залучення ЦА, контроль потоку інформації (згідно з чеклістом кризових ситуацій). Кожна стратегія включає кроки, канали та KPI.</p>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between p-4 bg-indigo-50 rounded-xl border-l-4 border-red-400">
+                        <span class="text-indigo-900 font-semibold">Моралфаги (моралізатори)</span>
+                        <div class="text-sm text-gray-600 space-y-1">
+                            <p><strong>Стратегія:</strong> "Етичний челендж" — хейтер пише конструктивний відгук, ми донатимо на благодійність (наприклад, на підтримку українського кіно).</p>
+                            <p><strong>Кроки:</strong> 1) Подякувати публічно; 2) Запропонувати челендж; 3) Публікувати результат у соцмережах.</p>
+                            <p><strong>Канали:</strong> Twitter/X, Instagram; <strong>KPI:</strong> +20% лояльних коментарів.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between p-4 bg-indigo-50 rounded-xl border-l-4 border-red-400">
+                        <span class="text-indigo-900 font-semibold">Біле пальто/порадники (самозванці-радники)</span>
+                        <div class="text-sm text-gray-600 space-y-1">
+                            <p><strong>Стратегія:</strong> Визнати "пораду" як цінну, реалізувати одну ідею (навіть малу, як оновлення UI).</p>
+                            <p><strong>Кроки:</strong> 1) Подякувати з тегом; 2) Оновити roadmap; 3) Надіслати персональний доступ до бети.</p>
+                            <p><strong>Канали:</strong> LinkedIn, email; <strong>KPI:</strong> Перетворення 30% хейтерів на амбасадорів.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between p-4 bg-indigo-50 rounded-xl border-l-4 border-red-400">
+                        <span class="text-indigo-900 font-semibold">Диванні експерти (диванні критики)</span>
+                        <div class="text-sm text-gray-600 space-y-1">
+                            <p><strong>Стратегія:</strong> AMA-сесія (Ask Me Anything) з Q&A для демонстрації експертизи команди.</p>
+                            <p><strong>Кроки:</strong> 1) Запросити до сесії; 2) Відповісти фактами/інфографікою; 3) Опублікувати highlights.</p>
+                            <p><strong>Канали:</strong> YouTube Live, Telegram; <strong>KPI:</strong> +15% органічного трафіку з сесії.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between p-4 bg-indigo-50 rounded-xl border-l-4 border-red-400">
+                        <span class="text-indigo-900 font-semibold">Грамар-наці (граматичні нацисти)</span>
+                        <div class="text-sm text-gray-600 space-y-1">
+                            <p><strong>Стратегія:</strong> Гумористичне визнання помилки з пропозицією бета-тесту для "виправлення" контенту.</p>
+                            <p><strong>Кроки:</strong> 1) Виправити з мемом; 2) Надати доступ до редактора; 3) Подякувати в stories.</p>
+                            <p><strong>Канали:</strong> Instagram, TikTok; <strong>KPI:</strong> Зменшення негативних коментарів на 25%.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between p-4 bg-indigo-50 rounded-xl border-l-4 border-red-400">
+                        <span class="text-indigo-900 font-semibold">Фанатики (екстремальні фанати)</span>
+                        <div class="text-sm text-gray-600 space-y-1">
+                            <p><strong>Стратегія:</strong> Каналізувати енергію в UGC — запросити на ексклюзивний перегляд і створення фан-контенту.</p>
+                            <p><strong>Кроки:</strong> 1) Запросити на приватний скринінг; 2) Заохотити репости; 3) Фічерити в плейлистах.</p>
+                            <p><strong>Канали:</strong> Discord, Facebook Groups; <strong>KPI:</strong> +50% UGC-постів.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between p-4 bg-indigo-50 rounded-xl border-l-4 border-red-400">
+                        <span class="text-indigo-900 font-semibold">Шовіністи (шовіністи)</span>
+                        <div class="text-sm text-gray-600 space-y-1">
+                            <p><strong>Стратегія:</strong> Освіта через контент — опублікувати серію статей/відео про "українське кіно проти шовінізму".</p>
+                            <p><strong>Кроки:</strong> 1) Створити тематичний плейлист; 2) Запросити до дискусії; 3) Моніторити фідбек.</p>
+                            <p><strong>Канали:</strong> Blog, YouTube; <strong>KPI:</strong> Зростання позитивних згадок на 35%.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between p-4 bg-indigo-50 rounded-xl border-l-4 border-red-400">
+                        <span class="text-indigo-900 font-semibold">Тролі (тролі)</span>
+                        <div class="text-sm text-gray-600 space-y-1">
+                            <p><strong>Стратегія:</strong> "Не годувати" — ігнор 90%, на 10% — гумористичний мем-відповідь для розваги аудиторії.</p>
+                            <p><strong>Кроки:</strong> 1) Моніторити інструментами; 2) Відповідати креативно; 3) Блокувати рецидивістів.</p>
+                            <p><strong>Канали:</strong> Twitter/X; <strong>KPI:</strong> Зменшення тролінгу на 40% через вірусність.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between p-4 bg-indigo-50 rounded-xl border-l-4 border-red-400">
+                        <span class="text-indigo-900 font-semibold">Перфекціоністи (перфекціоністи)</span>
+                        <div class="text-sm text-gray-600 space-y-1">
+                            <p><strong>Стратегія:</strong> Інтеграція фідбеку в roadmap — створити публічний трекер оновлень.</p>
+                            <p><strong>Кроки:</strong> 1) Зібрати пропозиції; 2) Оновити з термінами; 3) Повідомити про реалізацію.</p>
+                            <p><strong>Канали:</strong> Trello/Notion (публічний), email; <strong>KPI:</strong> +25% утримання через прозорість.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Slide 4: Завдання 4 - Пресреліз (перероблений відповідно до структури з Додатка 5) -->
+        <div class="slide">
+            <div class="bg-white/95 backdrop-blur-lg rounded-3xl p-12 shadow-2xl border border-white/20">
+                <div class="flex items-center gap-4 mb-8 pb-6 border-b-4 border-indigo-500">
+                    <i class="fas fa-file-alt text-indigo-600 text-4xl"></i>
+                    <h2 class="text-4xl font-bold text-indigo-900">Завдання 4: Пресреліз</h2>
+                </div>
+
+                <div class="mb-6">
+                    <h3 class="text-2xl font-semibold text-indigo-800 mb-2">Анонс нових функцій Cinecloud (за структурою з Додатка 5)</h3>
+                    <p class="text-gray-700">Структура: Заголовок, Підзаголовок, Дата/місто, Лід (хто/що/коли/де/чому/як), Тіло з деталями та цитатою, Boilerplate, Контакти, ###.</p>
+                </div>
+
+                <div class="bg-gray-50 p-6 rounded-xl border-l-4 border-indigo-500 overflow-y-auto max-h-96">
+                    <h4 class="font-bold text-2xl mb-2 text-indigo-900 border-b border-indigo-300 pb-2">Cinecloud представляє нові AI-функції для персоналізованого перегляду українського контенту</h4>
+                    
+                    <h5 class="font-semibold text-lg mb-3 text-indigo-800 italic">Оновлення робить стримінг доступнішим для мільйонів українців, інтегруючи інновації з локальною культурою</h5>
+                    
+                    <p class="text-gray-700 mb-2 font-medium"><strong>Київ, Україна – 17 листопада 2025 р.</strong></p>
+                    
+                    <p class="text-gray-700 mb-4 leading-relaxed">Cinecloud, провідна українська стримінгова платформа, анонсує запуск двох революційних функцій: AI-персоналізованих рекомендацій та розширеного офлайн-завантаження в HD-якості. Ці оновлення, доступні з сьогоднішнього дня для всіх користувачів, спрямовані на підвищення зручності перегляду для аудиторії понад 1 млн активних глядачів, з акцентом на український контент. Запуск відбувається в партнерстві з Київським міжнародним кінофестивалем, що забезпечує ексклюзивний доступ до 50+ прем'єрних фільмів.</p>
+                    
+                    <p class="text-gray-700 mb-4 leading-relaxed">Нова AI-система аналізує вподобання користувачів, генеруючи персоналізовані плейлисти, де 70% рекомендацій складає українське кіно, серіали та документалістика. Функція офлайн-завантаження тепер підтримує необмежену кількість пристроїв без втрати якості, ідеально для регіонів з нестабільним інтернетом. "Ці інновації не просто покращують користувацький досвід, а й активно підтримують українську кіноіндустрію, роблячи культурний контент доступним для кожного", – коментує CEO Cinecloud Анна Петренко. За її словами, оновлення вже протестовано на 10 тис. бета-користувачах, що показало 40% зростання часу перегляду.</p>
+                    
+                    <p class="text-gray-700 mb-4 leading-relaxed">Cinecloud, запущена в 2024 році, є інноваційною платформою для стримінгу фільмів і серіалів з бібліотекою понад 10 000 тайтлів, фокусом на локальний контент та інтеграціями з OAuth, email і платіжними системами. Доступна на iOS, Android та web. За деталями: www.cinecloud.ua.</p>
+                    
+                    <p class="text-gray-700 mb-2 font-medium"><strong>Контакти для медіа:</strong></p>
+                    <p class="text-gray-700">Марія Іваненко, PR-менеджер</p>
+                    <p class="text-gray-700">Email: maria@cinecloud.ua</p>
+                    <p class="text-gray-700">Тел: +380 (44) 123-45-67</p>
+                    
+                    <p class="text-center text-gray-500 mt-4 font-bold">###</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Navigation -->
+    <div class="fixed bottom-8 left-1/2 transform -translate-x-1/2 flex gap-4 z-50">
+        <button id="prevBtn" onclick="changeSlide(-1)" 
+                class="bg-gradient-to-r from-indigo-600 to-indigo-500 text-white px-8 py-4 rounded-full font-semibold shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0">
+            <i class="fas fa-arrow-left mr-2"></i>Попередній
+        </button>
+        <button id="nextBtn" onclick="changeSlide(1)" 
+                class="bg-gradient-to-r from-indigo-600 to-indigo-500 text-white px-8 py-4 rounded-full font-semibold shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0">
+            Наступний<i class="fas fa-arrow-right ml-2"></i>
+        </button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        
+        document.getElementById('total-slides').textContent = totalSlides;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            
+            document.getElementById('current-slide').textContent = currentSlide + 1;
+            
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function changeSlide(direction) {
+            if (direction === 1 && currentSlide < totalSlides - 1) {
+                showSlide(currentSlide + 1);
+            } else if (direction === -1 && currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                changeSlide(1);
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                changeSlide(-1);
+            }
+        });
+
+        showSlide(0);
+    </script>
+</body>
+</html>

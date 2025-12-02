@@ -1,0 +1,1566 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineCloud - Email & Push Marketing Strategy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+        
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .slide {
+            display: none;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .card-modern {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .card-modern::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #06b6d4, #3b82f6);
+        }
+
+        .card-modern:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(6, 182, 212, 0.15);
+        }
+
+        .category-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            border-radius: 6px;
+            color: white;
+        }
+
+        .badge-trigger { background: linear-gradient(135deg, #06b6d4, #0891b2); }
+        .badge-cold { background: linear-gradient(135deg, #3b82f6, #2563eb); }
+        .badge-push { background: linear-gradient(135deg, #0ea5e9, #0284c7); }
+        .badge-aarrr { background: linear-gradient(135deg, #14b8a6, #0d9488); }
+
+        .stat-compact {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+            transition: all 0.2s ease;
+        }
+
+        .stat-compact:hover {
+            border-color: #06b6d4;
+            box-shadow: 0 2px 8px rgba(6, 182, 212, 0.1);
+        }
+
+        .stat-compact .icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .stat-compact .label {
+            font-size: 10px;
+            color: #6b7280;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .stat-compact .value {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1f2937;
+            line-height: 1.2;
+        }
+
+        .email-number {
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #06b6d4, #0891b2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 18px;
+            color: white;
+            box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
+        }
+
+        .metric-bar {
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.05) 0%, rgba(59, 130, 246, 0.05) 100%);
+            border-left: 3px solid #06b6d4;
+            padding: 12px 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .metric-bar:hover {
+            border-left-width: 5px;
+            transform: translateX(3px);
+        }
+
+        .section-header {
+            position: relative;
+            display: inline-block;
+            padding-bottom: 8px;
+        }
+
+        .section-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #06b6d4, #3b82f6);
+        }
+
+        .format-card {
+            background: white;
+            border-radius: 10px;
+            padding: 16px;
+            border: 1px solid #e5e7eb;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .format-card:hover {
+            border-color: #06b6d4;
+            box-shadow: 0 4px 12px rgba(6, 182, 212, 0.1);
+        }
+
+        .format-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, #06b6d4, #3b82f6);
+            border-radius: 10px 0 0 10px;
+        }
+
+        .email-template {
+            position: relative;
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            border: 2px solid #e5e7eb;
+        }
+
+        .email-header {
+            border-bottom: 2px solid #f3f4f6;
+            padding-bottom: 12px;
+            margin-bottom: 12px;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-slate-50 via-blue-50 to-cyan-50 min-h-screen">
+    
+    <!-- Slide Counter -->
+    <div class="fixed top-5 right-5 glass-effect px-4 py-2 rounded-xl font-bold text-cyan-700 shadow-lg z-50 text-sm">
+        <span id="current-slide">1</span> / <span id="total-slides">13</span>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-6 py-6">
+
+        <!-- Слайд 1: Титульний -->
+        <div class="slide active">
+            <div class="glass-effect rounded-2xl overflow-hidden shadow-xl">
+                <div class="relative bg-gradient-to-r from-cyan-600 via-blue-600 to-cyan-500 p-8">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <div class="flex items-center gap-3 mb-2">
+                                <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
+                                    <i class="fas fa-envelope text-3xl text-white"></i>
+                                </div>
+                                <h1 class="text-5xl font-black text-white tracking-tight">CINECLOUD</h1>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="bg-white/10 backdrop-blur-sm rounded-xl px-5 py-3 border border-white/20">
+                                <p class="text-white font-bold text-lg">ЛР №12</p>
+                                <p class="text-cyan-100 text-sm">Email & Push Marketing</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-8">
+                    <div class="text-center mb-8">
+                        <h2 class="text-4xl font-black text-gray-900 mb-2 section-header">
+                            Email та Push-сповіщення
+                        </h2>
+                        <p class="text-gray-600 text-lg">Комплексна стратегія комунікації з користувачами платформи</p>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-5 mb-6">
+                        <div class="card-modern bg-white rounded-xl p-5 shadow-md">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-10 h-10 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-bolt text-white text-lg"></i>
+                                </div>
+                                <h3 class="font-bold text-gray-900 text-base">Тригерні листи</h3>
+                            </div>
+                            <p class="text-gray-600 text-sm leading-relaxed">Автоматичні розсилки на основі дій користувачів</p>
+                        </div>
+
+                        <div class="card-modern bg-white rounded-xl p-5 shadow-md">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-snowflake text-white text-lg"></i>
+                                </div>
+                                <h3 class="font-bold text-gray-900 text-base">Холодні листи</h3>
+                            </div>
+                            <p class="text-gray-600 text-sm leading-relaxed">10 перевірених формул для першого контакту</p>
+                        </div>
+
+                        <div class="card-modern bg-white rounded-xl p-5 shadow-md">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-10 h-10 bg-gradient-to-br from-sky-500 to-sky-600 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-mobile-alt text-white text-lg"></i>
+                                </div>
+                                <h3 class="font-bold text-gray-900 text-base">Push-сповіщення</h3>
+                            </div>
+                            <p class="text-gray-600 text-sm leading-relaxed">Стратегія за моделлю AARRR для мобільного додатку</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-gradient-to-r from-cyan-50 to-blue-50 rounded-xl p-5 border-l-4 border-cyan-500">
+                        <p class="text-gray-700 text-center leading-relaxed">
+                            Email та Push маркетинг дозволяють платформам ефективно комунікувати з користувачами на кожному етапі їхньої подорожі, підвищуючи залученість та утримання аудиторії.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Слайд 2: Про продукт -->
+        <div class="slide">
+            <div class="glass-effect rounded-2xl overflow-hidden shadow-xl">
+                <div class="bg-gradient-to-r from-cyan-600 to-blue-600 p-5">
+                    <h2 class="text-3xl font-black text-white flex items-center gap-3">
+                        <i class="fas fa-film"></i>
+                        Продукт CINECLOUD
+                    </h2>
+                </div>
+
+                <div class="p-8">
+                    <div class="bg-gradient-to-r from-cyan-50 to-blue-50 rounded-xl p-5 border-l-4 border-cyan-500 mb-6">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Стрімінгова платформа нового покоління</h3>
+                        <p class="text-gray-700 leading-relaxed">CINECLOUD – технологічний інформаційно-розважальний комплекс з AI-рекомендаціями, який надає доступ до широкого каталогу фільмів та серіалів з персоналізованими пропозиціями для кожного користувача.</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-5">
+                        <div>
+                            <h4 class="font-bold text-gray-900 mb-3 flex items-center gap-2">
+                                <div class="w-2 h-2 bg-cyan-500 rounded-full"></div>
+                                Функціонал платформи
+                            </h4>
+                            <div class="space-y-2">
+                                <div class="stat-compact">
+                                    <div class="icon bg-gradient-to-br from-cyan-500 to-cyan-600">
+                                        <i class="fas fa-list text-white text-sm"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="label">Каталог</div>
+                                        <div class="value text-sm">10,000+ фільмів</div>
+                                    </div>
+                                </div>
+
+                                <div class="stat-compact">
+                                    <div class="icon bg-gradient-to-br from-blue-500 to-blue-600">
+                                        <i class="fas fa-calendar-alt text-white text-sm"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="label">Афіша</div>
+                                        <div class="value text-sm">Прем'єри та новинки</div>
+                                    </div>
+                                </div>
+
+                                <div class="stat-compact">
+                                    <div class="icon bg-gradient-to-br from-sky-500 to-sky-600">
+                                        <i class="fas fa-heart text-white text-sm"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="label">Колекції</div>
+                                        <div class="value text-sm">Тематичні добірки</div>
+                                    </div>
+                                </div>
+
+                                <div class="stat-compact">
+                                    <div class="icon bg-gradient-to-br from-teal-500 to-teal-600">
+                                        <i class="fas fa-robot text-white text-sm"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="label">AI</div>
+                                        <div class="value text-sm">Персоналізація</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h4 class="font-bold text-gray-900 mb-3 flex items-center gap-2">
+                                <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                Цільова аудиторія
+                            </h4>
+                            <div class="space-y-3">
+                                <div class="metric-bar">
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-sm font-semibold text-gray-800">Глядачі</span>
+                                        <span class="text-xs text-cyan-600 font-bold">Основна</span>
+                                    </div>
+                                    <p class="text-xs text-gray-600 mt-1">Перегляд контенту, персоналізація</p>
+                                </div>
+
+                                <div class="metric-bar">
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-sm font-semibold text-gray-800">Контент-провайдери</span>
+                                        <span class="text-xs text-blue-600 font-bold">B2B</span>
+                                    </div>
+                                    <p class="text-xs text-gray-600 mt-1">Розширення аудиторії, монетизація</p>
+                                </div>
+
+                                <div class="metric-bar">
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-sm font-semibold text-gray-800">Кінотеатри</span>
+                                        <span class="text-xs text-sky-600 font-bold">Партнери</span>
+                                    </div>
+                                    <p class="text-xs text-gray-600 mt-1">Інтеграція з офлайн</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Слайд 3: Тригерний Email #1 -->
+        <div class="slide">
+            <div class="glass-effect rounded-2xl overflow-hidden shadow-xl">
+                <div class="bg-gradient-to-r from-cyan-600 to-blue-600 p-5">
+                    <h2 class="text-3xl font-black text-white flex items-center gap-3">
+                        <i class="fas fa-envelope-open-text"></i>
+                        Тригерний Email #1: Вітальний лист
+                    </h2>
+                </div>
+
+                <div class="p-8">
+                    <div class="mb-6">
+                        <span class="category-badge badge-trigger">Тригерний Email</span>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                                <div class="w-2 h-2 bg-cyan-500 rounded-full"></div>
+                                Параметри листа
+                            </h3>
+
+                            <div class="space-y-3">
+                                <div class="metric-bar">
+                                    <div class="text-xs font-semibold text-gray-700 mb-1">Тригерна дія</div>
+                                    <div class="text-sm font-bold text-gray-900">Реєстрація нового користувача</div>
+                                </div>
+
+                                <div class="metric-bar">
+                                    <div class="text-xs font-semibold text-gray-700 mb-1">Джерело дії</div>
+                                    <div class="text-sm font-bold text-gray-900">Форма реєстрації / Вхід через соцмережі</div>
+                                </div>
+
+                                <div class="metric-bar">
+                                    <div class="text-xs font-semibold text-gray-700 mb-1">Інтервал надсилання</div>
+                                    <div class="text-sm font-bold text-gray-900">Миттєво (0-5 хвилин)</div>
+                                </div>
+
+                                <div class="metric-bar">
+                                    <div class="text-xs font-semibold text-gray-700 mb-1">Маркетингова ціль</div>
+                                    <div class="text-sm font-bold text-gray-900">Активація + Знайомство з платформою</div>
+                                </div>
+
+                                <div class="metric-bar">
+                                    <div class="text-xs font-semibold text-gray-700 mb-1">Від кого</div>
+                                    <div class="text-sm font-bold text-gray-900">CINECLOUD &lt;welcome@cinecloud.ua&gt;</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                                <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                Зміст листа
+                            </h3>
+
+                            <div class="email-template">
+                                <div class="email-number">1</div>
+                                
+                                <div class="email-header">
+                                    <div class="text-sm font-bold text-gray-900">Тема: Вітаємо в CINECLOUD! 🎬 Ваші 30 днів безкоштовно</div>
+                                    <div class="text-xs text-gray-600 mt-1">Pre-header: Почніть перегляд прямо зараз</div>
+                                </div>
+
+                                <div class="text-sm text-gray-700 leading-relaxed space-y-2">
+                                    <p class="font-semibold">Привіт, [Ім'я]!</p>
+                                    <p>Раді вітати тебе в CINECLOUD – твоєму новому улюбленому кінотеатрі! 🍿</p>
+                                    <p class="text-xs">Тобі доступно:</p>
+                                    <ul class="text-xs list-disc list-inside ml-2 space-y-1">
+                                        <li>30 днів безкоштовного перегляду</li>
+                                        <li>10,000+ фільмів та серіалів</li>
+                                        <li>AI-рекомендації на основі твоїх уподобань</li>
+                                        <li>Перегляд на будь-яких пристроях</li>
+                                    </ul>
+                                </div>
+
+                                <div class="mt-4 bg-gradient-to-r from-cyan-50 to-blue-50 p-3 rounded-lg border-l-3 border-cyan-500">
+                                    <div class="text-xs font-semibold text-cyan-800">Call to Action:</div>
+                                    <div class="text-sm font-bold text-cyan-700 mt-1">
+                                        [Почати перегляд] → cinecloud.ua/start
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-3 text-xs text-gray-500">
+                                <i class="fas fa-images text-cyan-600"></i> Візуальні: Логотип, банер з топ-фільмами, персоналізовані рекомендації
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Слайд 4: Тригерний Email #2 -->
+        <div class="slide">
+            <div class="glass-effect rounded-2xl overflow-hidden shadow-xl">
+                <div class="bg-gradient-to-r from-cyan-600 to-blue-600 p-5">
+                    <h2 class="text-3xl font-black text-white flex items-center gap-3">
+                        <i class="fas fa-shopping-cart"></i>
+                        Тригерний Email #2: Покинута підписка
+                    </h2>
+                </div>
+
+                <div class="p-8">
+                    <div class="mb-6">
+                        <span class="category-badge badge-trigger">Тригерний Email</span>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                                <div class="w-2 h-2 bg-cyan-500 rounded-full"></div>
+                                Параметри листа
+                            </h3>
+
+                            <div class="space-y-3">
+                                <div class="metric-bar">
+                                    <div class="text-xs font-semibold text-gray-700 mb-1">Тригерна дія</div>
+                                    <div class="text-sm font-bold text-gray-900">Початок оформлення підписки без завершення</div>
+                                </div>
+
+                                <div class="metric-bar">
+                                    <div class="text-xs font-semibold text-gray-700 mb-1">Джерело дії</div>
+                                    <div class="text-sm font-bold text-gray-900">Сторінка вибору тарифу</div>
+                                </div>
+
+                                <div class="metric-bar">
+                                    <div class="text-xs font-semibold text-gray-700 mb-1">Інтервал надсилання</div>
+                                    <div class="text-sm font-bold text-gray-900">Через 2 години після виходу</div>
+                                </div>
+
+                                <div class="metric-bar">
+                                    <div class="text-xs font-semibold text-gray-700 mb-1">Маркетингова ціль</div>
+                                    <div class="text-sm font-bold text-gray-900">Конверсія в платну підписку</div>
+                                </div>
+
+                                <div class="metric-bar">
+                                    <div class="text-xs font-semibold text-gray-700 mb-1">Від кого</div>
+                                    <div class="text-sm font-bold text-gray-900">CINECLOUD &lt;offers@cinecloud.ua&gt;</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                                <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                Зміст листа
+                            </h3>
+
+                            <div class="email-template">
+                                <div class="email-number">2</div>
+                                
+                                <div class="email-header">
+                                    <div class="text-sm font-bold text-gray-900">Тема: [Ім'я], ти забув(ла) щось важливе... 🎁</div>
+                                    <div class="text-xs text-gray-600 mt-1">Pre-header: Спеціальна знижка тільки для тебе</div>
+                                </div>
+
+                                <div class="text-sm text-gray-700 leading-relaxed space-y-2">
+                                    <p class="font-semibold">Привіт, [Ім'я]!</p>
+                                    <p>Помітили, що ти розглядав(ла) наші тарифи, але не завершив(ла) оформлення.</p>
+                                    <p class="text-xs">Ми хочемо допомогти! Ось спеціальна пропозиція саме для тебе:</p>
+                                    <div class="bg-yellow-50 p-3 rounded-lg border-l-3 border-yellow-500">
+                                        <div class="font-bold text-yellow-900 text-sm">🎉 Знижка 20% на перший місяць!</div>
+                                        <div class="text-xs text-yellow-800 mt-1">Промокод: COMEBACK20</div>
+                                        <div class="text-xs text-yellow-700 mt-1">Пропозиція діє 24 години</div>
+                                    </div>
+                                </div>
+
+                                <div class="mt-4 bg-gradient-to-r from-cyan-50 to-blue-50 p-3 rounded-lg border-l-3 border-cyan-500">
+                                    <div class="text-xs font-semibold text-cyan-800">Call to Action:</div>
+                                    <div class="text-sm font-bold text-cyan-700 mt-1">
+                                        [Завершити оформлення] → cinecloud.ua/subscribe
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-3 text-xs text-gray-500">
+                                <i class="fas fa-images text-cyan-600"></i> Візуальні: Порівняння тарифів, таймер зворотного відліку
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Слайд 5: Тригерний Email #3 -->
+        <div class="slide">
+            <div class="glass-effect rounded-2xl overflow-hidden shadow-xl">
+                <div class="bg-gradient-to-r from-cyan-600 to-blue-600 p-5">
+                    <h2 class="text-3xl font-black text-white flex items-center gap-3">
+                        <i class="fas fa-star"></i>
+                        Тригерний Email #3: Нова прем'єра
+                    </h2>
+                </div>
+
+                <div class="p-8">
+                    <div class="mb-6">
+                        <span class="category-badge badge-trigger">Тригерний Email</span>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                                <div class="w-2 h-2 bg-cyan-500 rounded-full"></div>
+                                Параметри листа
+                            </h3>
+
+                            <div class="space-y-3">
+                                <div class="metric-bar">
+                                    <div class="text-xs font-semibold text-gray-700 mb-1">Тригерна дія</div>
+                                    <div class="text-sm font-bold text-gray-900">Вихід нової прем'єри в улюбленому жанрі</div>
+                                </div>
+
+                                <div class="metric-bar">
+                                    <div class="text-xs font-semibold text-gray-700 mb-1">Джерело дії</div>
+                                    <div class="text-sm font-bold text-gray-900">Аналіз історії переглядів + AI-рекомендації</div>
+                                </div>
+
+                                <div class="metric-bar">
+                                    <div class="text-xs font-semibold text-gray-700 mb-1">Інтервал надсилання</div>
+                                    <div class="text-sm font-bold text-gray-900">В день прем'єри (09:00)</div>
+                                </div>
+
+                                <div class="metric-bar">
+                                    <div class="text-xs font-semibold text-gray-700 mb-1">Маркетингова ціль</div>
+                                    <div class="text-sm font-bold text-gray-900">Утримання + Залученість</div>
+                                </div>
+
+                                <div class="metric-bar">
+                                    <div class="text-xs font-semibold text-gray-700 mb-1">Від кого</div>
+                                    <div class="text-sm font-bold text-gray-900">CINECLOUD &lt;premieres@cinecloud.ua&gt;</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                                <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                Зміст листа
+                            </h3>
+
+                            <div class="email-template">
+                                <div class="email-number">3</div>
+                                
+                                <div class="email-header">
+                                    <div class="text-sm font-bold text-gray-900">Тема: 🎬 Прем'єра, яку ти чекав(ла)!</div>
+                                    <div class="text-xs text-gray-600 mt-1">Pre-header: Вже доступна для перегляду</div>
+                                </div>
+
+                                <div class="text-sm text-gray-700 leading-relaxed space-y-2">
+                                    <p class="font-semibold">Привіт, [Ім'я]!</p>
+                                    <p>Новинка спеціально для тебе! 🔥</p>
+                                    <div class="bg-gray-50 p-3 rounded-lg">
+                                        <div class="font-bold text-gray-900">[Назва фільму]</div>
+                                        <div class="text-xs text-gray-600 mt-2 space-y-1">
+                                            <div><i class="fas fa-tag text-cyan-600"></i> Жанр: [Жанр]</div>
+                                            <div><i class="fas fa-star text-yellow-500"></i> Рейтинг: 8.5/10</div>
+                                            <div><i class="fas fa-clock text-blue-600"></i> Тривалість: 2 год 15 хв</div>
+                                        </div>
+                                    </div>
+                                    <p class="text-xs italic text-gray-600">"[Короткий опис фільму]"</p>
+                                    <p class="text-xs text-cyan-700 font-semibold">На основі твоїх уподобань: [Жанр], [Жанр2]</p>
+                                </div>
+
+                                <div class="mt-4 bg-gradient-to-r from-cyan-50 to-blue-50 p-3 rounded-lg border-l-3 border-cyan-500">
+                                    <div class="text-xs font-semibold text-cyan-800">Call to Action:</div>
+                                    <div class="text-sm font-bold text-cyan-700 mt-1">
+                                        [Дивитися зараз] → cinecloud.ua/watch/[id]
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-3 text-xs text-gray-500">
+                                <i class="fas fa-images text-cyan-600"></i> Візуальні: Постер фільму, трейлер, схожі рекомендації
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Слайд 6: Тригерний Email #4 -->
+        <div class="slide">
+            <div class="glass-effect rounded-2xl overflow-hidden shadow-xl">
+                <div class="bg-gradient-to-r from-cyan-600 to-blue-600 p-5">
+                    <h2 class="text-3xl font-black text-white flex items-center gap-3">
+                        <i class="fas fa-play-circle"></i>
+                        Тригерний Email #4: Продовжити перегляд
+                    </h2>
+                </div>
+
+                <div class="p-8">
+                    <div class="mb-6">
+                        <span class="category-badge badge-trigger">Тригерний Email</span>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                                <div class="w-2 h-2 bg-cyan-500 rounded-full"></div>
+                                Параметри листа
+                            </h3>
+
+                            <div class="space-y-3">
+                                <div class="metric-bar">
+                                    <div class="text-xs font-semibold text-gray-700 mb-1">Тригерна дія</div>
+                                    <div class="text-sm font-bold text-gray-900">Призупинений перегляд на 10+ хвилин</div>
+                                </div>
+
+                                <div class="metric-bar">
+                                    <div class="text-xs font-semibold text-gray-700 mb-1">Джерело дії</div>
+                                    <div class="text-sm font-bold text-gray-900">Сторінка перегляду фільму/серіалу</div>
+                                </div>
+
+                                <div class="metric-bar">
+                                    <div class="text-xs font-semibold text-gray-700 mb-1">Інтервал надсилання</div>
+                                    <div class="text-sm font-bold text-gray-900">Через 24 години після паузи</div>
+                                </div>
+
+                                <div class="metric-bar">
+                                    <div class="text-xs font-semibold text-gray-700 mb-1">Маркетингова ціль</div>
+                                    <div class="text-sm font-bold text-gray-900">Повернення + Завершення перегляду</div>
+                                </div>
+
+                                <div class="metric-bar">
+                                    <div class="text-xs font-semibold text-gray-700 mb-1">Від кого</div>
+                                    <div class="text-sm font-bold text-gray-900">CINECLOUD &lt;watch@cinecloud.ua&gt;</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                                <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                Зміст листа
+                            </h3>
+
+                            <div class="email-template">
+                                <div class="email-number">4</div>
+                                
+                                <div class="email-header">
+                                    <div class="text-sm font-bold text-gray-900">Тема: Продовж там, де зупинився 📺</div>
+                                    <div class="text-xs text-gray-600 mt-1">Pre-header: [Назва фільму] чекає на тебе</div>
+                                </div>
+
+                                <div class="text-sm text-gray-700 leading-relaxed space-y-2">
+                                    <p class="font-semibold">Привіт, [Ім'я]!</p>
+                                    <p>Ти призупинив(ла) перегляд:</p>
+                                    <div class="bg-gray-50 p-3 rounded-lg">
+                                        <div class="font-bold text-gray-900">[Назва фільму/серіалу]</div>
+                                        <div class="text-xs text-gray-600 mt-2 space-y-1">
+                                            <div><i class="fas fa-pause text-cyan-600"></i> Залишилось: [час]</div>
+                                            <div><i class="fas fa-clock text-blue-600"></i> Зупинено на: [timecode]</div>
+                                        </div>
+                                        <div class="mt-2 bg-gray-200 rounded-full h-2">
+                                            <div class="bg-gradient-to-r from-cyan-500 to-blue-500 h-2 rounded-full" style="width: 65%"></div>
+                                        </div>
+                                        <div class="text-xs text-gray-500 mt-1">Переглянуто: 65%</div>
+                                    </div>
+                                    <p class="text-xs">Продовжуй з того ж місця на будь-якому пристрої!</p>
+                                </div>
+
+                                <div class="mt-4 bg-gradient-to-r from-cyan-50 to-blue-50 p-3 rounded-lg border-l-3 border-cyan-500">
+                                    <div class="text-xs font-semibold text-cyan-800">Call to Action:</div>
+                                    <div class="text-sm font-bold text-cyan-700 mt-1">
+                                        [Продовжити перегляд] → cinecloud.ua/continue
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-3 text-xs text-gray-500">
+                                <i class="fas fa-images text-cyan-600"></i> Візуальні: Скріншот з моменту паузи, прогрес-бар
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Слайд 7: Тригерний Email #5 -->
+        <div class="slide">
+            <div class="glass-effect rounded-2xl overflow-hidden shadow-xl">
+                <div class="bg-gradient-to-r from-cyan-600 to-blue-600 p-5">
+                    <h2 class="text-3xl font-black text-white flex items-center gap-3">
+                        <i class="fas fa-heart-broken"></i>
+                        Тригерний Email #5: Win-back (Реактивація)
+                    </h2>
+                </div>
+
+                <div class="p-8">
+                    <div class="mb-6">
+                        <span class="category-badge badge-trigger">Тригерний Email</span>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                                <div class="w-2 h-2 bg-cyan-500 rounded-full"></div>
+                                Параметри листа
+                            </h3>
+
+                            <div class="space-y-3">
+                                <div class="metric-bar">
+                                    <div class="text-xs font-semibold text-gray-700 mb-1">Тригерна дія</div>
+                                    <div class="text-sm font-bold text-gray-900">Відсутність активності 30+ днів</div>
+                                </div>
+
+                                <div class="metric-bar">
+                                    <div class="text-xs font-semibold text-gray-700 mb-1">Джерело дії</div>
+                                    <div class="text-sm font-bold text-gray-900">Система аналітики поведінки</div>
+                                </div>
+
+                                <div class="metric-bar">
+                                    <div class="text-xs font-semibold text-gray-700 mb-1">Інтервал надсилання</div>
+                                    <div class="text-sm font-bold text-gray-900">Через 30 днів неактивності</div>
+                                </div>
+
+                                <div class="metric-bar">
+                                    <div class="text-xs font-semibold text-gray-700 mb-1">Маркетингова ціль</div>
+                                    <div class="text-sm font-bold text-gray-900">Реактивація + Повернення користувачів</div>
+                                </div>
+
+                                <div class="metric-bar">
+                                    <div class="text-xs font-semibold text-gray-700 mb-1">Від кого</div>
+                                    <div class="text-sm font-bold text-gray-900">CINECLOUD &lt;comeback@cinecloud.ua&gt;</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                                <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                Зміст листа
+                            </h3>
+
+                            <div class="email-template">
+                                <div class="email-number">5</div>
+                                
+                                <div class="email-header">
+                                    <div class="text-sm font-bold text-gray-900">Тема: Ми сумуємо за тобою... 💔 Повертайся!</div>
+                                    <div class="text-xs text-gray-600 mt-1">Pre-header: Спеціальна пропозиція для повернення</div>
+                                </div>
+
+                                <div class="text-sm text-gray-700 leading-relaxed space-y-2">
+                                    <p class="font-semibold">Привіт, [Ім'я]!</p>
+                                    <p>Давненько не бачились... 😢</p>
+                                    <p class="text-xs">За цей час у CINECLOUD з'явилось багато нового:</p>
+                                    <ul class="text-xs list-disc list-inside ml-2 space-y-1">
+                                        <li>50+ нових прем'єр у твоїх улюблених жанрах</li>
+                                        <li>Оновлений каталог серіалів</li>
+                                        <li>Покращені AI-рекомендації</li>
+                                        <li>Нові функції перегляду</li>
+                                    </ul>
+                                    <div class="bg-red-50 p-3 rounded-lg border-l-3 border-red-500 mt-2">
+                                        <div class="font-bold text-red-900 text-sm">🎁 Спеціальна пропозиція</div>
+                                        <div class="text-xs text-red-800 mt-1">3 місяці за ціною 2-х</div>
+                                        <div class="text-xs font-semibold text-red-900 mt-1">Промокод: COMEBACK50</div>
+                                    </div>
+                                </div>
+
+                                <div class="mt-4 bg-gradient-to-r from-cyan-50 to-blue-50 p-3 rounded-lg border-l-3 border-cyan-500">
+                                    <div class="text-xs font-semibold text-cyan-800">Call to Action:</div>
+                                    <div class="text-sm font-bold text-cyan-700 mt-1">
+                                        [Повернутися до CINECLOUD] → cinecloud.ua/comeback
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-3 text-xs text-gray-500">
+                                <i class="fas fa-images text-cyan-600"></i> Візуальні: Постери нових прем'єр, персоналізовані рекомендації
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Слайд 8: 10 формул холодних email -->
+        <div class="slide">
+            <div class="glass-effect rounded-2xl overflow-hidden shadow-xl">
+                <div class="bg-gradient-to-r from-cyan-600 to-blue-600 p-5">
+                    <h2 class="text-3xl font-black text-white flex items-center gap-3">
+                        <i class="fas fa-snowflake"></i>
+                        10 формул холодних email-листів
+                    </h2>
+                </div>
+
+                <div class="p-8">
+                    <div class="mb-6">
+                        <span class="category-badge badge-cold">Холодні Email</span>
+                    </div>
+
+                    <div class="bg-gradient-to-r from-cyan-50 to-blue-50 rounded-xl p-4 border-l-4 border-cyan-500 mb-6">
+                        <p class="text-sm text-gray-700">Перевірені шаблони для першого контакту з потенційними клієнтами. Холодний email має бути коротким (до 500 знаків), персоналізованим та містити один чіткий CTA.</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="format-card">
+                            <div class="flex items-start gap-3">
+                                <div class="text-2xl font-black text-cyan-600 flex-shrink-0">01</div>
+                                <div>
+                                    <div class="font-bold text-gray-900 mb-1">AIDA</div>
+                                    <div class="text-xs text-gray-600 mb-1">Увага – Інтерес – Бажання – Дія</div>
+                                    <div class="text-xs text-gray-500 italic">Індивідуальний персоналізований підхід</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="format-card">
+                            <div class="flex items-start gap-3">
+                                <div class="text-2xl font-black text-cyan-600 flex-shrink-0">02</div>
+                                <div>
+                                    <div class="font-bold text-gray-900 mb-1">BBB</div>
+                                    <div class="text-xs text-gray-600 mb-1">Влучність – Прямота – Головне</div>
+                                    <div class="text-xs text-gray-500 italic">Перехід до суті, максимальна лаконічність</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="format-card">
+                            <div class="flex items-start gap-3">
+                                <div class="text-2xl font-black text-cyan-600 flex-shrink-0">03</div>
+                                <div>
+                                    <div class="font-bold text-gray-900 mb-1">BAB</div>
+                                    <div class="text-xs text-gray-600 mb-1">До – Після – Зв'язок</div>
+                                    <div class="text-xs text-gray-500 italic">Змалювання проблеми та її вирішення</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="format-card">
+                            <div class="flex items-start gap-3">
+                                <div class="text-2xl font-black text-cyan-600 flex-shrink-0">04</div>
+                                <div>
+                                    <div class="font-bold text-gray-900 mb-1">PAS</div>
+                                    <div class="text-xs text-gray-600 mb-1">Проблема – Ажітація – Вирішення</div>
+                                    <div class="text-xs text-gray-500 italic">Фокус на больові точки клієнта</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="format-card">
+                            <div class="flex items-start gap-3">
+                                <div class="text-2xl font-black text-cyan-600 flex-shrink-0">05</div>
+                                <div>
+                                    <div class="font-bold text-gray-900 mb-1">QVC</div>
+                                    <div class="text-xs text-gray-600 mb-1">Питання – Ціннісна пропозиція – CTA</div>
+                                    <div class="text-xs text-gray-500 italic">Уся справа в питанні, яке зачіпає</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="format-card">
+                            <div class="flex items-start gap-3">
+                                <div class="text-2xl font-black text-cyan-600 flex-shrink-0">06</div>
+                                <div>
+                                    <div class="font-bold text-gray-900 mb-1">PPP</div>
+                                    <div class="text-xs text-gray-600 mb-1">Похвалити – Показати – Підштовхнути</div>
+                                    <div class="text-xs text-gray-500 italic">Бути вихованим, комплімент на початку</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="format-card">
+                            <div class="flex items-start gap-3">
+                                <div class="text-2xl font-black text-cyan-600 flex-shrink-0">07</div>
+                                <div>
+                                    <div class="font-bold text-gray-900 mb-1">SCH</div>
+                                    <div class="text-xs text-gray-600 mb-1">Зірка – Ланцюжок – Гачок</div>
+                                    <div class="text-xs text-gray-500 italic">Продукт як зірка шоу з фактами</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="format-card">
+                            <div class="flex items-start gap-3">
+                                <div class="text-2xl font-black text-cyan-600 flex-shrink-0">08</div>
+                                <div>
+                                    <div class="font-bold text-gray-900 mb-1">SSS</div>
+                                    <div class="text-xs text-gray-600 mb-1">Зірка – Історія – Вирішення</div>
+                                    <div class="text-xs text-gray-500 italic">Гра на почуттях через розповідь</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="format-card">
+                            <div class="flex items-start gap-3">
+                                <div class="text-2xl font-black text-cyan-600 flex-shrink-0">09</div>
+                                <div>
+                                    <div class="font-bold text-gray-900 mb-1">BYAF</div>
+                                    <div class="text-xs text-gray-600 mb-1">But You Are Free (Але ви вільні)</div>
+                                    <div class="text-xs text-gray-500 italic">Свобода дій збільшує конверсію вдвічі</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="format-card">
+                            <div class="flex items-start gap-3">
+                                <div class="text-2xl font-black text-cyan-600 flex-shrink-0">10</div>
+                                <div>
+                                    <div class="font-bold text-gray-900 mb-1">RDM</div>
+                                    <div class="text-xs text-gray-600 mb-1">Reader's Digest Model (Класика)</div>
+                                    <div class="text-xs text-gray-500 italic">Факти, конкретність, телеграфність</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Слайд 9: Формула AIDA детально -->
+        <div class="slide">
+            <div class="glass-effect rounded-2xl overflow-hidden shadow-xl">
+                <div class="bg-gradient-to-r from-cyan-600 to-blue-600 p-5">
+                    <h2 class="text-3xl font-black text-white flex items-center gap-3">
+                        <i class="fas fa-chart-line"></i>
+                        Формула AIDA: Індивідуальний підхід
+                    </h2>
+                </div>
+
+                <div class="p-8">
+                    <div class="mb-6">
+                        <span class="category-badge badge-cold">Холодний Email #1</span>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                                <div class="w-2 h-2 bg-cyan-500 rounded-full"></div>
+                                Структура формули
+                            </h3>
+
+                            <div class="space-y-3">
+                                <div class="metric-bar" style="border-left-color: #ef4444;">
+                                    <div class="text-xs font-semibold text-red-700 mb-1">A - Attention (Увага)</div>
+                                    <div class="text-sm font-bold text-gray-900">Яскрава тема та вступ, що зачіпають</div>
+                                </div>
+
+                                <div class="metric-bar" style="border-left-color: #f59e0b;">
+                                    <div class="text-xs font-semibold text-orange-700 mb-1">I - Interest (Інтерес)</div>
+                                    <div class="text-sm font-bold text-gray-900">Звернення до інтересів та больових точок</div>
+                                </div>
+
+                                <div class="metric-bar" style="border-left-color: #10b981;">
+                                    <div class="text-xs font-semibold text-green-700 mb-1">D - Desire (Бажання)</div>
+                                    <div class="text-sm font-bold text-gray-900">Переваги + соціальний доказ + ексклюзивність</div>
+                                </div>
+
+                                <div class="metric-bar">
+                                    <div class="text-xs font-semibold text-cyan-700 mb-1">A - Action (Дія)</div>
+                                    <div class="text-sm font-bold text-gray-900">Чіткий заклик до конкретної дії</div>
+                                </div>
+                            </div>
+
+                            <div class="mt-4 bg-gradient-to-r from-cyan-50 to-blue-50 rounded-xl p-4 border-l-4 border-cyan-500">
+                                <div class="text-xs font-semibold text-cyan-900 mb-2">Переваги AIDA:</div>
+                                <div class="text-xs text-cyan-800 space-y-1">
+                                    <div>✓ Персоналізований підхід</div>
+                                    <div>✓ Клієнтоорієнтованість</div>
+                                    <div>✓ Не виглядає як реклама</div>
+                                    <div>✓ Логічна послідовність</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                                <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                Приклад B2B листа
+                            </h3>
+
+                            <div class="email-template">
+                                <div class="text-sm text-gray-700 leading-relaxed space-y-2">
+                                    <div class="font-semibold">Добрий день, [Ім'я]!</div>
+                                    
+                                    <div class="bg-red-50 p-2 rounded border-l-2 border-red-500">
+                                        <div class="text-xs font-semibold text-red-900">УВАГА</div>
+                                        <div class="text-xs mt-1">Помітили, що ви шукаєте способи підвищити engagement вашої команди.</div>
+                                    </div>
+                                    
+                                    <div class="bg-orange-50 p-2 rounded border-l-2 border-orange-500">
+                                        <div class="text-xs font-semibold text-orange-900">ІНТЕРЕС</div>
+                                        <div class="text-xs mt-1">Корпоративні підписки CINECLOUD допомагають компаніям створювати неформальну атмосферу та зміцнювати команду.</div>
+                                    </div>
+                                    
+                                    <div class="bg-green-50 p-2 rounded border-l-2 border-green-500">
+                                        <div class="text-xs font-semibold text-green-900">БАЖАННЯ</div>
+                                        <div class="text-xs mt-1">50+ компаній вже використовують CINECLOUD для team-building. Економія до 40% на корпоративних заходах.</div>
+                                    </div>
+                                    
+                                    <div class="bg-cyan-50 p-2 rounded border-l-2 border-cyan-500">
+                                        <div class="text-xs font-semibold text-cyan-900">ДІЯ</div>
+                                        <div class="text-xs mt-1 font-bold">Замовте безкоштовну демонстрацію → cinecloud.ua/business</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-3 text-xs text-gray-500">
+                                <i class="fas fa-check-circle text-green-600"></i> Open Rate: 35-40% | Conversion: 8-12%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Слайд 10: Формула BAB детально -->
+        <div class="slide">
+            <div class="glass-effect rounded-2xl overflow-hidden shadow-xl">
+                <div class="bg-gradient-to-r from-cyan-600 to-blue-600 p-5">
+                    <h2 class="text-3xl font-black text-white flex items-center gap-3">
+                        <i class="fas fa-magic"></i>
+                        Формула BAB: До – Після – Зв'язок
+                    </h2>
+                </div>
+
+                <div class="p-8">
+                    <div class="mb-6">
+                        <span class="category-badge badge-cold">Холодний Email #3</span>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                                <div class="w-2 h-2 bg-cyan-500 rounded-full"></div>
+                                Структура формули
+                            </h3>
+
+                            <div class="space-y-3">
+                                <div class="metric-bar" style="border-left-color: #ef4444;">
+                                    <div class="text-xs font-semibold text-red-700 mb-1">B - Before (До)</div>
+                                    <div class="text-sm font-bold text-gray-900">Опис проблем клієнта, з якими він стикається</div>
+                                </div>
+
+                                <div class="metric-bar" style="border-left-color: #10b981;">
+                                    <div class="text-xs font-semibold text-green-700 mb-1">A - After (Після)</div>
+                                    <div class="text-sm font-bold text-gray-900">Світле майбутнє без проблеми + цифри</div>
+                                </div>
+
+                                <div class="metric-bar">
+                                    <div class="text-xs font-semibold text-cyan-700 mb-1">B - Bridge (Зв'язок)</div>
+                                    <div class="text-sm font-bold text-gray-900">Як продукт допоможе досягти "після"</div>
+                                </div>
+                            </div>
+
+                            <div class="mt-4 bg-gradient-to-r from-cyan-50 to-blue-50 rounded-xl p-4 border-l-4 border-cyan-500">
+                                <div class="text-xs font-semibold text-cyan-900 mb-2">Психологія BAB:</div>
+                                <div class="text-xs text-cyan-800">Базується на фрейдизмі – прагненні отримувати насолоду та уникати болі. Контраст "до" і "після" мотивує до дії.</div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                                <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                Приклад B2B листа
+                            </h3>
+
+                            <div class="email-template">
+                                <div class="text-sm text-gray-700 leading-relaxed space-y-2">
+                                    <div class="font-semibold">Привіт, [Ім'я]!</div>
+                                    
+                                    <div class="bg-red-50 p-2 rounded border-l-2 border-red-500">
+                                        <div class="text-xs font-semibold text-red-900">ДО (Проблема)</div>
+                                        <div class="text-xs mt-1">Ваші клієнти скасовують підписки? Churn rate вище 15%? Складно втримати увагу користувачів?</div>
+                                    </div>
+                                    
+                                    <div class="bg-green-50 p-2 rounded border-l-2 border-green-500">
+                                        <div class="text-xs font-semibold text-green-900">ПІСЛЯ (Рішення)</div>
+                                        <div class="text-xs mt-1">Churn rate знижується до 5%, LTV зростає на 35%, користувачі проводять +40% часу. Це реальні цифри наших партнерів!</div>
+                                    </div>
+                                    
+                                    <div class="bg-cyan-50 p-2 rounded border-l-2 border-cyan-500">
+                                        <div class="text-xs font-semibold text-cyan-900">ЗВ'ЯЗОК (Як)</div>
+                                        <div class="text-xs mt-1">CINECLOUD API + персоналізовані рекомендації + геймефікація = утримання користувачів. White-label рішення.</div>
+                                    </div>
+
+                                    <div class="mt-2 text-xs font-bold text-cyan-700">
+                                        → Отримати кейс-стаді
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-3 text-xs text-gray-500">
+                                <i class="fas fa-check-circle text-green-600"></i> Найкраще для: B2B, tech | Response: 12-18%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Слайд 11: Формула PAS детально -->
+        <div class="slide">
+            <div class="glass-effect rounded-2xl overflow-hidden shadow-xl">
+                <div class="bg-gradient-to-r from-cyan-600 to-blue-600 p-5">
+                    <h2 class="text-3xl font-black text-white flex items-center gap-3">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        Формула PAS: Больові точки
+                    </h2>
+                </div>
+
+                <div class="p-8">
+                    <div class="mb-6">
+                        <span class="category-badge badge-cold">Холодний Email #4</span>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                                <div class="w-2 h-2 bg-cyan-500 rounded-full"></div>
+                                Структура формули
+                            </h3>
+
+                            <div class="space-y-3">
+                                <div class="metric-bar" style="border-left-color: #ef4444;">
+                                    <div class="text-xs font-semibold text-red-700 mb-1">P - Problem (Проблема)</div>
+                                    <div class="text-sm font-bold text-gray-900">Визначте больову точку цільової аудиторії</div>
+                                </div>
+
+                                <div class="metric-bar" style="border-left-color: #f59e0b;">
+                                    <div class="text-xs font-semibold text-orange-700 mb-1">A - Agitation (Ажітація)</div>
+                                    <div class="text-sm font-bold text-gray-900">Поглибіть проблему, підкріпіть прикладами</div>
+                                </div>
+
+                                <div class="metric-bar" style="border-left-color: #10b981;">
+                                    <div class="text-xs font-semibold text-green-700 mb-1">S - Solution (Вирішення)</div>
+                                    <div class="text-sm font-bold text-gray-900">Станьте героєм з рішенням проблеми</div>
+                                </div>
+                            </div>
+
+                            <div class="mt-4 bg-red-50 rounded-xl p-4 border-l-4 border-red-500">
+                                <div class="text-xs font-semibold text-red-900 mb-2">Психологія PAS:</div>
+                                <div class="text-xs text-red-800">Біль – кращий мотиватор, ніж задоволення. Люди більш схильні уникати негативу. "Посипати сіллю на рану" – це працює!</div>
+                            </div>
+
+                            <div class="mt-3 bg-orange-50 rounded-xl p-4 border-l-4 border-orange-500">
+                                <div class="text-xs font-semibold text-orange-900 mb-2">⚠️ Важливо:</div>
+                                <div class="text-xs text-orange-800">Не турбуйте клієнтів проблемою, яку ваш продукт НЕ вирішує.</div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                                <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                Приклад B2B листа
+                            </h3>
+
+                            <div class="email-template">
+                                <div class="text-sm text-gray-700 leading-relaxed space-y-2">
+                                    <div class="font-semibold">Добрий день, [Ім'я]!</div>
+                                    
+                                    <div class="bg-red-50 p-2 rounded border-l-2 border-red-500">
+                                        <div class="text-xs font-semibold text-red-900">ПРОБЛЕМА</div>
+                                        <div class="text-xs mt-1">85% стрімінгових платформ НЕ використовують дані ефективно. Ви збираєте дані, але не знаєте, що з ними робити.</div>
+                                    </div>
+                                    
+                                    <div class="bg-orange-50 p-2 rounded border-l-2 border-orange-500">
+                                        <div class="text-xs font-semibold text-orange-900">АЖІТАЦІЯ</div>
+                                        <div class="text-xs mt-1">
+                                            • Втрачаєте $50K+ на неефективній рекламі<br/>
+                                            • Не розумієте, чому йдуть користувачі<br/>
+                                            • Конкуренти вже випереджають вас<br/>
+                                            <strong>І це коштує мільйони щороку.</strong>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="bg-green-50 p-2 rounded border-l-2 border-green-500">
+                                        <div class="text-xs font-semibold text-green-900">ВИРІШЕННЯ</div>
+                                        <div class="text-xs mt-1">CINECLOUD Analytics: ML-алгоритми + real-time дашборди. Клієнти підвищують retention на 45% за 60 днів.</div>
+                                    </div>
+
+                                    <div class="mt-2 text-xs font-bold text-cyan-700">
+                                        👉 Безкоштовний аудит (варт. $2000)
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-3 text-xs text-gray-500">
+                                <i class="fas fa-fire text-red-600"></i> Найагресивніша | Conversion: 15-22% (B2B)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Слайд 12: Push-сповіщення AARRR -->
+        <div class="slide">
+            <div class="glass-effect rounded-2xl overflow-hidden shadow-xl">
+                <div class="bg-gradient-to-r from-cyan-600 to-blue-600 p-5">
+                    <h2 class="text-3xl font-black text-white flex items-center gap-3">
+                        <i class="fas fa-mobile-alt"></i>
+                        Push-сповіщення за моделлю AARRR
+                    </h2>
+                </div>
+
+                <div class="p-8">
+                    <div class="mb-6">
+                        <span class="category-badge badge-push">Push Notifications</span>
+                    </div>
+
+                    <div class="bg-gradient-to-r from-cyan-50 to-blue-50 rounded-xl p-4 border-l-4 border-cyan-500 mb-6">
+                        <p class="text-sm text-gray-700">П'ять показників поведінки користувача для мобільного додатку CINECLOUD</p>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="format-card">
+                            <div class="flex items-start gap-3">
+                                <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <span class="text-white font-bold text-sm">1</span>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="font-bold text-gray-900 mb-1">Acquisition (Залучення)</div>
+                                    <div class="text-xs text-gray-600 mb-2">Перша взаємодія з додатком</div>
+                                    <div class="text-xs text-gray-700">
+                                        🎬 "Дізнайся про топ-функції CINECLOUD за 60 секунд!"<br/>
+                                        🎁 "30 днів преміум безкоштовно для нових користувачів"<br/>
+                                        📊 "Які жанри фільмів тобі подобаються? Налаштуємо для тебе"
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="format-card">
+                            <div class="flex items-start gap-3">
+                                <div class="w-8 h-8 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <span class="text-white font-bold text-sm">2</span>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="font-bold text-gray-900 mb-1">Activation (Активація)</div>
+                                    <div class="text-xs text-gray-600 mb-2">Підписка або ключові дії</div>
+                                    <div class="text-xs text-gray-700">
+                                        🎉 "Твій подарунок: 100 грн на перший місяць підписки!"<br/>
+                                        💳 "Знижка 50% закінчується через 3 години. Встигни!"
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="format-card">
+                            <div class="flex items-start gap-3">
+                                <div class="w-8 h-8 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <span class="text-white font-bold text-sm">3</span>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="font-bold text-gray-900 mb-1">Retention (Утримання)</div>
+                                    <div class="text-xs text-gray-600 mb-2">Візити 3+ рази на місяць</div>
+                                    <div class="text-xs text-gray-700">
+                                        🛒 "Продовж перегляд 'Inception'. Залишилось 35 хв!"<br/>
+                                        🎯 "Переглянь ще 2 фільми – отримай місяць безкоштовно"<br/>
+                                        📢 "Новий сезон твого улюбленого серіалу вже тут!"
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="format-card">
+                            <div class="flex items-start gap-3">
+                                <div class="w-8 h-8 bg-gradient-to-br from-pink-500 to-pink-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <span class="text-white font-bold text-sm">4</span>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="font-bold text-gray-900 mb-1">Referral (Реферали)</div>
+                                    <div class="text-xs text-gray-600 mb-2">Рекомендації знайомим</div>
+                                    <div class="text-xs text-gray-700">
+                                        👥 "Запроси друга – отримай 2 місяці безкоштовно обидва!"<br/>
+                                        ❤️ "Подаруй підписку коханій людині. Знижка 40%"
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="format-card">
+                            <div class="flex items-start gap-3">
+                                <div class="w-8 h-8 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <span class="text-white font-bold text-sm">5</span>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="font-bold text-gray-900 mb-1">Revenue (Дохід)</div>
+                                    <div class="text-xs text-gray-600 mb-2">Загальний дохід від користувача</div>
+                                    <div class="text-xs text-gray-700">
+                                        ⬆️ "Upgrade до Premium – 4K якість + офлайн перегляд"<br/>
+                                        🎭 "Ексклюзивні матеріали 'за лаштунками' за 49 грн"<br/>
+                                        ⭐ "Оціни додаток – отримай 50 грн на рахунок"
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Слайд 13: Висновки -->
+        <div class="slide">
+            <div class="glass-effect rounded-2xl overflow-hidden shadow-xl">
+                <div class="bg-gradient-to-r from-cyan-600 to-blue-600 p-5">
+                    <h2 class="text-3xl font-black text-white flex items-center gap-3">
+                        <i class="fas fa-check-circle"></i>
+                        Висновки
+                    </h2>
+                </div>
+
+                <div class="p-8">
+                    <div class="text-center mb-8">
+                        <h2 class="text-3xl font-black text-gray-900 mb-2 section-header">
+                            Підсумки маркетингової стратегії
+                        </h2>
+                        <p class="text-gray-600">Комплексний підхід до email та push маркетингу CINECLOUD</p>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-5 mb-6">
+                        <div class="card-modern bg-white rounded-xl p-5 shadow-md">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-10 h-10 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-envelope-open-text text-white text-lg"></i>
+                                </div>
+                                <h3 class="font-bold text-gray-900 text-base">Тригерні листи</h3>
+                            </div>
+                            <div class="text-2xl font-black text-cyan-600 mb-1">5</div>
+                            <p class="text-gray-600 text-sm">сценаріїв автоматичних розсилок</p>
+                        </div>
+
+                        <div class="card-modern bg-white rounded-xl p-5 shadow-md">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-snowflake text-white text-lg"></i>
+                                </div>
+                                <h3 class="font-bold text-gray-900 text-base">Холодні листи</h3>
+                            </div>
+                            <div class="text-2xl font-black text-blue-600 mb-1">10</div>
+                            <p class="text-gray-600 text-sm">формул для першого контакту</p>
+                        </div>
+
+                        <div class="card-modern bg-white rounded-xl p-5 shadow-md">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-10 h-10 bg-gradient-to-br from-sky-500 to-sky-600 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-mobile-alt text-white text-lg"></i>
+                                </div>
+                                <h3 class="font-bold text-gray-900 text-base">Push-сповіщення</h3>
+                            </div>
+                            <div class="text-2xl font-black text-sky-600 mb-1">5</div>
+                            <p class="text-gray-600 text-sm">фаз моделі AARRR</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <h4 class="font-bold text-gray-900 mb-3 flex items-center gap-2">
+                                <div class="w-2 h-2 bg-cyan-500 rounded-full"></div>
+                                Очікувані показники
+                            </h4>
+                            <div class="space-y-2">
+                                <div class="stat-compact">
+                                    <div class="flex-1">
+                                        <div class="label">Open Rate (тригерні)</div>
+                                        <div class="value text-sm">45-55%</div>
+                                    </div>
+                                </div>
+
+                                <div class="stat-compact">
+                                    <div class="flex-1">
+                                        <div class="label">Click Rate</div>
+                                        <div class="value text-sm">12-18%</div>
+                                    </div>
+                                </div>
+
+                                <div class="stat-compact">
+                                    <div class="flex-1">
+                                        <div class="label">Conversion (холодні)</div>
+                                        <div class="value text-sm">8-15%</div>
+                                    </div>
+                                </div>
+
+                                <div class="stat-compact">
+                                    <div class="flex-1">
+                                        <div class="label">Push Opt-in Rate</div>
+                                        <div class="value text-sm">60-70%</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h4 class="font-bold text-gray-900 mb-3 flex items-center gap-2">
+                                <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                Терміни реалізації
+                            </h4>
+                            <div class="space-y-3">
+                                <div class="metric-bar">
+                                    <div class="text-sm font-semibold text-gray-800">Тригерні листи</div>
+                                    <p class="text-xs text-gray-600 mt-1">2 тижні налаштування автоматизації</p>
+                                </div>
+
+                                <div class="metric-bar">
+                                    <div class="text-sm font-semibold text-gray-800">Холодні кампанії</div>
+                                    <p class="text-xs text-gray-600 mt-1">1 тиждень підготовки та запуску</p>
+                                </div>
+
+                                <div class="metric-bar">
+                                    <div class="text-sm font-semibold text-gray-800">Push-стратегія</div>
+                                    <p class="text-xs text-gray-600 mt-1">3 тижні інтеграції в мобільний додаток</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gradient-to-r from-cyan-50 to-blue-50 rounded-xl p-6 border-l-4 border-cyan-500">
+                        <div class="text-lg font-bold text-gray-900 mb-2">Підсумок стратегії</div>
+                        <p class="text-sm text-gray-700 leading-relaxed">
+                            20 типів email-комунікацій + 15 типів push-сповіщень за моделлю AARRR.<br/>
+                            Повний цикл: залучення → активація → утримання → реферали → монетизація.<br/>
+                            <strong class="text-cyan-700">Загальний термін впровадження: 6 тижнів</strong>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Навігація -->
+    <div class="fixed bottom-5 left-1/2 transform -translate-x-1/2 flex gap-3 items-center glass-effect px-6 py-3 rounded-full shadow-xl">
+        <button onclick="prevSlide()" class="w-10 h-10 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-full flex items-center justify-center text-white hover:shadow-lg transition-all">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        
+        <div id="dots-container" class="flex gap-2"></div>
+        
+        <button onclick="nextSlide()" class="w-10 h-10 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-full flex items-center justify-center text-white hover:shadow-lg transition-all">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        
+        document.getElementById('total-slides').textContent = totalSlides;
+        
+        const dotsContainer = document.getElementById('dots-container');
+        for (let i = 0; i < totalSlides; i++) {
+            const dot = document.createElement('div');
+            dot.className = 'w-2 h-2 rounded-full bg-gray-400 cursor-pointer transition-all';
+            dot.onclick = () => goToSlide(i);
+            dotsContainer.appendChild(dot);
+        }
+        
+        const dots = dotsContainer.querySelectorAll('div');
+        
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            dots[currentSlide].classList.remove('bg-cyan-600', 'w-8');
+            dots[currentSlide].classList.add('bg-gray-400', 'w-2');
+            
+            currentSlide = (n + totalSlides) % totalSlides;
+            
+            slides[currentSlide].classList.add('active');
+            dots[currentSlide].classList.remove('bg-gray-400', 'w-2');
+            dots[currentSlide].classList.add('bg-cyan-600', 'w-8');
+            
+            document.getElementById('current-slide').textContent = currentSlide + 1;
+        }
+        
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+        
+        function prevSlide() {
+            showSlide(currentSlide - 1);
+        }
+        
+        function goToSlide(n) {
+            showSlide(n);
+        }
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+        });
+        
+        showSlide(0);
+    </script>
+</body>
+</html>

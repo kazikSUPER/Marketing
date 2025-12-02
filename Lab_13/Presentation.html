@@ -1,0 +1,1388 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineCloud - Content Marketing Strategy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+        
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .slide {
+            display: none;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .card-modern {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .card-modern::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #06b6d4, #3b82f6);
+        }
+
+        .card-modern:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(6, 182, 212, 0.15);
+        }
+
+        .category-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            border-radius: 6px;
+            color: white;
+        }
+
+        .badge-plan { background: linear-gradient(135deg, #06b6d4, #0891b2); }
+        .badge-pillar { background: linear-gradient(135deg, #3b82f6, #2563eb); }
+        .badge-inbound { background: linear-gradient(135deg, #0ea5e9, #0284c7); }
+        .badge-ugc { background: linear-gradient(135deg, #14b8a6, #0d9488); }
+
+        .stat-compact {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+            transition: all 0.2s ease;
+        }
+
+        .stat-compact:hover {
+            border-color: #06b6d4;
+            box-shadow: 0 2px 8px rgba(6, 182, 212, 0.1);
+        }
+
+        .stat-compact .icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .stat-compact .label {
+            font-size: 10px;
+            color: #6b7280;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .stat-compact .value {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1f2937;
+            line-height: 1.2;
+        }
+
+        .content-number {
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #06b6d4, #0891b2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 18px;
+            color: white;
+            box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
+        }
+
+        .metric-bar {
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.05) 0%, rgba(59, 130, 246, 0.05) 100%);
+            border-left: 3px solid #06b6d4;
+            padding: 12px 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .metric-bar:hover {
+            border-left-width: 5px;
+            transform: translateX(3px);
+        }
+
+        .section-header {
+            position: relative;
+            display: inline-block;
+            padding-bottom: 8px;
+        }
+
+        .section-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #06b6d4, #3b82f6);
+        }
+
+        .format-card {
+            background: white;
+            border-radius: 10px;
+            padding: 16px;
+            border: 1px solid #e5e7eb;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .format-card:hover {
+            border-color: #06b6d4;
+            box-shadow: 0 4px 12px rgba(6, 182, 212, 0.1);
+        }
+
+        .format-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, #06b6d4, #3b82f6);
+            border-radius: 10px 0 0 10px;
+        }
+
+        .content-plan-table {
+            width: 100%;
+            font-size: 11px;
+        }
+
+        .content-plan-table th {
+            background: linear-gradient(135deg, #06b6d4, #0891b2);
+            color: white;
+            padding: 8px;
+            font-weight: 700;
+            text-align: left;
+        }
+
+        .content-plan-table td {
+            padding: 8px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .content-plan-table tr:hover {
+            background: rgba(6, 182, 212, 0.05);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 9px;
+            font-weight: 700;
+        }
+
+        .status-overdue { background: #fee2e2; color: #991b1b; }
+        .status-done { background: #d1fae5; color: #065f46; }
+        .status-progress { background: #fef3c7; color: #92400e; }
+        .status-notstarted { background: #e5e7eb; color: #374151; }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-slate-50 via-blue-50 to-cyan-50 min-h-screen">
+    
+    <!-- Slide Counter -->
+    <div class="fixed top-5 right-5 glass-effect px-4 py-2 rounded-xl font-bold text-cyan-700 shadow-lg z-50 text-sm">
+        <span id="current-slide">1</span> / <span id="total-slides">10</span>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-6 py-6">
+
+        <!-- Слайд 1: Титульний -->
+        <div class="slide active">
+            <div class="glass-effect rounded-2xl overflow-hidden shadow-xl">
+                <div class="relative bg-gradient-to-r from-cyan-600 via-blue-600 to-cyan-500 p-8">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <div class="flex items-center gap-3 mb-2">
+                                <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
+                                    <i class="fas fa-pen-fancy text-3xl text-white"></i>
+                                </div>
+                                <h1 class="text-5xl font-black text-white tracking-tight">CINECLOUD</h1>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="bg-white/10 backdrop-blur-sm rounded-xl px-5 py-3 border border-white/20">
+                                <p class="text-white font-bold text-lg">ЛР №13</p>
+                                <p class="text-cyan-100 text-sm">Content Marketing</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-8">
+                    <div class="text-center mb-8">
+                        <h2 class="text-4xl font-black text-gray-900 mb-2 section-header">
+                            Контент-маркетингова стратегія
+                        </h2>
+                        <p class="text-gray-600 text-lg">Комплексний підхід до створення та просування контенту</p>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-5 mb-6">
+                        <div class="card-modern bg-white rounded-xl p-5 shadow-md">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-10 h-10 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-calendar-alt text-white text-lg"></i>
+                                </div>
+                                <h3 class="font-bold text-gray-900 text-base">Контент-план</h3>
+                            </div>
+                            <p class="text-gray-600 text-sm leading-relaxed">Календар публікацій з датами та форматами</p>
+                        </div>
+
+                        <div class="card-modern bg-white rounded-xl p-5 shadow-md">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-columns text-white text-lg"></i>
+                                </div>
+                                <h3 class="font-bold text-gray-900 text-base">Content Pillars</h3>
+                            </div>
+                            <p class="text-gray-600 text-sm leading-relaxed">4 основні типи контенту для просування</p>
+                        </div>
+
+                        <div class="card-modern bg-white rounded-xl p-5 shadow-md">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-10 h-10 bg-gradient-to-br from-sky-500 to-sky-600 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-magnet text-white text-lg"></i>
+                                </div>
+                                <h3 class="font-bold text-gray-900 text-base">Inbound Marketing</h3>
+                            </div>
+                            <p class="text-gray-600 text-sm leading-relaxed">Стратегія залучення через цінний контент</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-gradient-to-r from-cyan-50 to-blue-50 rounded-xl p-5 border-l-4 border-cyan-500">
+                        <p class="text-gray-700 text-center leading-relaxed">
+                            Контент-маркетинг – це стратегічний підхід, спрямований на створення та розповсюдження цінного, релевантного контенту для залучення та утримання чітко визначеної аудиторії.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Слайд 2: Про продукт -->
+        <div class="slide">
+            <div class="glass-effect rounded-2xl overflow-hidden shadow-xl">
+                <div class="bg-gradient-to-r from-cyan-600 to-blue-600 p-5">
+                    <h2 class="text-3xl font-black text-white flex items-center gap-3">
+                        <i class="fas fa-film"></i>
+                        Продукт CINECLOUD
+                    </h2>
+                </div>
+
+                <div class="p-8">
+                    <div class="bg-gradient-to-r from-cyan-50 to-blue-50 rounded-xl p-5 border-l-4 border-cyan-500 mb-6">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Стрімінгова платформа з AI-рекомендаціями</h3>
+                        <p class="text-gray-700 leading-relaxed">CINECLOUD – технологічний інформаційно-розважальний комплекс, який формує відкриту кіноспільноту від звичайних глядачів до професіоналів кіноіндустрії.</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-5">
+                        <div>
+                            <h4 class="font-bold text-gray-900 mb-3 flex items-center gap-2">
+                                <div class="w-2 h-2 bg-cyan-500 rounded-full"></div>
+                                Канали просування
+                            </h4>
+                            <div class="space-y-2">
+                                <div class="stat-compact">
+                                    <div class="icon bg-gradient-to-br from-cyan-500 to-cyan-600">
+                                        <i class="fas fa-globe text-white text-sm"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="label">Блог на сайті</div>
+                                        <div class="value text-sm">Статті та новини</div>
+                                    </div>
+                                </div>
+
+                                <div class="stat-compact">
+                                    <div class="icon bg-gradient-to-br from-blue-500 to-blue-600">
+                                        <i class="fab fa-instagram text-white text-sm"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="label">Instagram</div>
+                                        <div class="value text-sm">Візуальний контент</div>
+                                    </div>
+                                </div>
+
+                                <div class="stat-compact">
+                                    <div class="icon bg-gradient-to-br from-sky-500 to-sky-600">
+                                        <i class="fab fa-youtube text-white text-sm"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="label">YouTube</div>
+                                        <div class="value text-sm">Відео-контент</div>
+                                    </div>
+                                </div>
+
+                                <div class="stat-compact">
+                                    <div class="icon bg-gradient-to-br from-teal-500 to-teal-600">
+                                        <i class="fab fa-telegram text-white text-sm"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="label">Telegram</div>
+                                        <div class="value text-sm">Новини та анонси</div>
+                                    </div>
+                                </div>
+
+                                <div class="stat-compact">
+                                    <div class="icon bg-gradient-to-br from-pink-500 to-pink-600">
+                                        <i class="fab fa-tiktok text-white text-sm"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="label">TikTok</div>
+                                        <div class="value text-sm">Короткі відео</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h4 class="font-bold text-gray-900 mb-3 flex items-center gap-2">
+                                <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                Формати контенту
+                            </h4>
+                            <div class="space-y-2">
+                                <div class="metric-bar">
+                                    <div class="text-sm font-semibold text-gray-800"><i class="fas fa-file-alt"></i> Статті та пости</div>
+                                    <p class="text-xs text-gray-600 mt-1">Блог, огляди фільмів, новини</p>
+                                </div>
+
+                                <div class="metric-bar">
+                                    <div class="text-sm font-semibold text-gray-800"><i class="fas fa-film"></i> Відео-контент</div>
+                                    <p class="text-xs text-gray-600 mt-1">Трейлери, інтерв'ю, огляди</p>
+                                </div>
+
+                                <div class="metric-bar">
+                                    <div class="text-sm font-semibold text-gray-800"><i class="fas fa-camera"></i> Візуальний контент</div>
+                                    <p class="text-xs text-gray-600 mt-1">Постери, цитати, кадри</p>
+                                </div>
+
+                                <div class="metric-bar">
+                                    <div class="text-sm font-semibold text-gray-800"><i class="fas fa-gamepad"></i> Інтерактив</div>
+                                    <p class="text-xs text-gray-600 mt-1">Квізи, опитування, тести</p>
+                                </div>
+
+                                <div class="metric-bar">
+                                    <div class="text-sm font-semibold text-gray-800"><i class="fas fa-users"></i> UGC</div>
+                                    <p class="text-xs text-gray-600 mt-1">Відгуки, огляди користувачів</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Слайд 3: Контент-план -->
+        <div class="slide">
+            <div class="glass-effect rounded-2xl overflow-hidden shadow-xl">
+                <div class="bg-gradient-to-r from-cyan-600 to-blue-600 p-5">
+                    <h2 class="text-3xl font-black text-white flex items-center gap-3">
+                        <i class="fas fa-calendar-alt"></i>
+                        Контент-план на місяць
+                    </h2>
+                </div>
+
+                <div class="p-8">
+                    <div class="mb-6">
+                        <span class="category-badge badge-plan">Контент-план</span>
+                    </div>
+
+                    <div class="bg-gradient-to-r from-cyan-50 to-blue-50 rounded-xl p-4 border-l-4 border-cyan-500 mb-6">
+                        <p class="text-sm text-gray-700">Календар публікацій визначає дати, формати, теми та відповідальних за створення контенту для різних каналів просування.</p>
+                    </div>
+
+                    <div class="bg-white rounded-xl p-4 shadow-md overflow-x-auto">
+                        <table class="content-plan-table">
+                            <thead>
+                                <tr>
+                                    <th>Дата</th>
+                                    <th>Статус</th>
+                                    <th>Канал</th>
+                                    <th>Формат</th>
+                                    <th>Рубрика</th>
+                                    <th>Тема</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>05.01.2025</td>
+                                    <td><span class="status-badge status-done">Опубліковано</span></td>
+                                    <td>Instagram</td>
+                                    <td>Reels</td>
+                                    <td>Новинки</td>
+                                    <td>Топ-5 прем'єр січня на CINECLOUD</td>
+                                </tr>
+                                <tr>
+                                    <td>08.01.2025</td>
+                                    <td><span class="status-badge status-done">Опубліковано</span></td>
+                                    <td>Блог</td>
+                                    <td>Стаття</td>
+                                    <td>Огляди</td>
+                                    <td>Чому українське кіно стає популярнішим</td>
+                                </tr>
+                                <tr>
+                                    <td>12.01.2025</td>
+                                    <td><span class="status-badge status-progress">У роботі</span></td>
+                                    <td>YouTube</td>
+                                    <td>Відео</td>
+                                    <td>Інтерв'ю</td>
+                                    <td>Розмова з режисером нового українського фільму</td>
+                                </tr>
+                                <tr>
+                                    <td>15.01.2025</td>
+                                    <td><span class="status-badge status-notstarted">Заплановано</span></td>
+                                    <td>TikTok</td>
+                                    <td>Короткі відео</td>
+                                    <td>Розваги</td>
+                                    <td>Відгадай фільм за кадром - зимова версія</td>
+                                </tr>
+                                <tr>
+                                    <td>18.01.2025</td>
+                                    <td><span class="status-badge status-notstarted">Заплановано</span></td>
+                                    <td>Telegram</td>
+                                    <td>Пост</td>
+                                    <td>Новини</td>
+                                    <td>Дайджест новин за тиждень: що нового на платформі</td>
+                                </tr>
+                                <tr>
+                                    <td>25.01.2025</td>
+                                    <td><span class="status-badge status-notstarted">Заплановано</span></td>
+                                    <td>Instagram</td>
+                                    <td>Stories + Quiz</td>
+                                    <td>Інтерактив</td>
+                                    <td>Зимовий квіз: який фільм подивитися на свята</td>
+                                </tr>
+                                <tr>
+                                    <td>28.01.2025</td>
+                                    <td><span class="status-badge status-notstarted">Заплановано</span></td>
+                                    <td>Блог</td>
+                                    <td>Підбірка</td>
+                                    <td>Колекції</td>
+                                    <td>15 найкращих зимових фільмів на CINECLOUD</td>
+                                </tr>
+                                <tr>
+                                    <td>01.02.2025</td>
+                                    <td><span class="status-badge status-notstarted">Заплановано</span></td>
+                                    <td>YouTube</td>
+                                    <td>Відео</td>
+                                    <td>UGC</td>
+                                    <td>Добірка найкращих відгуків користувачів за рік</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="grid grid-cols-4 gap-3 mt-6">
+                        <div class="stat-compact">
+                            <div class="flex-1">
+                                <div class="label">Опубліковано</div>
+                                <div class="value text-sm text-green-600">2</div>
+                            </div>
+                        </div>
+                        <div class="stat-compact">
+                            <div class="flex-1">
+                                <div class="label">У роботі</div>
+                                <div class="value text-sm text-yellow-600">1</div>
+                            </div>
+                        </div>
+                        <div class="stat-compact">
+                            <div class="flex-1">
+                                <div class="label">Заплановано</div>
+                                <div class="value text-sm text-gray-600">5</div>
+                            </div>
+                        </div>
+                        <div class="stat-compact">
+                            <div class="flex-1">
+                                <div class="label">Всього</div>
+                                <div class="value text-sm text-cyan-600">8</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Слайд 4: Content Pillars - огляд -->
+        <div class="slide">
+            <div class="glass-effect rounded-2xl overflow-hidden shadow-xl">
+                <div class="bg-gradient-to-r from-cyan-600 to-blue-600 p-5">
+                    <h2 class="text-3xl font-black text-white flex items-center gap-3">
+                        <i class="fas fa-columns"></i>
+                        Content Pillars
+                    </h2>
+                </div>
+
+                <div class="p-8">
+                    <div class="mb-6">
+                        <span class="category-badge badge-pillar">Content Pillars</span>
+                    </div>
+
+                    <div class="bg-gradient-to-r from-cyan-50 to-blue-50 rounded-xl p-4 border-l-4 border-cyan-500 mb-6">
+                        <p class="text-sm text-gray-700">Content Pillars – це основні теми або типи контенту, навколо яких будується вся контент-стратегія бренду.</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-5">
+                        <div class="format-card">
+                            <div class="content-number">1</div>
+                            <div class="flex items-start gap-3 pt-4">
+                                <div class="w-10 h-10 bg-gradient-to-br from-red-500 to-red-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-bullhorn text-white text-lg"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="font-bold text-gray-900 mb-2">Рекламний контент</h3>
+                                    <p class="text-xs text-gray-600 mb-2">Просування продуктів, послуг, спеціальних пропозицій та акцій</p>
+                                    <div class="text-xs text-gray-700 space-y-1">
+                                        <div>• Анонси нових фільмів та серіалів</div>
+                                        <div>• Спеціальні пропозиції та промокоди</div>
+                                        <div>• Інформація про тарифи підписок</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="format-card">
+                            <div class="content-number">2</div>
+                            <div class="flex items-start gap-3 pt-4">
+                                <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-graduation-cap text-white text-lg"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="font-bold text-gray-900 mb-2">Освітній контент</h3>
+                                    <p class="text-xs text-gray-600 mb-2">Надання цінної інформації через посібники, вебінари, інструкції</p>
+                                    <div class="text-xs text-gray-700 space-y-1">
+                                        <div>• Історія кіно та кінематографу</div>
+                                        <div>• Як користуватися платформою</div>
+                                        <div>• Аналіз та розбір фільмів</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="format-card">
+                            <div class="content-number">3</div>
+                            <div class="flex items-start gap-3 pt-4">
+                                <div class="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-laugh text-white text-lg"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="font-bold text-gray-900 mb-2">Розважальний контент</h3>
+                                    <p class="text-xs text-gray-600 mb-2">Веселий та цікавий матеріал: меми, гіфки, гумористичні пости</p>
+                                    <div class="text-xs text-gray-700 space-y-1">
+                                        <div>• Меми про улюблені фільми</div>
+                                        <div>• Цікаві факти про зйомки</div>
+                                        <div>• Челенджі та тренди TikTok</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="format-card">
+                            <div class="content-number">4</div>
+                            <div class="flex items-start gap-3 pt-4">
+                                <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-comments text-white text-lg"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="font-bold text-gray-900 mb-2">Залучаючий контент</h3>
+                                    <p class="text-xs text-gray-600 mb-2">Опитування, запитання, інтерактивні елементи для взаємодії</p>
+                                    <div class="text-xs text-gray-700 space-y-1">
+                                        <div>• Опитування: який фільм подивитися</div>
+                                        <div>• Квізи про знання кіно</div>
+                                        <div>• Конкурси з призами</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Слайд 5: Рекламний контент детально -->
+        <div class="slide">
+            <div class="glass-effect rounded-2xl overflow-hidden shadow-xl">
+                <div class="bg-gradient-to-r from-cyan-600 to-blue-600 p-5">
+                    <h2 class="text-3xl font-black text-white flex items-center gap-3">
+                        <i class="fas fa-bullhorn"></i>
+                        Content Pillar #1: Рекламний контент
+                    </h2>
+                </div>
+
+                <div class="p-8">
+                    <div class="mb-6">
+                        <span class="category-badge badge-pillar">Рекламний контент</span>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                                <div class="w-2 h-2 bg-cyan-500 rounded-full"></div>
+                                Опис та призначення
+                            </h3>
+
+                            <div class="metric-bar mb-4">
+                                <div class="text-sm font-semibold text-gray-800 mb-1">Мета</div>
+                                <p class="text-xs text-gray-600">Просування продуктів, послуг, запусків, спеціальних пропозицій та розпродажів</p>
+                            </div>
+
+                            <div class="bg-gradient-to-r from-cyan-50 to-blue-50 rounded-xl p-4 border-l-4 border-cyan-500 mb-4">
+                                <div class="text-xs font-semibold text-cyan-900 mb-2">Ключові теми для CINECLOUD:</div>
+                                <div class="text-xs text-cyan-800 space-y-1">
+                                    <div>• Анонси нових фільмів та прем'єр</div>
+                                    <div>• Спеціальні пропозиції та акції</div>
+                                    <div>• Промокоди та знижки на підписки</div>
+                                    <div>• Огляд тарифних планів</div>
+                                    <div>• Унікальні функції платформи</div>
+                                </div>
+                            </div>
+
+                            <div class="metric-bar">
+                                <div class="text-sm font-semibold text-gray-800 mb-1">Формати</div>
+                                <p class="text-xs text-gray-600">Stories, Reels, Posts, Banner ads, Email-розсилки</p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                                <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                Приклади контенту
+                            </h3>
+
+                            <div class="space-y-3">
+                                <div class="format-card">
+                                    <div class="text-xs font-semibold text-gray-900 mb-1"><i class="fas fa-mobile-alt"></i> Instagram Post</div>
+                                    <div class="text-xs text-gray-700 mb-2">"Вихідні з CINECLOUD! Підпишись на річний тариф зараз – отримай 3 місяці у подарунок <i class="fas fa-gift"></i>"</div>
+                                    <div class="text-xs text-cyan-600">#CINECLOUD #акція #знижка</div>
+                                </div>
+
+                                <div class="format-card">
+                                    <div class="text-xs font-semibold text-gray-900 mb-1"><i class="fas fa-envelope"></i> Email Newsletter</div>
+                                    <div class="text-xs text-gray-700 mb-2">"Тема: Твій промокод на 30% знижки чекає! Активуй WINTER30 до кінця місяця"</div>
+                                    <div class="text-xs text-cyan-600">Conversion goal: +20%</div>
+                                </div>
+
+                                <div class="format-card">
+                                    <div class="text-xs font-semibold text-gray-900 mb-1"><i class="fas fa-film"></i> YouTube Pre-roll</div>
+                                    <div class="text-xs text-gray-700 mb-2">"30-секундний ролик про новинки січня та безкоштовний пробний період"</div>
+                                    <div class="text-xs text-cyan-600">Target: 100K показів</div>
+                                </div>
+
+                                <div class="format-card">
+                                    <div class="text-xs font-semibold text-gray-900 mb-1"><i class="fas fa-paper-plane"></i> Telegram Channel</div>
+                                    <div class="text-xs text-gray-700 mb-2">"Вийшов новий сезон [Назва]. Підписники CINECLOUD Premium дивляться першими!"</div>
+                                    <div class="text-xs text-cyan-600">CTA: Оформити Premium</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 grid grid-cols-3 gap-4">
+                        <div class="stat-compact">
+                            <div class="flex-1">
+                                <div class="label">Частота публікацій</div>
+                                <div class="value text-sm">2-3 рази/тиждень</div>
+                            </div>
+                        </div>
+                        <div class="stat-compact">
+                            <div class="flex-1">
+                                <div class="label">Ключова метрика</div>
+                                <div class="value text-sm">Conversion Rate</div>
+                            </div>
+                        </div>
+                        <div class="stat-compact">
+                            <div class="flex-1">
+                                <div class="label">Цільова аудиторія</div>
+                                <div class="value text-sm">Нові + Існуючі</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Слайд 6: Освітній контент детально -->
+        <div class="slide">
+            <div class="glass-effect rounded-2xl overflow-hidden shadow-xl">
+                <div class="bg-gradient-to-r from-cyan-600 to-blue-600 p-5">
+                    <h2 class="text-3xl font-black text-white flex items-center gap-3">
+                        <i class="fas fa-graduation-cap"></i>
+                        Content Pillar #2: Освітній контент
+                    </h2>
+                </div>
+
+                <div class="p-8">
+                    <div class="mb-6">
+                        <span class="category-badge badge-pillar">Освітній контент</span>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                                <div class="w-2 h-2 bg-cyan-500 rounded-full"></div>
+                                Опис та призначення
+                            </h3>
+
+                            <div class="metric-bar mb-4">
+                                <div class="text-sm font-semibold text-gray-800 mb-1">Мета</div>
+                                <p class="text-xs text-gray-600">Надання цінної інформації аудиторії через посібники, вебінари, інструкції, аналіз</p>
+                            </div>
+
+                            <div class="bg-gradient-to-r from-cyan-50 to-blue-50 rounded-xl p-4 border-l-4 border-cyan-500 mb-4">
+                                <div class="text-xs font-semibold text-cyan-900 mb-2">Ключові теми для CINECLOUD:</div>
+                                <div class="text-xs text-cyan-800 space-y-1">
+                                    <div>• Історія кінематографу та класики</div>
+                                    <div>• Як користуватися функціями платформи</div>
+                                    <div>• Аналіз фільмів та режисерських прийомів</div>
+                                    <div>• Огляди кінофестивалів</div>
+                                    <div>• Інтерв'ю з режисерами та акторами</div>
+                                </div>
+                            </div>
+
+                            <div class="metric-bar">
+                                <div class="text-sm font-semibold text-gray-800 mb-1">Формати</div>
+                                <p class="text-xs text-gray-600">Статті в блозі, YouTube відео, вебінари, гайди, e-books</p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                                <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                Приклади контенту
+                            </h3>
+
+                            <div class="space-y-3">
+                                <div class="format-card">
+                                    <div class="text-xs font-semibold text-gray-900 mb-1"><i class="fas fa-file-alt"></i> Стаття в блозі</div>
+                                    <div class="text-xs text-gray-700 mb-2">"10 культових фільмів Тарковського, які варто подивитися кожному. Аналіз символізму та філософії"</div>
+                                    <div class="text-xs text-cyan-600">SEO: +200 органічних відвідувань</div>
+                                </div>
+
+                                <div class="format-card">
+                                    <div class="text-xs font-semibold text-gray-900 mb-1"><i class="fas fa-video"></i> YouTube відео</div>
+                                    <div class="text-xs text-gray-700 mb-2">"Як працюють AI-рекомендації CINECLOUD: покрокова інструкція налаштування"</div>
+                                    <div class="text-xs text-cyan-600">Duration: 8 хв | Watch time: 70%</div>
+                                </div>
+
+                                <div class="format-card">
+                                    <div class="text-xs font-semibold text-gray-900 mb-1"><i class="fas fa-book"></i> E-book гайд</div>
+                                    <div class="text-xs text-gray-700 mb-2">"Повний гід українським кіно: 50 фільмів, які формують нашу ідентичність"</div>
+                                    <div class="text-xs text-cyan-600">Lead magnet: 500+ завантажень</div>
+                                </div>
+
+                                <div class="format-card">
+                                    <div class="text-xs font-semibold text-gray-900 mb-1"><i class="fas fa-graduation-cap"></i> Вебінар</div>
+                                    <div class="text-xs text-gray-700 mb-2">"Від ідеї до екрану: розмова з українським режисером про створення фільму"</div>
+                                    <div class="text-xs text-cyan-600">Live attendees: 150 осіб</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 grid grid-cols-3 gap-4">
+                        <div class="stat-compact">
+                            <div class="flex-1">
+                                <div class="label">Частота публікацій</div>
+                                <div class="value text-sm">3-4 рази/тиждень</div>
+                            </div>
+                        </div>
+                        <div class="stat-compact">
+                            <div class="flex-1">
+                                <div class="label">Ключова метрика</div>
+                                <div class="value text-sm">Time on page</div>
+                            </div>
+                        </div>
+                        <div class="stat-compact">
+                            <div class="flex-1">
+                                <div class="label">Цільова аудиторія</div>
+                                <div class="value text-sm">Кіноентузіасти</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Слайд 7: Inbound Marketing -->
+        <div class="slide">
+            <div class="glass-effect rounded-2xl overflow-hidden shadow-xl">
+                <div class="bg-gradient-to-r from-cyan-600 to-blue-600 p-5">
+                    <h2 class="text-3xl font-black text-white flex items-center gap-3">
+                        <i class="fas fa-magnet"></i>
+                        Inbound Marketing
+                    </h2>
+                </div>
+
+                <div class="p-8">
+                    <div class="mb-6">
+                        <span class="category-badge badge-inbound">Inbound Marketing</span>
+                    </div>
+
+                    <div class="bg-gradient-to-r from-cyan-50 to-blue-50 rounded-xl p-4 border-l-4 border-cyan-500 mb-6">
+                        <p class="text-sm text-gray-700">Стратегія вхідного маркетингу спрямована на залучення клієнтів через створення цінного контенту та позитивного досвіду на кожному етапі взаємодії.</p>
+                    </div>
+
+                    <div class="space-y-5">
+                        <div class="format-card">
+                            <div class="content-number">1</div>
+                            <div class="pt-4">
+                                <div class="flex items-start gap-3 mb-3">
+                                    <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                                        <i class="fas fa-magnet text-white text-lg"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-bold text-gray-900 mb-1">Attracting (Привертання)</h3>
+                                        <p class="text-xs text-gray-600">Залучайте потрібних людей цінним вмістом та розмовами</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div>
+                                        <div class="text-xs font-semibold text-gray-800 mb-1">Інструменти:</div>
+                                        <div class="text-xs text-gray-700 space-y-1">
+                                            <div>• SEO-оптимізовані статті в блозі</div>
+                                            <div>• Відео-огляди фільмів на YouTube</div>
+                                            <div>• Соціальні мережі (Instagram, TikTok)</div>
+                                            <div>• Відгуки та рейтинги користувачів</div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="text-xs font-semibold text-gray-800 mb-1">Приклад для CINECLOUD:</div>
+                                        <div class="text-xs text-gray-700 bg-blue-50 p-2 rounded">
+                                            "Топ-10 українських фільмів 2024 року: повний огляд з трейлерами та де дивитися"<br/>
+                                            <span class="text-cyan-700">→ Органічний трафік з пошуку</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="format-card">
+                            <div class="content-number">2</div>
+                            <div class="pt-4">
+                                <div class="flex items-start gap-3 mb-3">
+                                    <div class="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                                        <i class="fas fa-hands-helping text-white text-lg"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-bold text-gray-900 mb-1">Engaging (Залучення)</h3>
+                                        <p class="text-xs text-gray-600">Представляйте рішення, які відповідають їхнім цілям</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div>
+                                        <div class="text-xs font-semibold text-gray-800 mb-1">Інструменти:</div>
+                                        <div class="text-xs text-gray-700 space-y-1">
+                                            <div>• Email-розсилки з персоналізацією</div>
+                                            <div>• Квізи та тести "Який фільм тобі?"</div>
+                                            <div>• Live-чати та підтримка</div>
+                                            <div>• Безкоштовний пробний період</div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="text-xs font-semibold text-gray-800 mb-1">Приклад для CINECLOUD:</div>
+                                        <div class="text-xs text-gray-700 bg-green-50 p-2 rounded">
+                                            Квіз "Підбери ідеальний фільм на вечір" → персоналізовані рекомендації → пропозиція безкоштовного тижня<br/>
+                                            <span class="text-cyan-700">→ Conversion: 25%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="format-card">
+                            <div class="content-number">3</div>
+                            <div class="pt-4">
+                                <div class="flex items-start gap-3 mb-3">
+                                    <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                                        <i class="fas fa-heart text-white text-lg"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-bold text-gray-900 mb-1">Delighting (Захоплення)</h3>
+                                        <p class="text-xs text-gray-600">Надання допомоги для досягнення успіху клієнтів</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div>
+                                        <div class="text-xs font-semibold text-gray-800 mb-1">Інструменти:</div>
+                                        <div class="text-xs text-gray-700 space-y-1">
+                                            <div>• Програми лояльності</div>
+                                            <div>• Ексклюзивний контент для підписників</div>
+                                            <div>• Регулярні оновлення каталогу</div>
+                                            <div>• Персональні рекомендації AI</div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="text-xs font-semibold text-gray-800 mb-1">Приклад для CINECLOUD:</div>
+                                        <div class="text-xs text-gray-700 bg-purple-50 p-2 rounded">
+                                            "Дякуємо, що з нами рік! Ось твоя персональна добірка з 20 фільмів на основі переглядів + місяць Premium у подарунок"<br/>
+                                            <span class="text-cyan-700">→ Retention: +40%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Слайд 8: User Generated Content (UGC) -->
+        <div class="slide">
+            <div class="glass-effect rounded-2xl overflow-hidden shadow-xl">
+                <div class="bg-gradient-to-r from-cyan-600 to-blue-600 p-5">
+                    <h2 class="text-3xl font-black text-white flex items-center gap-3">
+                        <i class="fas fa-users"></i>
+                        User Generated Content (UGC)
+                    </h2>
+                </div>
+
+                <div class="p-8">
+                    <div class="mb-6">
+                        <span class="category-badge badge-ugc">UGC</span>
+                    </div>
+
+                    <div class="bg-gradient-to-r from-cyan-50 to-blue-50 rounded-xl p-4 border-l-4 border-cyan-500 mb-6">
+                        <p class="text-sm text-gray-700">User Generated Content (UGC) – це будь-який контент (текст, зображення, відео, огляди), створений та поширений користувачами продукту, а не традиційними засобами маркетингу.</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                                <div class="w-2 h-2 bg-cyan-500 rounded-full"></div>
+                                Переваги UGC для CINECLOUD
+                            </h3>
+
+                            <div class="space-y-3">
+                                <div class="metric-bar">
+                                    <div class="text-sm font-semibold text-gray-800"><i class="fas fa-bullseye"></i> Автентичність</div>
+                                    <p class="text-xs text-gray-600 mt-1">Користувачі більше довіряють відгукам інших людей, ніж рекламі</p>
+                                </div>
+
+                                <div class="metric-bar">
+                                    <div class="text-sm font-semibold text-gray-800"><i class="fas fa-dollar-sign"></i> Економія бюджету</div>
+                                    <p class="text-xs text-gray-600 mt-1">Контент створюється безкоштовно самими користувачами</p>
+                                </div>
+
+                                <div class="metric-bar">
+                                    <div class="text-sm font-semibold text-gray-800"><i class="fas fa-chart-line"></i> Залученість</div>
+                                    <p class="text-xs text-gray-600 mt-1">UGC генерує в 6.9 разів більше залученості, ніж брендовий контент</p>
+                                </div>
+
+                                <div class="metric-bar">
+                                    <div class="text-sm font-semibold text-gray-800"><i class="fas fa-sync-alt"></i> Вірусний потенціал</div>
+                                    <p class="text-xs text-gray-600 mt-1">Користувачі діляться своїм контентом з друзями та підписниками</p>
+                                </div>
+
+                                <div class="metric-bar">
+                                    <div class="text-sm font-semibold text-gray-800"><i class="fas fa-lightbulb"></i> SEO-переваги</div>
+                                    <p class="text-xs text-gray-600 mt-1">Відгуки та коментарі створюють унікальний контент для пошукових систем</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                                <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                Типи UGC для CINECLOUD
+                            </h3>
+
+                            <div class="space-y-3">
+                                <div class="format-card">
+                                    <div class="text-xs font-semibold text-gray-900 mb-1"><i class="fas fa-star"></i> Відгуки та рейтинги</div>
+                                    <div class="text-xs text-gray-700">"Дивився 'Атлантиду' на CINECLOUD – 10/10! Якість зображення супер, українське кіно має бути доступним"</div>
+                                </div>
+
+                                <div class="format-card">
+                                    <div class="text-xs font-semibold text-gray-900 mb-1"><i class="fas fa-camera"></i> Фото та скріншоти</div>
+                                    <div class="text-xs text-gray-700">Користувачі діляться скріншотами улюблених моментів з фільмів з хештегом #MyCINECLOUD</div>
+                                </div>
+
+                                <div class="format-card">
+                                    <div class="text-xs font-semibold text-gray-900 mb-1"><i class="fas fa-film"></i> Відео-огляди</div>
+                                    <div class="text-xs text-gray-700">TikTok та YouTube огляди: "Що подивитися на CINECLOUD цього тижня"</div>
+                                </div>
+
+                                <div class="format-card">
+                                    <div class="text-xs font-semibold text-gray-900 mb-1"><i class="fas fa-comments"></i> Історії успіху</div>
+                                    <div class="text-xs text-gray-700">"Завдяки CINECLOUD відкрив для себе українське документальне кіно. Дякую за рекомендації!"</div>
+                                </div>
+
+                                <div class="format-card">
+                                    <div class="text-xs font-semibold text-gray-900 mb-1"><i class="fas fa-theater-masks"></i> Мем-контент</div>
+                                    <div class="text-xs text-gray-700">Користувачі створюють меми на основі улюблених фільмів з платформи</div>
+                                </div>
+
+                                <div class="format-card">
+                                    <div class="text-xs font-semibold text-gray-900 mb-1"><i class="fas fa-list"></i> Список "Must Watch"</div>
+                                    <div class="text-xs text-gray-700">Користувачі діляться своїми топ-списками фільмів з CINECLOUD</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Слайд 9: UGC Кампанія -->
+        <div class="slide">
+            <div class="glass-effect rounded-2xl overflow-hidden shadow-xl">
+                <div class="bg-gradient-to-r from-cyan-600 to-blue-600 p-5">
+                    <h2 class="text-3xl font-black text-white flex items-center gap-3">
+                        <i class="fas fa-rocket"></i>
+                        UGC Кампанія для CINECLOUD
+                    </h2>
+                </div>
+
+                <div class="p-8">
+                    <div class="mb-6">
+                        <span class="category-badge badge-ugc">UGC Campaign</span>
+                    </div>
+
+                    <div class="bg-gradient-to-r from-cyan-50 to-blue-50 rounded-xl p-4 border-l-4 border-cyan-500 mb-6">
+                        <div class="text-sm font-bold text-cyan-900 mb-1">Кампанія: #MyCINECLOUDmoment</div>
+                        <p class="text-xs text-gray-700">Користувачі діляться своїми улюбленими моментами з фільмів, які вони дивляться на платформі</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-5">
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-900 mb-3 flex items-center gap-2">
+                                <div class="w-2 h-2 bg-cyan-500 rounded-full"></div>
+                                Механіка кампанії
+                            </h3>
+
+                            <div class="space-y-3">
+                                <div class="metric-bar">
+                                    <div class="text-xs font-semibold text-cyan-800 mb-1">Крок 1: Визначення цілі</div>
+                                    <div class="text-xs text-gray-700">• Залучити 5000+ публікацій за місяць<br/>• Збільшити brand awareness на 30%<br/>• Отримати 500+ нових підписників</div>
+                                </div>
+
+                                <div class="metric-bar">
+                                    <div class="text-xs font-semibold text-cyan-800 mb-1">Крок 2: Платформи</div>
+                                    <div class="text-xs text-gray-700">• Instagram (основна)<br/>• TikTok (відео)<br/>• Telegram (обговорення)</div>
+                                </div>
+
+                                <div class="metric-bar">
+                                    <div class="text-xs font-semibold text-cyan-800 mb-1">Крок 3: Хештег</div>
+                                    <div class="text-xs text-gray-700">#MyCINECLOUDmoment<br/>#CINECLOUD #УкраїнськеКіно</div>
+                                </div>
+
+                                <div class="metric-bar">
+                                    <div class="text-xs font-semibold text-cyan-800 mb-1">Крок 4: Інструкції</div>
+                                    <div class="text-xs text-gray-700">1. Зроби скріншот улюбленого моменту<br/>2. Розкажи, чому цей кадр особливий<br/>3. Додай #MyCINECLOUDmoment<br/>4. Познач @cinecloud_ua</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-900 mb-3 flex items-center gap-2">
+                                <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                Мотивація та призи
+                            </h3>
+
+                            <div class="space-y-3">
+                                <div class="format-card">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <div class="text-2xl"><i class="fas fa-trophy text-yellow-500"></i></div>
+                                        <div class="font-bold text-gray-900">Гранд-приз</div>
+                                    </div>
+                                    <div class="text-xs text-gray-700">Річна підписка CINECLOUD Premium + мерч (худі, постери)</div>
+                                </div>
+
+                                <div class="format-card">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <div class="text-2xl"><i class="fas fa-medal text-gray-400"></i></div>
+                                        <div class="font-bold text-gray-900">5 переможців</div>
+                                    </div>
+                                    <div class="text-xs text-gray-700">6 місяців Premium підписки</div>
+                                </div>
+
+                                <div class="format-card">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <div class="text-2xl"><i class="fas fa-award text-orange-600"></i></div>
+                                        <div class="font-bold text-gray-900">20 переможців</div>
+                                    </div>
+                                    <div class="text-xs text-gray-700">3 місяці безкоштовного доступу</div>
+                                </div>
+
+                                <div class="format-card">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <div class="text-2xl"><i class="fas fa-gift"></i></div>
+                                        <div class="font-bold text-gray-900">Всі учасники</div>
+                                    </div>
+                                    <div class="text-xs text-gray-700">Промокод на 20% знижки для друзів</div>
+                                </div>
+                            </div>
+
+                            <div class="mt-4 bg-gradient-to-r from-cyan-50 to-blue-50 rounded-xl p-3 border-l-4 border-cyan-500">
+                                <div class="text-xs font-semibold text-cyan-900 mb-1">Амбасадори кампанії:</div>
+                                <div class="text-xs text-cyan-800">Залучення 3 інфлюенсерів з ніші кіно для старту кампанії та показу прикладу</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 grid grid-cols-4 gap-3">
+                        <div class="stat-compact">
+                            <div class="flex-1">
+                                <div class="label">Тривалість</div>
+                                <div class="value text-sm">1 місяць</div>
+                            </div>
+                        </div>
+                        <div class="stat-compact">
+                            <div class="flex-1">
+                                <div class="label">Бюджет</div>
+                                <div class="value text-sm">50,000 грн</div>
+                            </div>
+                        </div>
+                        <div class="stat-compact">
+                            <div class="flex-1">
+                                <div class="label">Очікуваний охоплення</div>
+                                <div class="value text-sm">500K+</div>
+                            </div>
+                        </div>
+                        <div class="stat-compact">
+                            <div class="flex-1">
+                                <div class="label">Нові підписники</div>
+                                <div class="value text-sm">500+</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Слайд 10: Висновки -->
+        <div class="slide">
+            <div class="glass-effect rounded-2xl overflow-hidden shadow-xl">
+                <div class="bg-gradient-to-r from-cyan-600 to-blue-600 p-5">
+                    <h2 class="text-3xl font-black text-white flex items-center gap-3">
+                        <i class="fas fa-check-circle"></i>
+                        Висновки
+                    </h2>
+                </div>
+
+                <div class="p-8">
+                    <div class="text-center mb-8">
+                        <h2 class="text-3xl font-black text-gray-900 mb-2 section-header">
+                            Підсумки контент-стратегії
+                        </h2>
+                        <p class="text-gray-600">Комплексний підхід до контент-маркетингу CINECLOUD</p>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-5 mb-6">
+                        <div class="card-modern bg-white rounded-xl p-5 shadow-md">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-10 h-10 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-calendar-alt text-white text-lg"></i>
+                                </div>
+                                <h3 class="font-bold text-gray-900 text-base">Контент-план</h3>
+                            </div>
+                            <div class="text-2xl font-black text-cyan-600 mb-1">8</div>
+                            <p class="text-gray-600 text-sm">публікацій на місяць</p>
+                        </div>
+
+                        <div class="card-modern bg-white rounded-xl p-5 shadow-md">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-columns text-white text-lg"></i>
+                                </div>
+                                <h3 class="font-bold text-gray-900 text-base">Content Pillars</h3>
+                            </div>
+                            <div class="text-2xl font-black text-blue-600 mb-1">4</div>
+                            <p class="text-gray-600 text-sm">типи контенту</p>
+                        </div>
+
+                        <div class="card-modern bg-white rounded-xl p-5 shadow-md">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-10 h-10 bg-gradient-to-br from-sky-500 to-sky-600 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-users text-white text-lg"></i>
+                                </div>
+                                <h3 class="font-bold text-gray-900 text-base">UGC Кампанія</h3>
+                            </div>
+                            <div class="text-2xl font-black text-sky-600 mb-1">500K+</div>
+                            <p class="text-gray-600 text-sm">очікуване охоплення</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <h4 class="font-bold text-gray-900 mb-3 flex items-center gap-2">
+                                <div class="w-2 h-2 bg-cyan-500 rounded-full"></div>
+                                Ключові показники
+                            </h4>
+                            <div class="space-y-2">
+                                <div class="stat-compact">
+                                    <div class="flex-1">
+                                        <div class="label">Частота публікацій</div>
+                                        <div class="value text-sm">15-20/місяць</div>
+                                    </div>
+                                </div>
+
+                                <div class="stat-compact">
+                                    <div class="flex-1">
+                                        <div class="label">Engagement Rate</div>
+                                        <div class="value text-sm">8-12%</div>
+                                    </div>
+                                </div>
+
+                                <div class="stat-compact">
+                                    <div class="flex-1">
+                                        <div class="label">Органічний трафік</div>
+                                        <div class="value text-sm">+150%</div>
+                                    </div>
+                                </div>
+
+                                <div class="stat-compact">
+                                    <div class="flex-1">
+                                        <div class="label">Нові підписники (UGC)</div>
+                                        <div class="value text-sm">500+</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h4 class="font-bold text-gray-900 mb-3 flex items-center gap-2">
+                                <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                Канали просування
+                            </h4>
+                            <div class="space-y-3">
+                                <div class="metric-bar">
+                                    <div class="text-sm font-semibold text-gray-800">Блог на сайті</div>
+                                    <p class="text-xs text-gray-600 mt-1">3-4 статті/тиждень, SEO-оптимізація</p>
+                                </div>
+
+                                <div class="metric-bar">
+                                    <div class="text-sm font-semibold text-gray-800">Instagram + TikTok</div>
+                                    <p class="text-xs text-gray-600 mt-1">Щоденні Stories, 3-5 постів/тиждень</p>
+                                </div>
+
+                                <div class="metric-bar">
+                                    <div class="text-sm font-semibold text-gray-800">YouTube</div>
+                                    <p class="text-xs text-gray-600 mt-1">2 відео/тиждень, long-form контент</p>
+                                </div>
+
+                                <div class="metric-bar">
+                                    <div class="text-sm font-semibold text-gray-800">Telegram</div>
+                                    <p class="text-xs text-gray-600 mt-1">Новини та анонси 5-7 разів/тиждень</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gradient-to-r from-cyan-50 to-blue-50 rounded-xl p-6 border-l-4 border-cyan-500">
+                        <div class="text-lg font-bold text-gray-900 mb-2">Підсумок стратегії</div>
+                        <p class="text-sm text-gray-700 leading-relaxed">
+                            Контент-маркетингова стратегія CINECLOUD базується на 4 Content Pillars (рекламний, освітній, розважальний, залучаючий), Inbound Marketing (привертання, залучення, захоплення) та активному використанні UGC для побудови довіри та залучення аудиторії.<br/>
+                            <strong class="text-cyan-700">Загальний термін реалізації: постійний процес з першими результатами через 1-2 місяці</strong>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Навігація -->
+    <div class="fixed bottom-5 left-1/2 transform -translate-x-1/2 flex gap-3 items-center glass-effect px-6 py-3 rounded-full shadow-xl">
+        <button onclick="prevSlide()" class="w-10 h-10 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-full flex items-center justify-center text-white hover:shadow-lg transition-all">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        
+        <div id="dots-container" class="flex gap-2"></div>
+        
+        <button onclick="nextSlide()" class="w-10 h-10 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-full flex items-center justify-center text-white hover:shadow-lg transition-all">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        
+        document.getElementById('total-slides').textContent = totalSlides;
+        
+        const dotsContainer = document.getElementById('dots-container');
+        for (let i = 0; i < totalSlides; i++) {
+            const dot = document.createElement('div');
+            dot.className = 'w-2 h-2 rounded-full bg-gray-400 cursor-pointer transition-all';
+            dot.onclick = () => goToSlide(i);
+            dotsContainer.appendChild(dot);
+        }
+        
+        const dots = dotsContainer.querySelectorAll('div');
+        
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            dots[currentSlide].classList.remove('bg-cyan-600', 'w-8');
+            dots[currentSlide].classList.add('bg-gray-400', 'w-2');
+            
+            currentSlide = (n + totalSlides) % totalSlides;
+            
+            slides[currentSlide].classList.add('active');
+            dots[currentSlide].classList.remove('bg-gray-400', 'w-2');
+            dots[currentSlide].classList.add('bg-cyan-600', 'w-8');
+            
+            document.getElementById('current-slide').textContent = currentSlide + 1;
+        }
+        
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+        
+        function prevSlide() {
+            showSlide(currentSlide - 1);
+        }
+        
+        function goToSlide(n) {
+            showSlide(n);
+        }
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+        });
+        
+        showSlide(0);
+    </script>
+</body>
+</html>
